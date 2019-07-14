@@ -25,6 +25,7 @@
 
 package java.io;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
 import java.util.Formatter;
 import java.util.Locale;
 import java.nio.charset.Charset;
@@ -945,6 +946,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintStream printf(String format, Object ... args) {
         return format(format, args);
     }
@@ -997,6 +999,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintStream printf(Locale l, String format, Object ... args) {
         return format(l, format, args);
     }
@@ -1042,6 +1045,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintStream format(String format, Object ... args) {
         try {
             synchronized (this) {
@@ -1101,6 +1105,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintStream format(Locale l, String format, Object ... args) {
         try {
             synchronized (this) {

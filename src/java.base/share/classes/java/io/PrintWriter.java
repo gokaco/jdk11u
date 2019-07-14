@@ -25,6 +25,7 @@
 
 package java.io;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
 import java.util.Objects;
 import java.util.Formatter;
 import java.util.Locale;
@@ -885,6 +886,7 @@ public class PrintWriter extends Writer {
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintWriter printf(String format, Object ... args) {
         return format(format, args);
     }
@@ -938,6 +940,7 @@ public class PrintWriter extends Writer {
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintWriter printf(Locale l, String format, Object ... args) {
         return format(l, format, args);
     }
@@ -982,6 +985,7 @@ public class PrintWriter extends Writer {
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintWriter format(String format, Object ... args) {
         try {
             synchronized (lock) {
@@ -1042,6 +1046,7 @@ public class PrintWriter extends Writer {
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintWriter format(Locale l, String format, Object ... args) {
         try {
             synchronized (lock) {

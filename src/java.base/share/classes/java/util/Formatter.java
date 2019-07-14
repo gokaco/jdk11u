@@ -61,6 +61,8 @@ import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 import java.time.temporal.UnsupportedTemporalTypeException;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
+
 import jdk.internal.math.DoubleConsts;
 import jdk.internal.math.FormattedFloatingDecimal;
 import sun.util.locale.provider.LocaleProviderAdapter;
@@ -2605,6 +2607,7 @@ public final class Formatter implements Closeable, Flushable {
      *
      * @return  This formatter
      */
+    @FormatMethod
     public Formatter format(String format, Object ... args) {
         return format(l, format, args);
     }
@@ -2644,6 +2647,7 @@ public final class Formatter implements Closeable, Flushable {
      *
      * @return  This formatter
      */
+    @FormatMethod
     public Formatter format(Locale l, String format, Object ... args) {
         ensureOpen();
 

@@ -25,6 +25,7 @@
 
 package java.io;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
 import java.util.*;
 import java.nio.charset.Charset;
 import jdk.internal.misc.JavaIOAccess;
@@ -168,6 +169,7 @@ public final class Console implements Flushable
     *
     * @return  This console
     */
+    @FormatMethod
     public Console format(String fmt, Object ...args) {
         formatter.format(fmt, args).flush();
         return this;
@@ -208,6 +210,7 @@ public final class Console implements Flushable
     *
     * @return  This console
     */
+    @FormatMethod
     public Console printf(String format, Object ... args) {
         return format(format, args);
     }

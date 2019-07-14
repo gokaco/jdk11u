@@ -25,6 +25,7 @@
 
 package java.lang;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
 import java.io.ObjectStreamField;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Native;
@@ -2893,6 +2894,7 @@ public final class String
      * @see  java.util.Formatter
      * @since  1.5
      */
+    @FormatMethod
     public static String format(String format, Object... args) {
         return new Formatter().format(format, args).toString();
     }
@@ -2934,6 +2936,7 @@ public final class String
      * @see  java.util.Formatter
      * @since  1.5
      */
+    @FormatMethod
     public static String format(Locale l, String format, Object... args) {
         return new Formatter(l).format(format, args).toString();
     }
