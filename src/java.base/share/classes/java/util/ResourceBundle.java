@@ -40,6 +40,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.i18nformatter.qual.I18nMakeFormat;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -517,6 +519,7 @@ public abstract class ResourceBundle {
      * @exception ClassCastException if the object found for the given key is not a string
      * @return the string for the given key
      */
+    @I18nMakeFormat
     public final String getString(String key) {
         return (String) getObject(key);
     }
