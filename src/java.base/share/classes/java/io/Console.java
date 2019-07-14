@@ -26,6 +26,8 @@
 package java.io;
 
 import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.*;
 import java.nio.charset.Charset;
 import jdk.internal.misc.JavaIOAccess;
@@ -92,6 +94,7 @@ import sun.nio.cs.StreamEncoder;
  * @since   1.6
  */
 
+@AnnotatedFor("formatter")
 public final class Console implements Flushable
 {
    /**

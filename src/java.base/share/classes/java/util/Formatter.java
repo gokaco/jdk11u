@@ -25,6 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
+
 import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.IOException;
@@ -60,8 +62,6 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 import java.time.temporal.UnsupportedTemporalTypeException;
-
-import org.checkerframework.checker.formatter.qual.FormatMethod;
 
 import jdk.internal.math.DoubleConsts;
 import jdk.internal.math.FormattedFloatingDecimal;
@@ -1914,6 +1914,7 @@ import sun.util.locale.provider.ResourceBundleBasedAdapter;
  * @author  Iris Clark
  * @since 1.5
  */
+@AnnotatedFor("formatter")
 public final class Formatter implements Closeable, Flushable {
     private Appendable a;
     private final Locale l;

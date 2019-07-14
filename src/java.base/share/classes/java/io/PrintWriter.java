@@ -26,6 +26,8 @@
 package java.io;
 
 import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.Objects;
 import java.util.Formatter;
 import java.util.Locale;
@@ -59,6 +61,7 @@ import java.nio.charset.UnsupportedCharsetException;
  * @since       1.1
  */
 
+@AnnotatedFor("formatter")
 public class PrintWriter extends Writer {
 
     /**
