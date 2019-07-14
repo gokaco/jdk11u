@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.signature.qual.FullyQualifiedName;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.loader.BuiltinClassLoader;
 import jdk.internal.misc.VM;
 import jdk.internal.module.ModuleHashes;
@@ -50,6 +53,7 @@ import java.util.Set;
  * @since  1.4
  * @author Josh Bloch
  */
+@AnnotatedFor({"signature"})
 public final class StackTraceElement implements java.io.Serializable {
 
     // For Throwables and StackWalker, the VM initially sets this field to a
@@ -93,7 +97,7 @@ public final class StackTraceElement implements java.io.Serializable {
      * @revised 9
      * @spec JPMS
      */
-    public StackTraceElement(String declaringClass, String methodName,
+    public StackTraceElement(@FullyQualifiedName String declaringClass, String methodName,
                              String fileName, int lineNumber) {
         this(null, null, null, declaringClass, methodName, fileName, lineNumber);
     }
@@ -233,7 +237,7 @@ public final class StackTraceElement implements java.io.Serializable {
      * @return the fully qualified name of the {@code Class} containing
      *         the execution point represented by this stack trace element.
      */
-    public String getClassName() {
+    public @FullyQualifiedName String getClassName() {
         return declaringClass;
     }
 

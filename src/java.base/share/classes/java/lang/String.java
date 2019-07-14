@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.signature.qual.PolySignature;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.ObjectStreamField;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Native;
@@ -122,6 +125,7 @@ import jdk.internal.vm.annotation.Stable;
  * @jls     15.18.1 String Concatenation Operator +
  */
 
+@AnnotatedFor({"signature"})
 public final class String
     implements java.io.Serializable, Comparable<String>, CharSequence {
 
@@ -3124,7 +3128,7 @@ public final class String
      *          guaranteed to be from a pool of unique strings.
      * @jls 3.10.5 String Literals
      */
-    public native String intern();
+    public native @PolySignature String intern(@PolySignature String this);
 
     /**
      * Returns a string whose value is the concatenation of this
