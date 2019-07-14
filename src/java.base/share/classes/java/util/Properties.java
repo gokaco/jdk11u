@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.propkey.qual.PropertyKey;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -136,6 +139,7 @@ import jdk.internal.util.xml.PropertiesDefaultHandler;
  * @author  Xueming Shen
  * @since   1.0
  */
+@AnnotatedFor({"propkey"})
 public
 class Properties extends Hashtable<Object,Object> {
     /**
@@ -221,7 +225,7 @@ class Properties extends Hashtable<Object,Object> {
      * @see #getProperty
      * @since    1.2
      */
-    public synchronized Object setProperty(String key, String value) {
+    public synchronized Object setProperty(@PropertyKey String key, String value) {
         return put(key, value);
     }
 
@@ -1100,7 +1104,7 @@ class Properties extends Hashtable<Object,Object> {
      * @see     #setProperty
      * @see     #defaults
      */
-    public String getProperty(String key) {
+    public String getProperty(@PropertyKey String key) {
         Object oval = map.get(key);
         String sval = (oval instanceof String) ? (String)oval : null;
         Properties defaults;
@@ -1120,7 +1124,7 @@ class Properties extends Hashtable<Object,Object> {
      * @see     #setProperty
      * @see     #defaults
      */
-    public String getProperty(String key, String defaultValue) {
+    public String getProperty(@PropertyKey String key, String defaultValue) {
         String val = getProperty(key);
         return (val == null) ? defaultValue : val;
     }
