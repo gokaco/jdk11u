@@ -25,6 +25,11 @@
 
 package java.beans;
 
+import org.checkerframework.checker.guieffect.qual.PolyUI;
+import org.checkerframework.checker.guieffect.qual.PolyUIEffect;
+import org.checkerframework.checker.guieffect.qual.PolyUIType;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * A "PropertyChange" event gets fired whenever a bean changes a "bound"
  * property.  You can register a PropertyChangeListener with a source
@@ -32,6 +37,8 @@ package java.beans;
  * @since 1.1
  */
 
+@AnnotatedFor({"guieffect"})
+@PolyUIType
 public interface PropertyChangeListener extends java.util.EventListener {
 
     /**
@@ -39,7 +46,7 @@ public interface PropertyChangeListener extends java.util.EventListener {
      * @param evt A PropertyChangeEvent object describing the event source
      *          and the property that has changed.
      */
-
-    void propertyChange(PropertyChangeEvent evt);
+    @PolyUIEffect
+    void propertyChange(@PolyUI PropertyChangeListener this, PropertyChangeEvent evt);
 
 }
