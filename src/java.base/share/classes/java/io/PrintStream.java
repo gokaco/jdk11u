@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.i18n.qual.Localized;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.Formatter;
 import java.util.Locale;
 import java.nio.charset.Charset;
@@ -60,6 +63,7 @@ import java.nio.charset.UnsupportedCharsetException;
  * @since      1.0
  */
 
+@AnnotatedFor({"i18n"})
 public class PrintStream extends FilterOutputStream
     implements Appendable, Closeable
 {
@@ -877,7 +881,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  The {@code String} to be printed.
      */
-    public void println(String x) {
+    public void println(@Localized String x) {
         synchronized (this) {
             print(x);
             newLine();

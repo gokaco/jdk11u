@@ -40,6 +40,10 @@
 
 package java.util;
 
+import org.checkerframework.checker.i18n.qual.Localized;
+import org.checkerframework.checker.i18n.qual.LocalizableKey;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -74,7 +78,6 @@ import sun.security.action.GetPropertyAction;
 import sun.util.locale.BaseLocale;
 import sun.util.locale.LocaleObjectCache;
 import static sun.security.util.SecurityConstants.GET_CLASSLOADER_PERMISSION;
-
 
 /**
  *
@@ -374,6 +377,7 @@ import static sun.security.util.SecurityConstants.GET_CLASSLOADER_PERMISSION;
  * @revised 9
  * @spec JPMS
  */
+@AnnotatedFor({"i18n"})
 public abstract class ResourceBundle {
 
     /** initial size of the bundle cache */
@@ -517,7 +521,7 @@ public abstract class ResourceBundle {
      * @exception ClassCastException if the object found for the given key is not a string
      * @return the string for the given key
      */
-    public final String getString(String key) {
+    public final @Localized String getString(@LocalizableKey String key) {
         return (String) getObject(key);
     }
 
@@ -534,7 +538,7 @@ public abstract class ResourceBundle {
      * @exception ClassCastException if the object found for the given key is not a string array
      * @return the string array for the given key
      */
-    public final String[] getStringArray(String key) {
+    public final @Localized String[] getStringArray(@LocalizableKey String key) {
         return (String[]) getObject(key);
     }
 
@@ -551,7 +555,7 @@ public abstract class ResourceBundle {
      * @exception MissingResourceException if no object for the given key can be found
      * @return the object for the given key
      */
-    public final Object getObject(String key) {
+    public final @Localized Object getObject(@LocalizableKey String key) {
         Object obj = handleGetObject(key);
         if (obj == null) {
             if (parent != null) {
@@ -2317,7 +2321,7 @@ public abstract class ResourceBundle {
      *         <code>ResourceBundle</code> and its parent bundles.
      * @since 1.6
      */
-    public Set<String> keySet() {
+    public Set<@LocalizableKey String> keySet() {
         Set<String> keys = new HashSet<>();
         for (ResourceBundle rb = this; rb != null; rb = rb.parent) {
             keys.addAll(rb.handleKeySet());
