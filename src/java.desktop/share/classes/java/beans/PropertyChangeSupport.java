@@ -24,6 +24,9 @@
  */
 package java.beans;
 
+import org.checkerframework.checker.fenum.qual.FenumTop;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.Serializable;
 import java.io.ObjectStreamField;
 import java.io.ObjectOutputStream;
@@ -31,7 +34,6 @@ import java.io.ObjectInputStream;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map.Entry;
-import org.checkerframework.checker.fenum.qual.FenumTop;
 /**
  * This is a utility class that can be used by beans that support bound
  * properties.  It manages a list of listeners and dispatches
@@ -79,6 +81,7 @@ import org.checkerframework.checker.fenum.qual.FenumTop;
  * @see VetoableChangeSupport
  * @since 1.1
  */
+@AnnotatedFor("fenum")
 public class PropertyChangeSupport implements Serializable {
     private PropertyChangeListenerMap map = new PropertyChangeListenerMap();
 

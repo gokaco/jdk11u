@@ -25,6 +25,8 @@
 package javax.swing;
 
 import org.checkerframework.checker.fenum.qual.*;
+import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.CFComment;
 
 /**
  * A collection of constants generally used for positioning and orienting
@@ -34,11 +36,10 @@ import org.checkerframework.checker.fenum.qual.*;
  * @author Ralph Kar (orientation support)
  * @since 1.2
  */
+@AnnotatedFor("fenum")
 public interface SwingConstants {
 
-        //
-        // WMD adds this new constant to use instead of literally using -1.
-        //
+        @CFComment({"fenum: WMD adds this new constant to use instead of literally using -1"})
         @SwingCompassDirection
         @SwingHorizontalOrientation
         @SwingVerticalOrientation
