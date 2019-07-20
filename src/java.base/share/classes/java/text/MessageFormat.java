@@ -38,6 +38,7 @@
 
 package java.text;
 
+import org.checkerframework.checker.i18nformatter.qual.I18nFormatFor;
 import java.io.InvalidObjectException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -855,7 +856,7 @@ public class MessageFormat extends Format {
      *            that use it.
      * @exception NullPointerException if {@code pattern} is {@code null}
      */
-    public static String format(String pattern, Object ... arguments) {
+    public static String format(@I18nFormatFor("#2") String pattern, Object ... arguments) {
         MessageFormat temp = new MessageFormat(pattern);
         return temp.format(arguments);
     }
