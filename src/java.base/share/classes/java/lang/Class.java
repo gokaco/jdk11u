@@ -25,6 +25,11 @@
 
 package java.lang;
 
+import org.checkerframework.checker.signature.qual.ClassGetName;
+import org.checkerframework.checker.signature.qual.ClassGetSimpleName;
+import org.checkerframework.checker.signature.qual.DotSeparatedIdentifiers;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.annotation.Annotation;
 import java.lang.module.ModuleReader;
 import java.lang.ref.SoftReference;
@@ -150,6 +155,7 @@ import sun.reflect.misc.ReflectUtil;
  * @see     java.lang.ClassLoader#defineClass(byte[], int, int)
  * @since   1.0
  */
+@AnnoatedFor({"signature"})
 public final class Class<T> implements java.io.Serializable,
                               GenericDeclaration,
                               Type,
@@ -309,7 +315,7 @@ public final class Class<T> implements java.io.Serializable,
      * @exception ClassNotFoundException if the class cannot be located
      */
     @CallerSensitive
-    public static Class<?> forName(String className)
+    public static Class<?> forName(@ClassGetName String className)
                 throws ClassNotFoundException {
         Class<?> caller = Reflection.getCallerClass();
         return forName0(className, true, ClassLoader.getClassLoader(caller), caller);
@@ -377,7 +383,7 @@ public final class Class<T> implements java.io.Serializable,
      * @since     1.2
      */
     @CallerSensitive
-    public static Class<?> forName(String name, boolean initialize,
+    public static Class<?> forName(@ClassGetName String name, boolean initialize,
                                    ClassLoader loader)
         throws ClassNotFoundException
     {
@@ -788,7 +794,7 @@ public final class Class<T> implements java.io.Serializable,
      * @return  the name of the class or interface
      *          represented by this object.
      */
-    public String getName() {
+    public @ClassGetName String getName() {
         String name = this.name;
         if (name == null)
             this.name = name = getName0();
@@ -796,7 +802,7 @@ public final class Class<T> implements java.io.Serializable,
     }
 
     // cache the name to reduce the number of calls into the VM
-    private transient String name;
+    private transient @ClassGetName String name;
     private native String getName0();
 
     /**
@@ -996,7 +1002,7 @@ public final class Class<T> implements java.io.Serializable,
      * @spec JPMS
      * @jls 6.7  Fully Qualified Names
      */
-    public String getPackageName() {
+    public @DotSeparatedIdentifiers String getPackageName() {
         String pn = this.packageName;
         if (pn == null) {
             Class<?> c = this;
@@ -1547,7 +1553,7 @@ public final class Class<T> implements java.io.Serializable,
      * @return the simple name of the underlying class
      * @since 1.5
      */
-    public String getSimpleName() {
+    public @ClassGetSimpleName String getSimpleName() {
         ReflectionData<T> rd = reflectionData();
         String simpleName = rd.simpleName;
         if (simpleName == null) {
@@ -1604,7 +1610,7 @@ public final class Class<T> implements java.io.Serializable,
      * {@code null} otherwise.
      * @since 1.5
      */
-    public String getCanonicalName() {
+    public @ClassGetSimpleName String getCanonicalName() {
         ReflectionData<T> rd = reflectionData();
         String canonicalName = rd.canonicalName;
         if (canonicalName == null) {

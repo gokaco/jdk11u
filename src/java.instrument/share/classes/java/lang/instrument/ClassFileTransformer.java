@@ -25,6 +25,9 @@
 
 package java.lang.instrument;
 
+import org.checkerframework.checker.signature.qual.InternalForm;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
@@ -164,6 +167,7 @@ import java.security.ProtectionDomain;
  * @since   1.5
  */
 
+@AnnotatedFor({"signature"})
 public interface ClassFileTransformer {
 
     /**
@@ -236,7 +240,7 @@ public interface ClassFileTransformer {
     default byte[]
     transform(  Module              module,
                 ClassLoader         loader,
-                String              className,
+                @InternalForm String              className,
                 Class<?>            classBeingRedefined,
                 ProtectionDomain    protectionDomain,
                 byte[]              classfileBuffer)

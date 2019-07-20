@@ -25,6 +25,10 @@
 
 package java.lang;
 
+import org.checkerframework.checker.signature.qual.BinaryName;
+import org.checkerframework.checker.signature.qual.FullyQualifiedName;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -229,6 +233,7 @@ import sun.security.util.SecurityConstants;
  * @revised 9
  * @spec JPMS
  */
+@AnnotatedFor({"signature"})
 public abstract class ClassLoader {
 
     private static native void registerNatives();
@@ -517,7 +522,7 @@ public abstract class ClassLoader {
      * @throws  ClassNotFoundException
      *          If the class was not found
      */
-    public Class<?> loadClass(String name) throws ClassNotFoundException {
+    public Class<?> loadClass(@BinaryName String name) throws ClassNotFoundException {
         return loadClass(name, false);
     }
 
@@ -562,7 +567,7 @@ public abstract class ClassLoader {
      * @throws  ClassNotFoundException
      *          If the class could not be found
      */
-    protected Class<?> loadClass(String name, boolean resolve)
+    protected Class<?> loadClass(@BinaryName String name, boolean resolve)
         throws ClassNotFoundException
     {
         synchronized (getClassLoadingLock(name)) {
@@ -714,7 +719,7 @@ public abstract class ClassLoader {
      *
      * @since  1.2
      */
-    protected Class<?> findClass(String name) throws ClassNotFoundException {
+    protected Class<?> findClass(@BinaryName String name) throws ClassNotFoundException {
         throw new ClassNotFoundException(name);
     }
 
@@ -797,6 +802,7 @@ public abstract class ClassLoader {
      * defineClass(String, byte[], int, int)}
      */
     @Deprecated(since="1.1")
+    @SuppressWarnings("signature")
     protected final Class<?> defineClass(byte[] b, int off, int len)
         throws ClassFormatError
     {
@@ -871,7 +877,7 @@ public abstract class ClassLoader {
      * @revised 9
      * @spec JPMS
      */
-    protected final Class<?> defineClass(String name, byte[] b, int off, int len)
+    protected final Class<?> defineClass(@BinaryName String name, byte[] b, int off, int len)
         throws ClassFormatError
     {
         return defineClass(name, b, off, len, null);
@@ -1007,7 +1013,7 @@ public abstract class ClassLoader {
      * @revised 9
      * @spec JPMS
      */
-    protected final Class<?> defineClass(String name, byte[] b, int off, int len,
+    protected final Class<?> defineClass(@BinaryName String name, byte[] b, int off, int len,
                                          ProtectionDomain protectionDomain)
         throws ClassFormatError
     {
@@ -1241,7 +1247,7 @@ public abstract class ClassLoader {
      * @see  #ClassLoader(ClassLoader)
      * @see  #getParent()
      */
-    protected final Class<?> findSystemClass(String name)
+    protected final Class<?> findSystemClass(@BinaryName String name)
         throws ClassNotFoundException
     {
         return getSystemClassLoader().loadClass(name);
@@ -1274,7 +1280,7 @@ public abstract class ClassLoader {
      *
      * @since  1.1
      */
-    protected final Class<?> findLoadedClass(String name) {
+    protected final Class<?> findLoadedClass(@BinaryName String name) {
         if (!checkName(name))
             return null;
         return findLoadedClass0(name);
@@ -2188,7 +2194,7 @@ public abstract class ClassLoader {
      * @see <a href="{@docRoot}/../specs/jar/jar.html#package-sealing">
      *      The JAR File Specification: Package Sealing</a>
      */
-    protected Package definePackage(String name, String specTitle,
+    protected Package definePackage(@FullyQualifiedName String name, String specTitle,
                                     String specVersion, String specVendor,
                                     String implTitle, String implVersion,
                                     String implVendor, URL sealBase)

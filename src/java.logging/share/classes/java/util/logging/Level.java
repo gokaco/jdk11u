@@ -25,6 +25,9 @@
 
 package java.util.logging;
 
+import org.checkerframework.checker.signature.qual.BinaryName;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -75,6 +78,7 @@ import jdk.internal.misc.SharedSecrets;
  * @since 1.4
  */
 
+@AnnotatedFor({"signature"})
 public class Level implements java.io.Serializable {
     private static final String defaultBundle =
         "sun.util.logging.resources.logging";
@@ -213,6 +217,7 @@ public class Level implements java.io.Serializable {
      * @param value an integer value for the level.
      * @throws NullPointerException if the name is null
      */
+    @SuppressWarnings("signature")
     protected Level(String name, int value) {
         this(name, value, null);
     }
@@ -234,7 +239,7 @@ public class Level implements java.io.Serializable {
 
     // private constructor to specify whether this instance should be added
     // to the KnownLevel list from which Level.parse method does its look up
-    private Level(String name, int value, String resourceBundleName, boolean visible) {
+    private Level(String name, int value, @BinaryName String resourceBundleName, boolean visible) {
         if (name == null) {
             throw new NullPointerException();
         }
@@ -254,7 +259,7 @@ public class Level implements java.io.Serializable {
      *
      * @return localization resource bundle name
      */
-    public String getResourceBundleName() {
+    public @BinaryName String getResourceBundleName() {
         return resourceBundleName;
     }
 
