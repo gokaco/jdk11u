@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.ObjectStreamField;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Native;
@@ -122,6 +125,7 @@ import jdk.internal.vm.annotation.Stable;
  * @jls     15.18.1 String Concatenation Operator +
  */
 
+@AnnotatedFor("formatter")
 public final class String
     implements java.io.Serializable, Comparable<String>, CharSequence {
 
@@ -2893,6 +2897,7 @@ public final class String
      * @see  java.util.Formatter
      * @since  1.5
      */
+    @FormatMethod
     public static String format(String format, Object... args) {
         return new Formatter().format(format, args).toString();
     }
@@ -2934,6 +2939,7 @@ public final class String
      * @see  java.util.Formatter
      * @since  1.5
      */
+    @FormatMethod
     public static String format(Locale l, String format, Object... args) {
         return new Formatter(l).format(format, args).toString();
     }
