@@ -228,12 +228,9 @@ public class LogManager {
             @Override
             public LogManager run() {
                 LogManager mgr = null;
-                @SuppressWarnings("signature")
                 @BinaryName String cname = null;
                 try {
-                    @SuppressWarnings("signature")
-                    @BinaryName String temp = System.getProperty("java.util.logging.manager");
-                    cname = temp;
+                    cname = System.getProperty("java.util.logging.manager");
                     if (cname != null) {
                         try {
                             @SuppressWarnings("deprecation")
@@ -1355,7 +1352,6 @@ public class LogManager {
         checkPermission();
 
         // if a configuration class is specified, load it and use it.
-        @SuppressWarnings("signature")
         @BinaryName String cname = System.getProperty("java.util.logging.config.class");
         if (cname != null) {
             try {
@@ -2376,12 +2372,11 @@ public class LogManager {
     // We return an instance of the class named by the "name"
     // property. If the property is not defined or has problems
     // we return the defaultValue.
-    @SuppressWarnings("signature")
     Formatter getFormatterProperty(String name, Formatter defaultValue) {
         String val = getProperty(name);
         try {
             if (val != null) {
-                @SuppressWarnings("deprecation")
+                @SuppressWarnings({"deprecation", "signature"})
                 Object o = ClassLoader.getSystemClassLoader().loadClass(val).newInstance();
                 return (Formatter) o;
             }

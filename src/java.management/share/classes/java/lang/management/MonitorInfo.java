@@ -152,13 +152,9 @@ public class MonitorInfo extends LockInfo {
             return ((MonitorInfoCompositeData) cd).getMonitorInfo();
         } else {
             MonitorInfoCompositeData.validateCompositeData(cd);
-            @CFComment({
-                "signature: This might be a potentially bug! I have put the annotation so that everything compiles
-                however, there is no information in the documentation of MonitorInfoCompositeData
-                class that getClassName returns a @FullyQualifiedName
-                @SuppressWarnings("signature")
-                This comes from sun.management, so I presume it is true."
-            })
+            @CFComment(
+                "signature: potential bug.  The documentation of MonitorInfoCompositeData.getClassName does not state that it returns a @FullyQualifiedName"
+            )
             @SuppressWarnings("signature")
             @BinaryName String className = MonitorInfoCompositeData.getClassName(cd);
             int identityHashCode = MonitorInfoCompositeData.getIdentityHashCode(cd);
