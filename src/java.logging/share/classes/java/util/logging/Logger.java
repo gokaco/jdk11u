@@ -557,7 +557,7 @@ public class Logger {
      * @throws MissingResourceException if the resourceBundleName is non-null and
      *             no corresponding resource can be found.
      */
-    protected Logger(String name,@BinaryName String resourceBundleName) {
+    protected Logger(String name, @BinaryName String resourceBundleName) {
         this(name, resourceBundleName, null, LogManager.getLogManager(), false);
     }
 
@@ -844,10 +844,7 @@ public class Logger {
      * @return a newly created private Logger
      */
     public static Logger getAnonymousLogger() {
-        @CFComment("signature: I have to de it to permit null as binary name")
-        @SuppressWarnings("signature")
-        @BinaryName String temp = null;
-        return getAnonymousLogger(temp);
+        return getAnonymousLogger(null);
     }
 
     /**

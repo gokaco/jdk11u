@@ -3470,8 +3470,7 @@ public abstract class ResourceBundle {
                     sb.append(language);
                 }
             }
-            @CFComment("signature: I have to do this to bypass the annotation of toString() method of
-            StringBuilder (which would be wrong)")
+            @CFComment("signature: string concatenation")
             @SuppressWarnings("signature")
             @BinaryName String result = sb.toString();
             return result;
