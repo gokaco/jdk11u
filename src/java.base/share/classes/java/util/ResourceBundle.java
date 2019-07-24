@@ -380,7 +380,12 @@ import static sun.security.util.SecurityConstants.GET_CLASSLOADER_PERMISSION;
  * @revised 9
  * @spec JPMS
  */
+<<<<<<< HEAD
+@AnnotatedFor({"i18nformatter"})
+||||||| merged common ancestors
+=======
 @AnnotatedFor({"propkey", "signature"})
+>>>>>>> b046eccb04c5e36b6c559b83169eb95b6237b3ff
 public abstract class ResourceBundle {
 
     /** initial size of the bundle cache */

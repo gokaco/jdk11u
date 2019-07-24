@@ -39,6 +39,8 @@
 package java.text;
 
 import org.checkerframework.checker.i18nformatter.qual.I18nFormatFor;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.InvalidObjectException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -348,6 +350,7 @@ import java.util.Locale;
  * @since 1.1
  */
 
+@AnnotatedFor({"i18nformatter"})
 public class MessageFormat extends Format {
 
     private static final long serialVersionUID = 6479157306784022952L;
