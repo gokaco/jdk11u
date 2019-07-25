@@ -72,6 +72,13 @@ package java.util;
  * For reactive streams style programming, see the
  * {@link java.util.concurrent.Flow} API.
  */
+@CFCommnet({"guieffect:",
+    "@PolyUIType class Observable {",
+        "@SafeEffect void addObserver(@PolyUI Observable this, @PolyUI Observer o);",
+        "@SafeEffect void deleteObserver(@PolyUI Observable this, @PolyUI Observer o);",
+        "@PolyUIEffect void notifyObservers(@PolyUI Observable this);" ,
+        "@PolyUIEffect void notifyObservers(@PolyUI Observable this, Object arg);}"
+})
 @Deprecated(since="9")
 public class Observable {
     private boolean changed = false;

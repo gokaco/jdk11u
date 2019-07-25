@@ -36,6 +36,11 @@ package java.util;
  * This interface has been deprecated. See the {@link Observable}
  * class for further information.
  */
+@CFCommnent({"guieffect: These types are polymorphic, but they're basically unusable unless I fix the subtyping among differently permissioned interfaces...",
+    "package java.util;",
+    "@PolyUIType interface Observer {",
+    "@PolyUIEffect void update(@PolyUI Observer this, @PolyUI Observable o, Object arg);"
+})
 @Deprecated(since="9")
 public interface Observer {
     /**

@@ -25,6 +25,11 @@
 
 package java.lang;
 
+import org.checkerframework.checker.guieffect.qual.PolyUI;
+import org.checkerframework.checker.guieffect.qual.PolyUIType;
+import org.checkerframework.checker.guieffect.qual.SafeEffect;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.HotSpotIntrinsicCandidate;
 
 /**
@@ -36,6 +41,8 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @see     java.lang.Class
  * @since   1.0
  */
+@AnnotatedFor({"guieffect"})
+@PolyUIType
 public class Object {
 
     private static native void registerNatives();
@@ -68,8 +75,9 @@ public class Object {
      *         class of this object.
      * @jls 15.8.2 Class Literals
      */
+    @SafeEffect
     @HotSpotIntrinsicCandidate
-    public final native Class<?> getClass();
+    public final native Class<?> getClass(@PolyUI Object this);
 
     /**
      * Returns a hash code value for the object. This method is

@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.*;
 import java.nio.charset.Charset;
 import jdk.internal.misc.JavaIOAccess;
@@ -91,6 +94,7 @@ import sun.nio.cs.StreamEncoder;
  * @since   1.6
  */
 
+@AnnotatedFor("formatter")
 public final class Console implements Flushable
 {
    /**
@@ -168,6 +172,7 @@ public final class Console implements Flushable
     *
     * @return  This console
     */
+    @FormatMethod
     public Console format(String fmt, Object ...args) {
         formatter.format(fmt, args).flush();
         return this;
@@ -208,6 +213,7 @@ public final class Console implements Flushable
     *
     * @return  This console
     */
+    @FormatMethod
     public Console printf(String format, Object ... args) {
         return format(format, args);
     }

@@ -25,6 +25,7 @@
 
 package java.io;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
 import org.checkerframework.checker.i18n.qual.Localized;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
@@ -63,7 +64,7 @@ import java.nio.charset.UnsupportedCharsetException;
  * @since      1.0
  */
 
-@AnnotatedFor({"i18n"})
+@AnnotatedFor({"formatter", "i18n"})
 public class PrintStream extends FilterOutputStream
     implements Appendable, Closeable
 {
@@ -949,6 +950,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintStream printf(String format, Object ... args) {
         return format(format, args);
     }
@@ -1001,6 +1003,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintStream printf(Locale l, String format, Object ... args) {
         return format(l, format, args);
     }
@@ -1046,6 +1049,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintStream format(String format, Object ... args) {
         try {
             synchronized (this) {
@@ -1105,6 +1109,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintStream format(Locale l, String format, Object ... args) {
         try {
             synchronized (this) {
