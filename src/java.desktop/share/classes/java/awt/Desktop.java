@@ -25,6 +25,9 @@
 
 package java.awt;
 
+import org.checkerframework.checker.guieffect.qual.SafeEffect;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.awt.desktop.AboutEvent;
 import java.awt.desktop.AboutHandler;
 import java.awt.desktop.OpenFilesHandler;
@@ -90,6 +93,7 @@ import sun.security.util.SecurityConstants;
  * @author Armin Chen
  * @author George Zhang
  */
+@AnnotatedFor({"guieffect"})
 public class Desktop {
 
     /**
@@ -297,6 +301,7 @@ public class Desktop {
      * @see #isDesktopSupported()
      * @see java.awt.GraphicsEnvironment#isHeadless
      */
+    @SafeEffect
     public static synchronized Desktop getDesktop(){
         if (GraphicsEnvironment.isHeadless()) throw new HeadlessException();
         if (!Desktop.isDesktopSupported()) {
@@ -324,6 +329,7 @@ public class Desktop {
      *         current platform; {@code false} otherwise
      * @see #getDesktop()
      */
+    @SafeEffect
     public static boolean isDesktopSupported(){
         Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
         if (defaultToolkit instanceof SunToolkit) {
@@ -348,6 +354,7 @@ public class Desktop {
      *         the current platform; {@code false} otherwise
      * @see Desktop.Action
      */
+    @SafeEffect
     public boolean isSupported(Action action) {
         return peer.isSupported(action);
     }
@@ -419,6 +426,7 @@ public class Desktop {
      * subprocess
      * @see java.awt.AWTPermission
      */
+    @SafeEffect
     public void open(File file) throws IOException {
         file = new File(file.getPath());
         checkAWTPermission();
@@ -451,6 +459,7 @@ public class Desktop {
      * subprocess
      * @see java.awt.AWTPermission
      */
+    @SafeEffect
     public void edit(File file) throws IOException {
         file = new File(file.getPath());
         checkAWTPermission();
@@ -482,6 +491,7 @@ public class Desktop {
      * the permission to print the file, or the calling thread is not
      * allowed to create a subprocess
      */
+    @SafeEffect
     public void print(File file) throws IOException {
         file = new File(file.getPath());
         checkExec();
@@ -518,6 +528,7 @@ public class Desktop {
      * @see java.net.URI
      * @see java.awt.AWTPermission
      */
+    @SafeEffect
     public void browse(URI uri) throws IOException {
         checkAWTPermission();
         checkExec();
@@ -541,6 +552,7 @@ public class Desktop {
      * subprocess
      * @see java.awt.AWTPermission
      */
+    @SafeEffect
     public void mail() throws IOException {
         checkAWTPermission();
         checkExec();
@@ -583,6 +595,7 @@ public class Desktop {
      * @see java.net.URI
      * @see java.awt.AWTPermission
      */
+    @SafeEffect
     public  void mail(URI mailtoURI) throws IOException {
         checkAWTPermission();
         checkExec();

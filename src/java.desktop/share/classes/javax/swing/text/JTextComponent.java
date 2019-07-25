@@ -24,6 +24,9 @@
  */
 package javax.swing.text;
 
+import org.checkerframework.checker.guieffect.qual.SafeEffect;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import com.sun.beans.util.Cache;
 
 import java.security.AccessController;
@@ -301,6 +304,7 @@ import sun.swing.SwingAccessor;
  * @see View
  * @see ViewFactory
  */
+@AnnotatedFor({"guieffect"})
 @JavaBean(defaultProperty = "UI")
 @SwingContainer(false)
 @SuppressWarnings("serial") // Same-version serialization only
@@ -1720,6 +1724,7 @@ public abstract class JTextComponent extends JComponent implements Scrollable, A
      * @see #getText
      * @see DefaultCaret
      */
+    @SafeEffect
     @BeanProperty(bound = false, description
             = "the text of this component")
     public void setText(String t) {

@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.Objects;
 import java.util.Formatter;
 import java.util.Locale;
@@ -58,6 +61,7 @@ import java.nio.charset.UnsupportedCharsetException;
  * @since       1.1
  */
 
+@AnnotatedFor("formatter")
 public class PrintWriter extends Writer {
 
     /**
@@ -885,6 +889,7 @@ public class PrintWriter extends Writer {
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintWriter printf(String format, Object ... args) {
         return format(format, args);
     }
@@ -938,6 +943,7 @@ public class PrintWriter extends Writer {
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintWriter printf(Locale l, String format, Object ... args) {
         return format(l, format, args);
     }
@@ -982,6 +988,7 @@ public class PrintWriter extends Writer {
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintWriter format(String format, Object ... args) {
         try {
             synchronized (lock) {
@@ -1042,6 +1049,7 @@ public class PrintWriter extends Writer {
      *
      * @since  1.5
      */
+    @FormatMethod
     public PrintWriter format(Locale l, String format, Object ... args) {
         try {
             synchronized (lock) {

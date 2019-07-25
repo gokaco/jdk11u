@@ -25,6 +25,10 @@
 
 package java.util.logging;
 
+import org.checkerframework.checker.signature.qual.BinaryName;
+import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.CFComment;
+
 import java.lang.ref.WeakReference;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -219,6 +223,7 @@ import static jdk.internal.logger.DefaultLoggerFinder.isSystem;
  *
  * @since 1.4
  */
+@AnnotatedFor({"signature"})
 public class Logger {
     private static final Handler emptyHandlers[] = new Handler[0];
     private static final int offValue = Level.OFF.intValue();
@@ -552,7 +557,7 @@ public class Logger {
      * @throws MissingResourceException if the resourceBundleName is non-null and
      *             no corresponding resource can be found.
      */
-    protected Logger(String name, String resourceBundleName) {
+    protected Logger(String name, @BinaryName String resourceBundleName) {
         this(name, resourceBundleName, null, LogManager.getLogManager(), false);
     }
 
@@ -872,7 +877,7 @@ public class Logger {
     // Synchronization is not required here. All synchronization for
     // adding a new anonymous Logger object is handled by doSetParent().
     @CallerSensitive
-    public static Logger getAnonymousLogger(String resourceBundleName) {
+    public static Logger getAnonymousLogger(@BinaryName String resourceBundleName) {
         LogManager manager = LogManager.getLogManager();
         // cleanup some Loggers that have been GC'ed
         manager.drainLoggerRefQueueBounded();
@@ -918,7 +923,7 @@ public class Logger {
      *
      * @return localization bundle name (may be {@code null})
      */
-    public String getResourceBundleName() {
+    public @BinaryName String getResourceBundleName() {
         return loggerBundle.resourceBundleName;
     }
 
@@ -1368,7 +1373,7 @@ public class Logger {
      */
     @Deprecated
     public void logrb(Level level, String sourceClass, String sourceMethod,
-                                String bundleName, String msg) {
+                                @BinaryName String bundleName, String msg) {
         if (!isLoggable(level)) {
             return;
         }
@@ -1403,7 +1408,7 @@ public class Logger {
      */
     @Deprecated
     public void logrb(Level level, String sourceClass, String sourceMethod,
-                                String bundleName, String msg, Object param1) {
+                                @BinaryName String bundleName, String msg, Object param1) {
         if (!isLoggable(level)) {
             return;
         }
@@ -1440,7 +1445,7 @@ public class Logger {
      */
     @Deprecated
     public void logrb(Level level, String sourceClass, String sourceMethod,
-                                String bundleName, String msg, Object params[]) {
+                                @BinaryName String bundleName, String msg, Object params[]) {
         if (!isLoggable(level)) {
             return;
         }
@@ -1546,7 +1551,7 @@ public class Logger {
      */
     @Deprecated
     public void logrb(Level level, String sourceClass, String sourceMethod,
-                                        String bundleName, String msg, Throwable thrown) {
+                                        @BinaryName String bundleName, String msg, Throwable thrown) {
         if (!isLoggable(level)) {
             return;
         }

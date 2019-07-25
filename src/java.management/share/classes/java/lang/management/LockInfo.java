@@ -25,6 +25,9 @@
 
 package java.lang.management;
 
+import org.checkerframework.checker.signature.qual.ClassGetName;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import javax.management.openmbean.CompositeData;
 import java.util.concurrent.locks.*;
 import sun.management.LockInfoCompositeData;
@@ -53,6 +56,7 @@ import sun.management.LockInfoCompositeData;
  * @since   1.6
  */
 
+@AnnotatedFor({"signature"})
 public class LockInfo {
 
     private String className;
@@ -65,7 +69,7 @@ public class LockInfo {
      * @param identityHashCode the {@link System#identityHashCode
      *                         identity hash code} of the lock object.
      */
-    public LockInfo(String className, int identityHashCode) {
+    public LockInfo(@ClassGetName String className, int identityHashCode) {
         if (className == null) {
             throw new NullPointerException("Parameter className cannot be null");
         }
@@ -86,7 +90,7 @@ public class LockInfo {
      *
      * @return the fully qualified name of the class of the lock object.
      */
-    public String getClassName() {
+    public @ClassGetName String getClassName() {
         return className;
     }
 

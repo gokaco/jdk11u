@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.signature.qual.DotSeparatedIdentifiers;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.net.MalformedURLException;
@@ -117,6 +120,7 @@ import jdk.internal.reflect.Reflection;
  * @revised 9
  * @spec JPMS
  */
+@AnnotatedFor({"signature"})
 public class Package extends NamedPackage implements java.lang.reflect.AnnotatedElement {
     /**
      * Return the name of this package.
@@ -125,7 +129,7 @@ public class Package extends NamedPackage implements java.lang.reflect.Annotated
      *          <cite>The Java&trade; Language Specification</cite>,
      *          for example, {@code java.lang}
      */
-    public String getName() {
+    public @DotSeparatedIdentifiers String getName() {
         return packageName();
     }
 
@@ -509,7 +513,7 @@ public class Package extends NamedPackage implements java.lang.reflect.Annotated
      * @param sealbase code source where this Package comes from
      * @param loader defining class loader
      */
-    Package(String name,
+    Package(@DotSeparatedIdentifiers String name,
             String spectitle, String specversion, String specvendor,
             String impltitle, String implversion, String implvendor,
             URL sealbase, ClassLoader loader)
