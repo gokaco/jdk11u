@@ -40,6 +40,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.i18n.qual.LocalizableKey;
+import org.checkerframework.checker.i18n.qual.Localized;
 import org.checkerframework.checker.i18nformatter.qual.I18nMakeFormat;
 import org.checkerframework.checker.propkey.qual.PropertyKey;
 import org.checkerframework.checker.signature.qual.BinaryName;
@@ -80,7 +82,6 @@ import sun.security.action.GetPropertyAction;
 import sun.util.locale.BaseLocale;
 import sun.util.locale.LocaleObjectCache;
 import static sun.security.util.SecurityConstants.GET_CLASSLOADER_PERMISSION;
-
 
 /**
  *
@@ -380,12 +381,7 @@ import static sun.security.util.SecurityConstants.GET_CLASSLOADER_PERMISSION;
  * @revised 9
  * @spec JPMS
  */
-<<<<<<< HEAD
-@AnnotatedFor({"i18nformatter"})
-||||||| merged common ancestors
-=======
-@AnnotatedFor({"propkey", "signature"})
->>>>>>> b046eccb04c5e36b6c559b83169eb95b6237b3ff
+@AnnotatedFor({"i18n", "i18nformatter", "propkey", "signature"})
 public abstract class ResourceBundle {
 
     /** initial size of the bundle cache */
@@ -530,7 +526,7 @@ public abstract class ResourceBundle {
      * @return the string for the given key
      */
     @I18nMakeFormat
-    public final String getString(@PropertyKey String key) {
+    public final @Localized String getString(@LocalizableKey @PropertyKey String key) {
         return (String) getObject(key);
     }
 
@@ -547,7 +543,7 @@ public abstract class ResourceBundle {
      * @exception ClassCastException if the object found for the given key is not a string array
      * @return the string array for the given key
      */
-    public final String[] getStringArray(@PropertyKey String key) {
+    public final @Localized String[] getStringArray(@LocalizableKey @PropertyKey String key) {
         return (String[]) getObject(key);
     }
 
@@ -564,7 +560,7 @@ public abstract class ResourceBundle {
      * @exception MissingResourceException if no object for the given key can be found
      * @return the object for the given key
      */
-    public final Object getObject(@PropertyKey String key) {
+    public final @Localized Object getObject(@LocalizableKey @PropertyKey String key) {
         Object obj = handleGetObject(key);
         if (obj == null) {
             if (parent != null) {
@@ -2330,7 +2326,7 @@ public abstract class ResourceBundle {
      *         <code>ResourceBundle</code> and its parent bundles.
      * @since 1.6
      */
-    public Set<@PropertyKey String> keySet() {
+    public Set<@LocalizableKey @PropertyKey String> keySet() {
         Set<String> keys = new HashSet<>();
         for (ResourceBundle rb = this; rb != null; rb = rb.parent) {
             keys.addAll(rb.handleKeySet());
