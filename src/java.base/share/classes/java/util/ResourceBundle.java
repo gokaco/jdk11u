@@ -40,6 +40,11 @@
 
 package java.util;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.nullness.qual.EnsuresKeyForIf;
+import org.checkerframework.checker.nullness.qual.KeyFor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -2282,7 +2287,8 @@ public abstract class ResourceBundle {
      * @return an <code>Enumeration</code> of the keys contained in
      *         this <code>ResourceBundle</code> and its parent bundles.
      */
-    public abstract Enumeration<String> getKeys();
+    @SideEffectFree
+    public abstract Enumeration<String> getKeys(@GuardSatisfied ResourceBundle this);
 
     /**
      * Determines whether the given <code>key</code> is contained in
@@ -2297,7 +2303,9 @@ public abstract class ResourceBundle {
      *         if <code>key</code> is <code>null</code>
      * @since 1.6
      */
-    public boolean containsKey(String key) {
+    @Pure
+    @EnsuresKeyForIf(result=true, expression="#1", map="this")
+    public boolean containsKey(@GuardSatisfied ResourceBundle this, String key) {
         if (key == null) {
             throw new NullPointerException();
         }
@@ -2317,7 +2325,8 @@ public abstract class ResourceBundle {
      *         <code>ResourceBundle</code> and its parent bundles.
      * @since 1.6
      */
-    public Set<String> keySet() {
+    @SideEffectFree
+    public Set<@KeyFor("this") String> keySet(@GuardSatisfied ResourceBundle this) {
         Set<String> keys = new HashSet<>();
         for (ResourceBundle rb = this; rb != null; rb = rb.parent) {
             keys.addAll(rb.handleKeySet());
