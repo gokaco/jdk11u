@@ -25,6 +25,7 @@
 
 package java.lang.management;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Map;
 
 /**
@@ -203,7 +204,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *         exists and the caller does not have
      *         ManagementPermission("monitor").
      */
-    public ThreadInfo getThreadInfo(long id);
+    public @Nullable ThreadInfo getThreadInfo(long id);
 
     /**
      * Returns the thread info for each thread
@@ -241,7 +242,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *         exists and the caller does not have
      *         ManagementPermission("monitor").
      */
-    public ThreadInfo[] getThreadInfo(long[] ids);
+    public @Nullable ThreadInfo[] getThreadInfo(long[] ids);
 
     /**
      * Returns a thread info for a thread of the specified {@code id},
@@ -289,7 +290,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *         ManagementPermission("monitor").
      *
      */
-    public ThreadInfo getThreadInfo(long id, int maxDepth);
+    public @Nullable ThreadInfo getThreadInfo(long id, int maxDepth);
 
     /**
      * Returns the thread info for each thread
@@ -342,7 +343,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *         ManagementPermission("monitor").
      *
      */
-    public ThreadInfo[] getThreadInfo(long[] ids, int maxDepth);
+    public @Nullable ThreadInfo[] getThreadInfo(long[] ids, int maxDepth);
 
     /**
      * Tests if the Java virtual machine supports thread contention monitoring.
@@ -610,7 +611,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *
      * @see #findDeadlockedThreads
      */
-    public long[] findMonitorDeadlockedThreads();
+    public long @Nullable [] findMonitorDeadlockedThreads();
 
     /**
      * Resets the peak thread count to the current number of
@@ -652,7 +653,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * @see #findMonitorDeadlockedThreads
      * @since 1.6
      */
-    public long[] findDeadlockedThreads();
+    public long @Nullable [] findDeadlockedThreads();
 
     /**
      * Tests if the Java virtual machine supports monitoring of
@@ -724,7 +725,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *
      * @since 1.6
      */
-    public ThreadInfo[] getThreadInfo(long[] ids, boolean lockedMonitors,
+    public @Nullable ThreadInfo[] getThreadInfo(long[] ids, boolean lockedMonitors,
                                       boolean lockedSynchronizers);
 
     /**

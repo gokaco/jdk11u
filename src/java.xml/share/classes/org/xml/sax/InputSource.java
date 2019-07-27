@@ -30,6 +30,9 @@
 
 package org.xml.sax;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.InputStream;
@@ -93,6 +96,7 @@ public class InputSource {
      * @see #setCharacterStream
      * @see #setEncoding
      */
+    @SideEffectFree
     public InputSource ()
     {
     }
@@ -115,6 +119,7 @@ public class InputSource {
      * @see #setEncoding
      * @see #setCharacterStream
      */
+    @SideEffectFree
     public InputSource (String systemId)
     {
         setSystemId(systemId);
@@ -136,6 +141,7 @@ public class InputSource {
      * @see #setByteStream
      * @see #setCharacterStream
      */
+    @SideEffectFree
     public InputSource (InputStream byteStream)
     {
         setByteStream(byteStream);
@@ -156,6 +162,7 @@ public class InputSource {
      * @see #setByteStream
      * @see #setCharacterStream
      */
+    @SideEffectFree
     public InputSource (Reader characterStream)
     {
         setCharacterStream(characterStream);
@@ -174,7 +181,7 @@ public class InputSource {
      * @see org.xml.sax.Locator#getPublicId
      * @see org.xml.sax.SAXParseException#getPublicId
      */
-    public void setPublicId (String publicId)
+    public void setPublicId (@Nullable String publicId)
     {
         this.publicId = publicId;
     }
@@ -186,7 +193,8 @@ public class InputSource {
      * @return The public identifier, or null if none was supplied.
      * @see #setPublicId
      */
-    public String getPublicId ()
+    @Pure
+    public @Nullable String getPublicId ()
     {
         return publicId;
     }
@@ -215,7 +223,7 @@ public class InputSource {
      * @see org.xml.sax.Locator#getSystemId
      * @see org.xml.sax.SAXParseException#getSystemId
      */
-    public void setSystemId (String systemId)
+    public void setSystemId (@Nullable String systemId)
     {
         this.systemId = systemId;
     }
@@ -233,7 +241,8 @@ public class InputSource {
      * @see #setSystemId
      * @see #getEncoding
      */
-    public String getSystemId ()
+    @Pure
+    public @Nullable String getSystemId ()
     {
         return systemId;
     }
@@ -256,7 +265,7 @@ public class InputSource {
      * @see #getEncoding
      * @see java.io.InputStream
      */
-    public void setByteStream (InputStream byteStream)
+    public void setByteStream (@Nullable InputStream byteStream)
     {
         this.byteStream = byteStream;
     }
@@ -272,7 +281,8 @@ public class InputSource {
      * @see #getEncoding
      * @see #setByteStream
      */
-    public InputStream getByteStream ()
+    @Pure
+    public @Nullable InputStream getByteStream ()
     {
         return byteStream;
     }
@@ -293,7 +303,7 @@ public class InputSource {
      * @see #setByteStream
      * @see #getEncoding
      */
-    public void setEncoding (String encoding)
+    public void setEncoding (@Nullable String encoding)
     {
         this.encoding = encoding;
     }
@@ -309,7 +319,8 @@ public class InputSource {
      * @see #getSystemId
      * @see #getByteStream
      */
-    public String getEncoding ()
+    @Pure
+    public @Nullable String getEncoding ()
     {
         return encoding;
     }
@@ -327,7 +338,7 @@ public class InputSource {
      * @see #getCharacterStream
      * @see java.io.Reader
      */
-    public void setCharacterStream (Reader characterStream)
+    public void setCharacterStream (@Nullable Reader characterStream)
     {
         this.characterStream = characterStream;
     }
@@ -339,7 +350,8 @@ public class InputSource {
      * @return The character stream, or null if none was supplied.
      * @see #setCharacterStream
      */
-    public Reader getCharacterStream ()
+    @Pure
+    public @Nullable Reader getCharacterStream ()
     {
         return characterStream;
     }
@@ -399,11 +411,11 @@ public class InputSource {
     // Internal state.
     ////////////////////////////////////////////////////////////////////
 
-    private String publicId;
-    private String systemId;
-    private InputStream byteStream;
-    private String encoding;
-    private Reader characterStream;
+    private @Nullable String publicId;
+    private @Nullable String systemId;
+    private @Nullable InputStream byteStream;
+    private @Nullable String encoding;
+    private @Nullable Reader characterStream;
 
 }
 

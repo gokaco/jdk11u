@@ -25,6 +25,11 @@
 
 package java.util;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import jdk.internal.util.Preconditions;
 import jdk.internal.vm.annotation.ForceInline;
 
@@ -73,7 +78,8 @@ public final class Objects {
      * and {@code false} otherwise
      * @see Object#equals(Object)
      */
-    public static boolean equals(Object a, Object b) {
+    @Pure
+    public static boolean equals(@GuardSatisfied @Nullable Object a, @GuardSatisfied @Nullable Object b) {
         return (a == b) || (a != null && a.equals(b));
     }
 
@@ -94,7 +100,8 @@ public final class Objects {
     * @see Arrays#deepEquals(Object[], Object[])
     * @see Objects#equals(Object, Object)
     */
-    public static boolean deepEquals(Object a, Object b) {
+    @Pure
+    public static boolean deepEquals(@GuardSatisfied @Nullable Object a, @GuardSatisfied @Nullable Object b) {
         if (a == b)
             return true;
         else if (a == null || b == null)
@@ -112,7 +119,8 @@ public final class Objects {
      * a {@code null} argument
      * @see Object#hashCode
      */
-    public static int hashCode(Object o) {
+    @Pure
+    public static int hashCode(@GuardSatisfied @Nullable Object o) {
         return o != null ? o.hashCode() : 0;
     }
 
@@ -142,7 +150,8 @@ public final class Objects {
     * @see Arrays#hashCode(Object[])
     * @see List#hashCode
     */
-    public static int hash(Object... values) {
+    @Pure
+    public static int hash(@GuardSatisfied @Nullable @GuardSatisfied Object... values) {
         return Arrays.hashCode(values);
     }
 
@@ -156,7 +165,8 @@ public final class Objects {
      * @see Object#toString
      * @see String#valueOf(Object)
      */
-    public static String toString(Object o) {
+    @SideEffectFree
+    public static String toString(@GuardSatisfied @Nullable Object o) {
         return String.valueOf(o);
     }
 
@@ -173,7 +183,8 @@ public final class Objects {
      * otherwise.
      * @see Objects#toString(Object)
      */
-    public static String toString(Object o, String nullDefault) {
+    @SideEffectFree
+    public static String toString(@GuardSatisfied @Nullable Object o, String nullDefault) {
         return (o != null) ? o.toString() : nullDefault;
     }
 
@@ -197,7 +208,8 @@ public final class Objects {
      * @see Comparable
      * @see Comparator
      */
-    public static <T> int compare(T a, T b, Comparator<? super T> c) {
+    @Pure
+    public static <T> int compare(@GuardSatisfied @Nullable T a, @GuardSatisfied @Nullable T b, @GuardSatisfied Comparator<? super T> c) {
         return (a == b) ? 0 :  c.compare(a, b);
     }
 
@@ -216,7 +228,8 @@ public final class Objects {
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if {@code obj} is {@code null}
      */
-    public static <T> T requireNonNull(T obj) {
+    @SideEffectFree
+    public static <T> T requireNonNull(@Nullable T obj) {
         if (obj == null)
             throw new NullPointerException();
         return obj;
@@ -241,7 +254,8 @@ public final class Objects {
      * @return {@code obj} if not {@code null}
      * @throws NullPointerException if {@code obj} is {@code null}
      */
-    public static <T> T requireNonNull(T obj, String message) {
+    @SideEffectFree
+    public static <T> T requireNonNull(@GuardSatisfied @Nullable T obj, @Nullable String message) {
         if (obj == null)
             throw new NullPointerException(message);
         return obj;
@@ -261,7 +275,9 @@ public final class Objects {
      * @see java.util.function.Predicate
      * @since 1.8
      */
-    public static boolean isNull(Object obj) {
+    @EnsuresNonNullIf(expression={"#1"}, result=false)
+    @Pure
+    public static boolean isNull(@GuardSatisfied @Nullable Object obj) {
         return obj == null;
     }
 
@@ -279,7 +295,9 @@ public final class Objects {
      * @see java.util.function.Predicate
      * @since 1.8
      */
-    public static boolean nonNull(Object obj) {
+    @EnsuresNonNullIf(expression={"#1"}, result=true)
+    @Pure
+    public static boolean nonNull(@GuardSatisfied @Nullable Object obj) {
         return obj != null;
     }
 
@@ -341,7 +359,8 @@ public final class Objects {
      * @throws NullPointerException if {@code obj} is {@code null}
      * @since 1.8
      */
-    public static <T> T requireNonNull(T obj, Supplier<String> messageSupplier) {
+    @Pure
+    public static <T> T requireNonNull(@GuardSatisfied @Nullable T obj, @GuardSatisfied Supplier<String> messageSupplier) {
         if (obj == null)
             throw new NullPointerException(messageSupplier == null ?
                                            null : messageSupplier.get());

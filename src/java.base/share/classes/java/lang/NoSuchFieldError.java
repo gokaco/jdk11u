@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown if an application tries to access or modify a specified
@@ -43,6 +45,7 @@ class NoSuchFieldError extends IncompatibleClassChangeError {
     /**
      * Constructs a <code>NoSuchFieldError</code> with no detail message.
      */
+    @SideEffectFree
     public NoSuchFieldError() {
         super();
     }
@@ -53,7 +56,8 @@ class NoSuchFieldError extends IncompatibleClassChangeError {
      *
      * @param   s   the detail message.
      */
-    public NoSuchFieldError(String s) {
+    @SideEffectFree
+    public NoSuchFieldError(@Nullable String s) {
         super(s);
     }
 }

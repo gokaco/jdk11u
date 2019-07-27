@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when an unknown but serious exception has occurred in the
@@ -39,6 +41,7 @@ class UnknownError extends VirtualMachineError {
     /**
      * Constructs an <code>UnknownError</code> with no detail message.
      */
+    @SideEffectFree
     public UnknownError() {
         super();
     }
@@ -49,7 +52,8 @@ class UnknownError extends VirtualMachineError {
      *
      * @param   s   the detail message.
      */
-    public UnknownError(String s) {
+    @SideEffectFree
+    public UnknownError(@Nullable String s) {
         super(s);
     }
 }

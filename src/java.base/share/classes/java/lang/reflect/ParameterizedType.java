@@ -24,6 +24,7 @@
  */
 
 package java.lang.reflect;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 
 /**
@@ -62,7 +63,7 @@ public interface ParameterizedType extends Type {
      *     be instantiated for any reason
      * @since 1.5
      */
-    Type[] getActualTypeArguments();
+    @NonNull Type @NonNull [] getActualTypeArguments();
 
     /**
      * Returns the {@code Type} object representing the class or interface
@@ -72,7 +73,7 @@ public interface ParameterizedType extends Type {
      *     that declared this type
      * @since 1.5
      */
-    Type getRawType();
+    @NonNull Type getRawType();
 
     /**
      * Returns a {@code Type} object representing the type that this type

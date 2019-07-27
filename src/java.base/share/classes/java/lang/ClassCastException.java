@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown to indicate that the code has attempted to cast an object
@@ -44,6 +46,7 @@ class ClassCastException extends RuntimeException {
     /**
      * Constructs a <code>ClassCastException</code> with no detail message.
      */
+    @SideEffectFree
     public ClassCastException() {
         super();
     }
@@ -54,7 +57,8 @@ class ClassCastException extends RuntimeException {
      *
      * @param   s   the detail message.
      */
-    public ClassCastException(String s) {
+    @SideEffectFree
+    public ClassCastException(@Nullable String s) {
         super(s);
     }
 }

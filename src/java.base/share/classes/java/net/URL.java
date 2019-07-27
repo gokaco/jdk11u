@@ -25,6 +25,8 @@
 
 package java.net;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.spi.URLStreamHandlerProvider;
@@ -223,7 +225,7 @@ public final class URL implements java.io.Serializable {
      * The host's IP address, used in equals and hashCode.
      * Computed on demand. An uninitialized or unknown hostAddress is null.
      */
-    transient InetAddress hostAddress;
+    transient @Nullable InetAddress hostAddress;
 
     /**
      * The URLStreamHandler for this URL.
@@ -400,7 +402,7 @@ public final class URL implements java.io.Serializable {
      * @see        java.net.NetPermission
      */
     public URL(String protocol, String host, int port, String file,
-               URLStreamHandler handler) throws MalformedURLException {
+               @Nullable URLStreamHandler handler) throws MalformedURLException {
         if (handler != null) {
             SecurityManager sm = System.getSecurityManager();
             if (sm != null) {
@@ -519,7 +521,7 @@ public final class URL implements java.io.Serializable {
      * @see        java.net.URLStreamHandler#parseURL(java.net.URL,
      *                  java.lang.String, int, int)
      */
-    public URL(URL context, String spec) throws MalformedURLException {
+    public URL(@Nullable URL context, String spec) throws MalformedURLException {
         this(context, spec, null);
     }
 
@@ -545,7 +547,7 @@ public final class URL implements java.io.Serializable {
      * @see        java.net.URLStreamHandler#parseURL(java.net.URL,
      *                  java.lang.String, int, int)
      */
-    public URL(URL context, String spec, URLStreamHandler handler)
+    public URL(@Nullable URL context, String spec, @Nullable URLStreamHandler handler)
         throws MalformedURLException
     {
         String original = spec;
@@ -1145,7 +1147,7 @@ public final class URL implements java.io.Serializable {
      * @see        java.net.URLConnection#getContent(Class[])
      * @since 1.3
      */
-    public final Object getContent(Class<?>[] classes)
+    public final @Nullable Object getContent(Class<?>[] classes)
     throws java.io.IOException {
         return openConnection().getContent(classes);
     }
@@ -1153,7 +1155,7 @@ public final class URL implements java.io.Serializable {
     /**
      * The URLStreamHandler factory.
      */
-    private static volatile URLStreamHandlerFactory factory;
+    private static volatile @MonotonicNonNull URLStreamHandlerFactory factory;
 
     /**
      * Sets an application's {@code URLStreamHandlerFactory}.

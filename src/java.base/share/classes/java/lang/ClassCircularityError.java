@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when the Java Virtual Machine detects a circularity in the
@@ -38,6 +40,7 @@ public class ClassCircularityError extends LinkageError {
     /**
      * Constructs a {@code ClassCircularityError} with no detail message.
      */
+    @SideEffectFree
     public ClassCircularityError() {
         super();
     }
@@ -49,7 +52,8 @@ public class ClassCircularityError extends LinkageError {
      * @param  s
      *         The detail message
      */
-    public ClassCircularityError(String s) {
+    @SideEffectFree
+    public ClassCircularityError(@Nullable String s) {
         super(s);
     }
 }

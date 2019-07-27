@@ -25,6 +25,7 @@
 
 package java.nio.file;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Closeable;
@@ -3413,7 +3414,7 @@ public final class Files {
      *          invoked to check delete access if the file is opened with the
      *          {@code DELETE_ON_CLOSE} option.
      */
-    public static Path write(Path path, byte[] bytes, OpenOption... options)
+    public static Path write(Path path, @PolySigned byte[] bytes, OpenOption... options)
         throws IOException
     {
         // ensure bytes is not null before opening file

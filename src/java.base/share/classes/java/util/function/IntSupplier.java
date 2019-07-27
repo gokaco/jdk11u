@@ -23,6 +23,7 @@
  * questions.
  */
 package java.util.function;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 
 /**
  * Represents a supplier of {@code int}-valued results.  This is the
@@ -45,5 +46,5 @@ public interface IntSupplier {
      *
      * @return a result
      */
-    int getAsInt();
+    int getAsInt(@GuardSatisfied IntSupplier this);
 }

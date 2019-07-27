@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Signals that the class doesn't have a field of a specified name.
@@ -37,6 +39,7 @@ public class NoSuchFieldException extends ReflectiveOperationException {
     /**
      * Constructor.
      */
+    @SideEffectFree
     public NoSuchFieldException() {
         super();
     }
@@ -46,7 +49,8 @@ public class NoSuchFieldException extends ReflectiveOperationException {
      *
      * @param s the detail message
      */
-    public NoSuchFieldException(String s) {
+    @SideEffectFree
+    public NoSuchFieldException(@Nullable String s) {
         super(s);
     }
 }

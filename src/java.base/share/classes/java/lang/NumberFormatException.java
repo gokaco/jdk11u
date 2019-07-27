@@ -24,6 +24,7 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Thrown to indicate that the application has attempted to convert
@@ -51,7 +52,7 @@ class NumberFormatException extends IllegalArgumentException {
      *
      * @param   s   the detail message.
      */
-    public NumberFormatException (String s) {
+    public NumberFormatException (@Nullable String s) {
         super (s);
     }
 

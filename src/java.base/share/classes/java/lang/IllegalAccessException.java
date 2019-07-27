@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * An IllegalAccessException is thrown when an application tries
@@ -63,6 +65,7 @@ public class IllegalAccessException extends ReflectiveOperationException {
      * Constructs an <code>IllegalAccessException</code> without a
      * detail message.
      */
+    @SideEffectFree
     public IllegalAccessException() {
         super();
     }
@@ -72,7 +75,8 @@ public class IllegalAccessException extends ReflectiveOperationException {
      *
      * @param   s   the detail message.
      */
-    public IllegalAccessException(String s) {
+    @SideEffectFree
+    public IllegalAccessException(@Nullable String s) {
         super(s);
     }
 }

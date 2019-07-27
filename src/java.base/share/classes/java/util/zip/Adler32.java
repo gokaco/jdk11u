@@ -25,6 +25,7 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.index.qual.IndexOrHigh;
 import java.nio.ByteBuffer;
 import sun.nio.ch.DirectBuffer;
 
@@ -70,7 +71,7 @@ class Adler32 implements Checksum {
      *         the array {@code b}.
      */
     @Override
-    public void update(byte[] b, int off, int len) {
+    public void update(byte[] b, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len) {
         if (b == null) {
             throw new NullPointerException();
         }

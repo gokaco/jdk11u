@@ -36,6 +36,7 @@ import jdk.internal.misc.VM;
  * @since    1.2
  */
 
+@SuppressWarnings({"rawtypes"})
 public class ReferenceQueue<T> {
 
     /**
@@ -57,6 +58,7 @@ public class ReferenceQueue<T> {
     private volatile Reference<? extends T> head;
     private long queueLength = 0;
 
+    @SuppressWarnings({"unchecked"})
     boolean enqueue(Reference<? extends T> r) { /* Called only by Reference class */
         synchronized (lock) {
             // Check that since getting the lock this reference hasn't already been
@@ -82,6 +84,7 @@ public class ReferenceQueue<T> {
         }
     }
 
+    @SuppressWarnings({"unchecked"})
     private Reference<? extends T> reallyPoll() {       /* Must hold lock */
         Reference<? extends T> r = head;
         if (r != null) {

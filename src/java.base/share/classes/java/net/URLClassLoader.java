@@ -25,6 +25,7 @@
 
 package java.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FilePermission;
@@ -109,7 +110,7 @@ public class URLClassLoader extends SecureClassLoader implements Closeable {
      *             elements is {@code null}.
      * @see SecurityManager#checkCreateClassLoader
      */
-    public URLClassLoader(URL[] urls, ClassLoader parent) {
+    public URLClassLoader(URL[] urls, @Nullable ClassLoader parent) {
         super(parent);
         // this is to make the stack depth consistent with 1.1
         SecurityManager security = System.getSecurityManager();
@@ -317,7 +318,7 @@ public class URLClassLoader extends SecureClassLoader implements Closeable {
      *
      * @since  1.7
      */
-    public InputStream getResourceAsStream(String name) {
+    public @Nullable InputStream getResourceAsStream(String name) {
         Objects.requireNonNull(name);
         URL url = getResource(name);
         try {
@@ -418,7 +419,7 @@ public class URLClassLoader extends SecureClassLoader implements Closeable {
      *
      * @param url the URL to be added to the search path of URLs
      */
-    protected void addURL(URL url) {
+    protected void addURL(@Nullable URL url) {
         ucp.addURL(url);
     }
 
@@ -478,7 +479,7 @@ public class URLClassLoader extends SecureClassLoader implements Closeable {
      * If non-null, verify the package using the specified code
      * source and manifest.
      */
-    private Package getAndVerifyPackage(String pkgname,
+    private @Nullable Package getAndVerifyPackage(String pkgname,
                                         Manifest man, URL url) {
         Package pkg = getDefinedPackage(pkgname);
         if (pkg != null) {
@@ -569,7 +570,7 @@ public class URLClassLoader extends SecureClassLoader implements Closeable {
      * @revised 9
      * @spec JPMS
      */
-    protected Package definePackage(String name, Manifest man, URL url) {
+    protected Package definePackage(String name, Manifest man, @Nullable URL url) {
         String path = name.replace('.', '/').concat("/");
         String specTitle = null, specVersion = null, specVendor = null;
         String implTitle = null, implVersion = null, implVendor = null;
@@ -643,7 +644,7 @@ public class URLClassLoader extends SecureClassLoader implements Closeable {
      * @return a {@code URL} for the resource, or {@code null}
      * if the resource could not be found, or if the loader is closed.
      */
-    public URL findResource(final String name) {
+    public @Nullable URL findResource(final String name) {
         /*
          * The same restriction to finding classes applies to resources
          */

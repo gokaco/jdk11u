@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when the Java Virtual Machine attempts to read a class
@@ -40,6 +42,7 @@ class UnsupportedClassVersionError extends ClassFormatError {
      * Constructs a <code>UnsupportedClassVersionError</code>
      * with no detail message.
      */
+    @SideEffectFree
     public UnsupportedClassVersionError() {
         super();
     }
@@ -50,7 +53,8 @@ class UnsupportedClassVersionError extends ClassFormatError {
      *
      * @param   s   the detail message.
      */
-    public UnsupportedClassVersionError(String s) {
+    @SideEffectFree
+    public UnsupportedClassVersionError(@Nullable String s) {
         super(s);
     }
 }

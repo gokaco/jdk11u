@@ -24,6 +24,7 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * The {@code Compiler} class is provided to support Java-to-native-code
@@ -89,7 +90,7 @@ public final class Compiler  {
      * @throws  NullPointerException
      *          If {@code any} is {@code null}
      */
-    public static Object command(Object any) {
+    public static @Nullable Object command(Object any) {
         return null;
     }
 

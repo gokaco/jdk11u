@@ -24,6 +24,8 @@
  */
 
 package javax.xml.transform;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * <p>An object that implements this interface that can be called by the processor
@@ -47,6 +49,7 @@ public interface URIResolver {
      * @throws TransformerException if an error occurs when trying to
      * resolve the URI.
      */
-    public Source resolve(String href, String base)
+    @Pure
+    public @Nullable Source resolve(String href, @Nullable String base)
         throws TransformerException;
 }

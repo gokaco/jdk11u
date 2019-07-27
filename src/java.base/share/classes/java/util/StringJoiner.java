@@ -23,6 +23,7 @@
  * questions.
  */
 package java.util;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * {@code StringJoiner} is used to construct a sequence of characters separated
@@ -195,7 +196,7 @@ public final class StringJoiner {
      * @param  newElement The element to add
      * @return a reference to this {@code StringJoiner}
      */
-    public StringJoiner add(CharSequence newElement) {
+    public StringJoiner add(@Nullable CharSequence newElement) {
         final String elt = String.valueOf(newElement);
         if (elts == null) {
             elts = new String[8];

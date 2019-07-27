@@ -24,6 +24,11 @@
  */
 
 package java.io;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
 
 /**
  * This class allows an application to create an input stream in
@@ -109,7 +114,7 @@ class StringBufferInputStream extends InputStream {
      *             the stream has been reached.
      */
     @SuppressWarnings("deprecation")
-    public synchronized int read(byte b[], int off, int len) {
+    public synchronized @GTENegativeOne @LTEqLengthOf({"#1"}) int read(byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) {
         if (b == null) {
             throw new NullPointerException();
         } else if ((off < 0) || (off > b.length) || (len < 0) ||
@@ -139,7 +144,7 @@ class StringBufferInputStream extends InputStream {
      * @param      n   the number of bytes to be skipped.
      * @return     the actual number of bytes skipped.
      */
-    public synchronized long skip(long n) {
+    public synchronized @NonNegative long skip(long n) {
         if (n < 0) {
             return 0;
         }
@@ -157,7 +162,7 @@ class StringBufferInputStream extends InputStream {
      * @return     the value of <code>count&nbsp;-&nbsp;pos</code>, which is the
      *             number of bytes remaining to be read from the input buffer.
      */
-    public synchronized int available() {
+    public synchronized @NonNegative int available() {
         return count - pos;
     }
 

@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown to indicate that a thread is not in an appropriate state
@@ -43,6 +45,7 @@ public class IllegalThreadStateException extends IllegalArgumentException {
      * Constructs an <code>IllegalThreadStateException</code> with no
      * detail message.
      */
+    @SideEffectFree
     public IllegalThreadStateException() {
         super();
     }
@@ -53,7 +56,8 @@ public class IllegalThreadStateException extends IllegalArgumentException {
      *
      * @param   s   the detail message.
      */
-    public IllegalThreadStateException(String s) {
+    @SideEffectFree
+    public IllegalThreadStateException(@Nullable String s) {
         super(s);
     }
 }

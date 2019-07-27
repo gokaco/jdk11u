@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when the Java Virtual Machine cannot allocate an object
@@ -44,6 +46,7 @@ public class OutOfMemoryError extends VirtualMachineError {
     /**
      * Constructs an {@code OutOfMemoryError} with no detail message.
      */
+    @SideEffectFree
     public OutOfMemoryError() {
         super();
     }
@@ -54,7 +57,8 @@ public class OutOfMemoryError extends VirtualMachineError {
      *
      * @param   s   the detail message.
      */
-    public OutOfMemoryError(String s) {
+    @SideEffectFree
+    public OutOfMemoryError(@Nullable String s) {
         super(s);
     }
 }

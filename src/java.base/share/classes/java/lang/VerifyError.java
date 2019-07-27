@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when the "verifier" detects that a class file,
@@ -40,6 +42,7 @@ class VerifyError extends LinkageError {
     /**
      * Constructs an <code>VerifyError</code> with no detail message.
      */
+    @SideEffectFree
     public VerifyError() {
         super();
     }
@@ -49,7 +52,8 @@ class VerifyError extends LinkageError {
      *
      * @param   s   the detail message.
      */
-    public VerifyError(String s) {
+    @SideEffectFree
+    public VerifyError(@Nullable String s) {
         super(s);
     }
 }

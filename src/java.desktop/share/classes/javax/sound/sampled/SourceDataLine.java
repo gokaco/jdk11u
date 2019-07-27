@@ -24,6 +24,7 @@
  */
 
 package javax.sound.sampled;
+import org.checkerframework.checker.signedness.qual.PolySigned;
 
 /**
  * A source data line is a data line to which data may be written. It acts as a
@@ -180,7 +181,7 @@ public interface SourceDataLine extends DataLine {
      * @see TargetDataLine#read
      * @see DataLine#available
      */
-    int write(byte[] b, int off, int len);
+    int write(@PolySigned byte[] b, int off, int len);
 
     /**
      * Obtains the number of sample frames of audio data that can be written to

@@ -24,6 +24,8 @@
  */
 
 package javax.xml.stream;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * This interface is used to resolve resources during an XML parse.  If an application wishes to
@@ -49,9 +51,10 @@ public interface XMLResolver {
    * @return The resource requested or null.
    * @throws XMLStreamException if there was a failure attempting to resolve the resource.
    */
-  public Object resolveEntity(String publicID,
+  @Pure
+  public @Nullable Object resolveEntity(@Nullable String publicID,
                               String systemID,
-                              String baseURI,
-                              String namespace)
+                              @Nullable String baseURI,
+                              @Nullable String namespace)
     throws XMLStreamException;
 }

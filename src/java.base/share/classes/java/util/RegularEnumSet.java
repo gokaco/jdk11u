@@ -24,6 +24,7 @@
  */
 
 package java.util;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Private implementation class for EnumSet, for "regular sized" enum types
@@ -118,7 +119,7 @@ class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
      *
      * @return the number of elements in this set
      */
-    public int size() {
+    public @NonNegative int size() {
         return Long.bitCount(elements);
     }
 

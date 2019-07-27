@@ -24,6 +24,8 @@
  */
 package java.util.stream;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.Arrays;
 import java.util.LongSummaryStatistics;
 import java.util.Objects;
@@ -450,6 +452,7 @@ public interface LongStream extends BaseStream<Long, LongStream> {
      *
      * @return an array containing the elements of this stream
      */
+    @SideEffectFree
     long[] toArray();
 
     /**
@@ -824,9 +827,11 @@ public interface LongStream extends BaseStream<Long, LongStream> {
     @Override
     LongStream parallel();
 
+    @SideEffectFree
     @Override
     PrimitiveIterator.OfLong iterator();
 
+    @SideEffectFree
     @Override
     Spliterator.OfLong spliterator();
 
@@ -1160,7 +1165,7 @@ public interface LongStream extends BaseStream<Long, LongStream> {
          * @throws IllegalStateException if the builder has already transitioned
          * to the built state
          */
-        default Builder add(long t) {
+        default Builder add(LongStream.@GuardSatisfied Builder this, long t) {
             accept(t);
             return this;
         }

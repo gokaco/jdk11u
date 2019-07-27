@@ -30,6 +30,8 @@
 
 package org.xml.sax.ext;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 import java.io.IOException;
 
 import org.xml.sax.EntityResolver;
@@ -152,7 +154,8 @@ public interface EntityResolver2 extends EntityResolver
      * @exception IOException Probably indicating a failure to create
      *  a new InputStream or Reader, or an illegal URL.
      */
-    public InputSource getExternalSubset (String name, String baseURI)
+    @Pure
+    public @Nullable InputSource getExternalSubset (String name, @Nullable String baseURI)
     throws SAXException, IOException;
 
     /**
@@ -209,10 +212,11 @@ public interface EntityResolver2 extends EntityResolver
      * @exception IOException Probably indicating a failure to create
      *  a new InputStream or Reader, or an illegal URL.
      */
-    public InputSource resolveEntity (
+    @Pure
+    public @Nullable InputSource resolveEntity (
             String name,
-            String publicId,
-            String baseURI,
+            @Nullable String publicId,
+            @Nullable String baseURI,
             String systemId
     ) throws SAXException, IOException;
 }

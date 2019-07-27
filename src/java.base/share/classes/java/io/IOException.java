@@ -24,6 +24,7 @@
  */
 
 package java.io;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Signals that an I/O exception of some sort has occurred. This
@@ -54,7 +55,7 @@ class IOException extends Exception {
      *        The detail message (which is saved for later retrieval
      *        by the {@link #getMessage()} method)
      */
-    public IOException(String message) {
+    public IOException(@Nullable String message) {
         super(message);
     }
 
@@ -77,7 +78,7 @@ class IOException extends Exception {
      *
      * @since 1.6
      */
-    public IOException(String message, Throwable cause) {
+    public IOException(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 
@@ -95,7 +96,7 @@ class IOException extends Exception {
      *
      * @since 1.6
      */
-    public IOException(Throwable cause) {
+    public IOException(@Nullable Throwable cause) {
         super(cause);
     }
 }

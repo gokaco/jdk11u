@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when an application tries to call an abstract method.
@@ -42,6 +44,7 @@ class AbstractMethodError extends IncompatibleClassChangeError {
     /**
      * Constructs an <code>AbstractMethodError</code> with no detail  message.
      */
+    @SideEffectFree
     public AbstractMethodError() {
         super();
     }
@@ -52,7 +55,8 @@ class AbstractMethodError extends IncompatibleClassChangeError {
      *
      * @param   s   the detail message.
      */
-    public AbstractMethodError(String s) {
+    @SideEffectFree
+    public AbstractMethodError(@Nullable String s) {
         super(s);
     }
 }

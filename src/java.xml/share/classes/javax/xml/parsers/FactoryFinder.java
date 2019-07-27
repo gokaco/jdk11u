@@ -25,6 +25,7 @@
 
 package javax.xml.parsers;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -92,7 +93,7 @@ class FactoryFinder {
      *
      * Use bootstrap classLoader if cl = null and useBSClsLoader is true
      */
-    static private Class<?> getProviderClass(String className, ClassLoader cl,
+    static private Class<?> getProviderClass(String className, @Nullable ClassLoader cl,
             boolean doFallback, boolean useBSClsLoader) throws ClassNotFoundException
     {
         try {
@@ -140,7 +141,7 @@ class FactoryFinder {
      * @param doFallback True if the current ClassLoader should be tried as
      * a fallback if the class is not found using cl
      */
-    static <T> T newInstance(Class<T> type, String className, ClassLoader cl,
+    static <T> T newInstance(Class<T> type, String className, @Nullable ClassLoader cl,
                              boolean doFallback)
         throws FactoryConfigurationError
     {
@@ -166,7 +167,7 @@ class FactoryFinder {
      * @param useBSClsLoader True if cl=null actually meant bootstrap classLoader. This parameter
      * is needed since DocumentBuilderFactory/SAXParserFactory defined null as context classLoader.
      */
-    static <T> T newInstance(Class<T> type, String className, ClassLoader cl,
+    static <T> T newInstance(Class<T> type, String className, @Nullable ClassLoader cl,
                              boolean doFallback, boolean useBSClsLoader)
         throws FactoryConfigurationError
     {
@@ -212,7 +213,7 @@ class FactoryFinder {
      *
      * Package private so this code can be shared.
      */
-    static <T> T find(Class<T> type, String fallbackClassName)
+    static <T> T find(Class<T> type, @Nullable String fallbackClassName)
         throws FactoryConfigurationError
     {
         final String factoryId = type.getName();
@@ -278,7 +279,7 @@ class FactoryFinder {
      *
      * @return instance of provider class if found or null
      */
-    private static <T> T findServiceProvider(final Class<T> type) {
+    private static <T> @Nullable T findServiceProvider(final Class<T> type) {
         try {
             return AccessController.doPrivileged(new PrivilegedAction<T>() {
                 public T run() {

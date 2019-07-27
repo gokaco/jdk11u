@@ -24,6 +24,9 @@
  */
 
 package java.util.regex;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Unchecked exception thrown to indicate a syntax error in a
@@ -56,6 +59,7 @@ public class PatternSyntaxException
      *         The approximate index in the pattern of the error,
      *         or {@code -1} if the index is not known
      */
+    @SideEffectFree
     public PatternSyntaxException(String desc, String regex, int index) {
         this.desc = desc;
         this.pattern = regex;
@@ -68,7 +72,8 @@ public class PatternSyntaxException
      * @return  The approximate index in the pattern of the error,
      *         or {@code -1} if the index is not known
      */
-    public int getIndex() {
+    @Pure
+    public int getIndex(@GuardSatisfied PatternSyntaxException this) {
         return index;
     }
 
@@ -77,7 +82,8 @@ public class PatternSyntaxException
      *
      * @return  The description of the error
      */
-    public String getDescription() {
+    @Pure
+    public String getDescription(@GuardSatisfied PatternSyntaxException this) {
         return desc;
     }
 
@@ -86,7 +92,8 @@ public class PatternSyntaxException
      *
      * @return  The erroneous pattern
      */
-    public String getPattern() {
+    @Pure
+    public String getPattern(@GuardSatisfied PatternSyntaxException this) {
         return pattern;
     }
 
@@ -97,7 +104,8 @@ public class PatternSyntaxException
      *
      * @return  The full detail message
      */
-    public String getMessage() {
+    @Pure
+    public String getMessage(@GuardSatisfied PatternSyntaxException this) {
         StringBuilder sb = new StringBuilder();
         sb.append(desc);
         if (index >= 0) {

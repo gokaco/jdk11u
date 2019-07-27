@@ -35,6 +35,9 @@
 
 package java.util.concurrent;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -68,7 +71,7 @@ import java.util.function.Function;
  * @param <K> the type of keys maintained by this map
  * @param <V> the type of mapped values
  */
-public interface ConcurrentMap<K,V> extends Map<K,V> {
+public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Object> extends Map<K,V> {
 
     /**
      * {@inheritDoc}
@@ -154,7 +157,8 @@ public interface ConcurrentMap<K,V> extends Map<K,V> {
      * @throws IllegalArgumentException if some property of the specified key
      *         or value prevents it from being stored in this map
      */
-    V putIfAbsent(K key, V value);
+    @EnsuresKeyFor(value={"#1"}, map={"this"})
+    @Nullable V putIfAbsent(K key, V value);
 
     /**
      * Removes the entry for a key only if currently mapped to a given value.
@@ -249,7 +253,7 @@ public interface ConcurrentMap<K,V> extends Map<K,V> {
      * @throws IllegalArgumentException if some property of the specified key
      *         or value prevents it from being stored in this map
      */
-    V replace(K key, V value);
+    @Nullable V replace(K key, V value);
 
     /**
      * {@inheritDoc}

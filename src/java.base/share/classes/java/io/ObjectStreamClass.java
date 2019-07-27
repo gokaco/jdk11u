@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
@@ -221,7 +224,7 @@ public class ObjectStreamClass implements Serializable {
      * @param   cl class for which to get the descriptor
      * @return  the class descriptor for the specified class
      */
-    public static ObjectStreamClass lookup(Class<?> cl) {
+    public static @Nullable ObjectStreamClass lookup(Class<?> cl) {
         return lookup(cl, false);
     }
 
@@ -277,7 +280,7 @@ public class ObjectStreamClass implements Serializable {
      * @return  the <code>Class</code> instance that this descriptor represents
      */
     @CallerSensitive
-    public Class<?> forClass() {
+    public @Nullable Class<?> forClass() {
         if (cl == null) {
             return null;
         }
@@ -310,14 +313,15 @@ public class ObjectStreamClass implements Serializable {
      * @return  The ObjectStreamField object of the named field or null if
      *          there is no such named field.
      */
-    public ObjectStreamField getField(String name) {
+    public @Nullable ObjectStreamField getField(String name) {
         return getField(name, null);
     }
 
     /**
      * Return a string describing this ObjectStreamClass.
      */
-    public String toString() {
+    @SideEffectFree
+    public String toString(@GuardSatisfied ObjectStreamClass this) {
         return name + ": static final long serialVersionUID = " +
             getSerialVersionUID() + "L;";
     }

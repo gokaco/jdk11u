@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown if the Java Virtual Machine or a <code>ClassLoader</code> instance
@@ -45,6 +47,7 @@ class NoClassDefFoundError extends LinkageError {
     /**
      * Constructs a <code>NoClassDefFoundError</code> with no detail message.
      */
+    @SideEffectFree
     public NoClassDefFoundError() {
         super();
     }
@@ -55,7 +58,8 @@ class NoClassDefFoundError extends LinkageError {
      *
      * @param   s   the detail message.
      */
-    public NoClassDefFoundError(String s) {
+    @SideEffectFree
+    public NoClassDefFoundError(@Nullable String s) {
         super(s);
     }
 }

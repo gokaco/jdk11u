@@ -34,6 +34,9 @@
  */
 
 package java.util;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A {@link SortedSet} extended with navigation methods reporting
@@ -100,7 +103,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws NullPointerException if the specified element is null
      *         and this set does not permit null elements
      */
-    E lower(E e);
+    @Nullable E lower(E e);
 
     /**
      * Returns the greatest element in this set less than or equal to
@@ -114,7 +117,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws NullPointerException if the specified element is null
      *         and this set does not permit null elements
      */
-    E floor(E e);
+    @Nullable E floor(E e);
 
     /**
      * Returns the least element in this set greater than or equal to
@@ -128,7 +131,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws NullPointerException if the specified element is null
      *         and this set does not permit null elements
      */
-    E ceiling(E e);
+    @Nullable E ceiling(E e);
 
     /**
      * Returns the least element in this set strictly greater than the
@@ -142,7 +145,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws NullPointerException if the specified element is null
      *         and this set does not permit null elements
      */
-    E higher(E e);
+    @Nullable E higher(E e);
 
     /**
      * Retrieves and removes the first (lowest) element,
@@ -150,7 +153,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *
      * @return the first element, or {@code null} if this set is empty
      */
-    E pollFirst();
+    @Nullable E pollFirst(@GuardSatisfied NavigableSet<E> this);
 
     /**
      * Retrieves and removes the last (highest) element,
@@ -158,13 +161,14 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *
      * @return the last element, or {@code null} if this set is empty
      */
-    E pollLast();
+    @Nullable E pollLast(@GuardSatisfied NavigableSet<E> this);
 
     /**
      * Returns an iterator over the elements in this set, in ascending order.
      *
      * @return an iterator over the elements in this set, in ascending order
      */
+    @SideEffectFree
     Iterator<E> iterator();
 
     /**
@@ -227,8 +231,9 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *         has a restricted range, and {@code fromElement} or
      *         {@code toElement} lies outside the bounds of the range.
      */
-    NavigableSet<E> subSet(E fromElement, boolean fromInclusive,
-                           E toElement,   boolean toInclusive);
+    @SideEffectFree
+    NavigableSet<E> subSet(@GuardSatisfied NavigableSet<E> this, @GuardSatisfied E fromElement, boolean fromInclusive,
+                           @GuardSatisfied E toElement,   boolean toInclusive);
 
     /**
      * Returns a view of the portion of this set whose elements are less than
@@ -257,7 +262,8 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *         restricted range, and {@code toElement} lies outside the
      *         bounds of the range
      */
-    NavigableSet<E> headSet(E toElement, boolean inclusive);
+    @SideEffectFree
+    NavigableSet<E> headSet(@GuardSatisfied NavigableSet<E> this, @GuardSatisfied E toElement, boolean inclusive);
 
     /**
      * Returns a view of the portion of this set whose elements are greater
@@ -286,7 +292,8 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *         restricted range, and {@code fromElement} lies outside the
      *         bounds of the range
      */
-    NavigableSet<E> tailSet(E fromElement, boolean inclusive);
+    @SideEffectFree
+    NavigableSet<E> tailSet(@GuardSatisfied NavigableSet<E> this, @GuardSatisfied E fromElement, boolean inclusive);
 
     /**
      * {@inheritDoc}
@@ -297,7 +304,8 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws NullPointerException     {@inheritDoc}
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    SortedSet<E> subSet(E fromElement, E toElement);
+    @SideEffectFree
+    SortedSet<E> subSet(@GuardSatisfied NavigableSet<E> this, @GuardSatisfied E fromElement, @GuardSatisfied E toElement);
 
     /**
      * {@inheritDoc}
@@ -308,7 +316,8 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws NullPointerException     {@inheritDoc}
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    SortedSet<E> headSet(E toElement);
+    @SideEffectFree
+    SortedSet<E> headSet(@GuardSatisfied NavigableSet<E> this, E toElement);
 
     /**
      * {@inheritDoc}
@@ -319,5 +328,6 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws NullPointerException     {@inheritDoc}
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    SortedSet<E> tailSet(E fromElement);
+    @SideEffectFree
+    SortedSet<E> tailSet(@GuardSatisfied NavigableSet<E> this, E fromElement);
 }

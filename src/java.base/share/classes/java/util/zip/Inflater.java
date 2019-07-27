@@ -25,6 +25,9 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.index.qual.GTENegativeOne;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.NonNegative;
 import java.lang.ref.Cleaner.Cleanable;
 import java.lang.ref.Reference;
 import java.nio.ByteBuffer;
@@ -157,7 +160,7 @@ public class Inflater {
      * @param len the length of the input data
      * @see Inflater#needsInput
      */
-    public void setInput(byte[] input, int off, int len) {
+    public void setInput(byte[] input, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len) {
         if (off < 0 || len < 0 || off > input.length - len) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -224,7 +227,7 @@ public class Inflater {
      * @see Inflater#needsDictionary
      * @see Inflater#getAdler
      */
-    public void setDictionary(byte[] dictionary, int off, int len) {
+    public void setDictionary(byte[] dictionary, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len) {
         if (off < 0 || len < 0 || off > dictionary.length - len) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -290,7 +293,7 @@ public class Inflater {
      * buffer after decompression has finished.
      * @return the total number of bytes remaining in the input buffer
      */
-    public int getRemaining() {
+    public @NonNegative int getRemaining() {
         synchronized (zsRef) {
             ByteBuffer input = this.input;
             return input == null ? inputLim - inputPos : input.remaining();
@@ -367,7 +370,7 @@ public class Inflater {
      * @see Inflater#needsInput
      * @see Inflater#needsDictionary
      */
-    public int inflate(byte[] output, int off, int len)
+    public @GTENegativeOne int inflate(byte[] output, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len)
         throws DataFormatException
     {
         if (off < 0 || len < 0 || off > output.length - len) {
@@ -467,7 +470,7 @@ public class Inflater {
      * @see Inflater#needsInput
      * @see Inflater#needsDictionary
      */
-    public int inflate(byte[] output) throws DataFormatException {
+    public @GTENegativeOne int inflate(byte[] output) throws DataFormatException {
         return inflate(output, 0, output.length);
     }
 

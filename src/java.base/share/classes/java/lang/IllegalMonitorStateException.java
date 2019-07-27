@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown to indicate that a thread has attempted to wait on an
@@ -46,6 +48,7 @@ class IllegalMonitorStateException extends RuntimeException {
      * Constructs an <code>IllegalMonitorStateException</code> with no
      * detail message.
      */
+    @SideEffectFree
     public IllegalMonitorStateException() {
         super();
     }
@@ -56,7 +59,8 @@ class IllegalMonitorStateException extends RuntimeException {
      *
      * @param   s   the detail message.
      */
-    public IllegalMonitorStateException(String s) {
+    @SideEffectFree
+    public IllegalMonitorStateException(@Nullable String s) {
         super(s);
     }
 }

@@ -24,6 +24,7 @@
  */
 
 package java.io;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Indicates that one or more deserialized objects failed validation
@@ -45,7 +46,7 @@ public class InvalidObjectException extends ObjectStreamException {
      *
      * @see ObjectInputValidation
      */
-    public  InvalidObjectException(String reason) {
+    public  InvalidObjectException(@Nullable String reason) {
         super(reason);
     }
 }
