@@ -24,7 +24,6 @@
  */
 
 package java.lang;
-import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * An instance of {@code ThreadDeath} is thrown in the victim thread
@@ -47,8 +46,6 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
  * @since   1.0
  */
 
-public @SideEffectFree class ThreadDeath extends Error {
+public class ThreadDeath extends Error {
     private static final long serialVersionUID = -4417128565033088268L;
-@SideEffectFree
-public ThreadDeath() { super(); }
 }

@@ -36,7 +36,6 @@
 package java.util.concurrent;
 
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import sun.misc.Contended;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.checker.nullness.qual.PolyNull;
@@ -2577,7 +2576,6 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * A padded cell for distributing counts.  Adapted from LongAdder
      * and Striped64.  See their internal docs for explanation.
      */
-    @Contended
     @jdk.internal.vm.annotation.Contended static final class CounterCell {
         volatile long value;
         CounterCell(long x) { value = x; }

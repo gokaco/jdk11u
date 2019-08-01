@@ -25,7 +25,6 @@
 
 package java.lang;
 
-import sun.misc.Contended;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.lock.qual.EnsuresLockHeldIf;
@@ -2087,17 +2086,14 @@ class Thread implements Runnable {
     // Hence, the fields are isolated with @Contended.
 
     /** The current seed for a ThreadLocalRandom */
-    @Contended("tlr")
     @jdk.internal.vm.annotation.Contended("tlr")
     long threadLocalRandomSeed;
 
     /** Probe hash value; nonzero if threadLocalRandomSeed initialized */
-    @Contended("tlr")
     @jdk.internal.vm.annotation.Contended("tlr")
     int threadLocalRandomProbe;
 
     /** Secondary seed isolated from public ThreadLocalRandom sequence */
-    @Contended("tlr")
     @jdk.internal.vm.annotation.Contended("tlr")
     int threadLocalRandomSecondarySeed;
 

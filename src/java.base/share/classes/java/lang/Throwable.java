@@ -201,7 +201,7 @@ public class Throwable implements Serializable {
      * @serial
      * @since 1.4
      */
-    private Throwable cause = @SideEffectFree this;
+    private Throwable cause = this;
 
     /**
      * The stack trace, as returned by {@link #getStackTrace()}.
@@ -257,6 +257,7 @@ public class Throwable implements Serializable {
      * <p>The {@link #fillInStackTrace()} method is called to initialize
      * the stack trace data in the newly created throwable.
      */
+    @SideEffectFree
     public Throwable() {
         fillInStackTrace();
     }
