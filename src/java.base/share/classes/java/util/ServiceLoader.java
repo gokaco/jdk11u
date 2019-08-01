@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -387,7 +390,8 @@ import jdk.internal.reflect.Reflection;
  * @spec JPMS
  */
 
-public final class ServiceLoader<S>
+@AnnotatedFor({"interning"})
+public final @UsesObjectEquals class ServiceLoader<S>
     implements Iterable<S>
 {
     // The class or interface representing the service being loaded

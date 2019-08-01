@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.math.BigDecimal;
 import java.util.Random;
 import jdk.internal.math.FloatConsts;
@@ -104,7 +107,8 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @since   1.0
  */
 
-public final class Math {
+@AnnotatedFor({"interning"})
+public final @UsesObjectEquals class Math {
 
     /**
      * Don't let anyone instantiate this class.

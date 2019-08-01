@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * <p>
  * The root class from which all event state objects shall be derived.
@@ -36,7 +39,8 @@ package java.util;
  * @since 1.1
  */
 
-public class EventObject implements java.io.Serializable {
+@AnnotatedFor({"interning"})
+public  @UsesObjectEquals class EventObject implements java.io.Serializable {
 
     private static final long serialVersionUID = 5516075349620653480L;
 

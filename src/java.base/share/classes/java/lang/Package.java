@@ -25,6 +25,7 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.signature.qual.DotSeparatedIdentifiers;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
@@ -120,8 +121,8 @@ import jdk.internal.reflect.Reflection;
  * @revised 9
  * @spec JPMS
  */
-@AnnotatedFor({"signature"})
-public class Package extends NamedPackage implements java.lang.reflect.AnnotatedElement {
+@AnnotatedFor({"signature", "interning"})
+public @UsesObjectEquals class Package extends NamedPackage implements java.lang.reflect.AnnotatedElement {
     /**
      * Return the name of this package.
      *

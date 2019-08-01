@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.Arrays;
 
 /**
@@ -62,7 +65,8 @@ import java.util.Arrays;
  * @since   1.0
  */
 
-public class StreamTokenizer {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class StreamTokenizer {
 
     /* Only one of these will be non-null */
     private Reader reader = null;

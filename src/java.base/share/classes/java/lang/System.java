@@ -24,6 +24,9 @@
  */
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.Console;
@@ -88,7 +91,8 @@ import sun.security.util.SecurityConstants;
  *
  * @since   1.0
  */
-public final class System {
+@AnnotatedFor({"interning"})
+public final @UsesObjectEquals class System {
     /* Register the natives via the static initializer.
      *
      * VM will invoke the initializeSystemClass method to complete

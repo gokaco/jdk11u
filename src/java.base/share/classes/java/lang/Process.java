@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.*;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.concurrent.CompletableFuture;
@@ -89,7 +92,8 @@ import java.util.stream.Stream;
  *
  * @since   1.0
  */
-public abstract class Process {
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class Process {
     /**
      * Default constructor for Process.
      */

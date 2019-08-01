@@ -29,6 +29,7 @@ import org.checkerframework.checker.guieffect.qual.PolyUI;
 import org.checkerframework.checker.guieffect.qual.PolyUIEffect;
 import org.checkerframework.checker.guieffect.qual.PolyUIType;
 import org.checkerframework.checker.guieffect.qual.SafeEffect;
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.io.Serializable;
@@ -86,9 +87,9 @@ import java.util.Map.Entry;
  * @see VetoableChangeSupport
  * @since 1.1
  */
-@AnnotatedFor({"fenum", "guieffect"})
+@AnnotatedFor({"fenum", "guieffect","interning"})
 @PolyUIType
-public class PropertyChangeSupport implements Serializable {
+public @UsesObjectEquals class PropertyChangeSupport implements Serializable {
     private PropertyChangeListenerMap map = new PropertyChangeListenerMap();
 
     /**

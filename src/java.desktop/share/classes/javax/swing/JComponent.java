@@ -24,8 +24,9 @@
  */
 package javax.swing;
 
-import org.checkerframework.checker.guieffect.qual.UIType;
 import org.checkerframework.checker.guieffect.qual.SafeEffect;
+import org.checkerframework.checker.guieffect.qual.UIType;
+import org.checkerframework.checker.interning.qual.Interned;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.beans.*;
@@ -175,7 +176,8 @@ import sun.swing.SwingUtilities2;
  * @author Arnaud Weber
  * @since 1.2
  */
-@AnnotatedFor({"guieffect"})
+@AnnotatedFor({})
+@AnnotatedFor({"interning", "guieffect"})
 @UIType
 @JavaBean(defaultProperty = "UIClassID")
 @SuppressWarnings("serial") // Same-version serialization only
@@ -310,7 +312,7 @@ public abstract class JComponent extends Container implements Serializable,
      * The comment to display when the cursor is over the component,
      * also known as a "value tip", "flyover help", or "flyover label".
      */
-    public static final String TOOL_TIP_TEXT_KEY = "ToolTipText";
+    public static final @Interned String TOOL_TIP_TEXT_KEY = "ToolTipText";
 
     private static final String NEXT_FOCUS = "nextFocus";
 

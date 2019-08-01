@@ -40,6 +40,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -482,6 +485,7 @@ import sun.util.locale.provider.TimeZoneNameUtility;
  * @author Mark Davis
  * @since 1.1
  */
+@AnnotatedFor({"interning"})
 public final class Locale implements Cloneable, Serializable {
 
     private static final  Cache LOCALECACHE = new Cache();
@@ -1206,7 +1210,7 @@ public final class Locale implements Cloneable, Serializable {
      * @return The country/region code, or the empty string if none is defined.
      * @see #getDisplayCountry
      */
-    public String getCountry() {
+    public @Interned String getCountry() {
         return baseLocale.getRegion();
     }
 
@@ -1216,7 +1220,7 @@ public final class Locale implements Cloneable, Serializable {
      * @return The variant code, or the empty string if none is defined.
      * @see #getDisplayVariant
      */
-    public String getVariant() {
+    public @Interned String getVariant() {
         return baseLocale.getVariant();
     }
 

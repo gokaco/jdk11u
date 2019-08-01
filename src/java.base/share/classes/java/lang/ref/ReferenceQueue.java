@@ -25,6 +25,9 @@
 
 package java.lang.ref;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.function.Consumer;
 import jdk.internal.misc.VM;
 
@@ -36,7 +39,8 @@ import jdk.internal.misc.VM;
  * @since    1.2
  */
 
-public class ReferenceQueue<T> {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class ReferenceQueue<T> {
 
     /**
      * Constructs a new reference-object queue.

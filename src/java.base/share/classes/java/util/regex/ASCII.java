@@ -25,6 +25,9 @@
 
 package java.util.regex;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 
 /**
  * Utility class that implements the standard C ctype functionality.
@@ -32,7 +35,8 @@ package java.util.regex;
  * @author Hong Zhang
  */
 
-final class ASCII {
+@AnnotatedFor({"interning"})
+final @UsesObjectEquals class ASCII {
 
     static final int UPPER   = 0x00000100;
 

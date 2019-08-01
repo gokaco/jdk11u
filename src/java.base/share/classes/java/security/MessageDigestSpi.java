@@ -25,6 +25,9 @@
 
 package java.security;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.nio.ByteBuffer;
 
 import sun.security.jca.JCAUtil;
@@ -49,7 +52,8 @@ import sun.security.jca.JCAUtil;
  * @see MessageDigest
  */
 
-public abstract class MessageDigestSpi {
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class MessageDigestSpi {
 
     // for re-use in engineUpdate(ByteBuffer input)
     private byte[] tempArray;

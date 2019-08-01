@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -139,8 +142,9 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @see     #stop()
  * @since   1.0
  */
+@AnnotatedFor({"interning"})
 public
-class Thread implements Runnable {
+@UsesObjectEquals class Thread implements Runnable {
     /* Make sure registerNatives is the first thing <clinit> does. */
     private static native void registerNatives();
     static {

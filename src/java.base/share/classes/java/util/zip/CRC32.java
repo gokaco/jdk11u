@@ -25,6 +25,9 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.nio.ByteBuffer;
 import java.util.Objects;
 
@@ -40,8 +43,9 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @author      David Connelly
  * @since 1.1
  */
+@AnnotatedFor({"interning"})
 public
-class CRC32 implements Checksum {
+@UsesObjectEquals class CRC32 implements Checksum {
     private int crc;
 
     /**

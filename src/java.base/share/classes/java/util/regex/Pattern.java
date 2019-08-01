@@ -25,8 +25,9 @@
 
 package java.util.regex;
 
-import org.checkerframework.checker.regex.qual.Regex;
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.regex.qual.PolyRegex;
+import org.checkerframework.checker.regex.qual.Regex;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.text.Normalizer;
@@ -777,8 +778,8 @@ import java.util.stream.StreamSupport;
  * @spec        JSR-51
  */
 
-@AnnotatedFor({"regex"})
-public final class Pattern
+@AnnotatedFor({"interning", "regex"})
+public final @UsesObjectEquals class Pattern
     implements java.io.Serializable
 {
 

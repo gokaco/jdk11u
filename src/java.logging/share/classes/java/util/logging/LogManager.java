@@ -25,6 +25,7 @@
 
 package java.util.logging;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.signature.qual.BinaryName;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
@@ -155,8 +156,8 @@ import static jdk.internal.logger.DefaultLoggerFinder.isSystem;
  * @since 1.4
 */
 
-@AnnotatedFor({"signature"})
-public class LogManager {
+@AnnotatedFor({"signature", "interning"})
+public @UsesObjectEquals class LogManager {
     // The global LogManager object
     private static final LogManager manager;
 

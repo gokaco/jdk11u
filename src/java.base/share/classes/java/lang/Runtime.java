@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -53,7 +56,8 @@ import jdk.internal.reflect.Reflection;
  * @since   1.0
  */
 
-public class Runtime {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class Runtime {
     private static final Runtime currentRuntime = new Runtime();
 
     private static Version version;
