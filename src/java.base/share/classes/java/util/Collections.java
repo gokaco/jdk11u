@@ -3650,7 +3650,7 @@ public class Collections {
 
         public @NonNegative int size()                      { return m.size(); }
         public boolean isEmpty()               { return m.isEmpty(); }
-        @EnsuresKeyForIf(result=true, map={"this"}, expression={"#1"})
+        @EnsuresKeyForIf(expression={"#1"}, result=true, map={"this"})
         public boolean containsKey(Object key) { return m.containsKey(key); }
         public boolean containsValue(Object v) { return m.containsValue(v); }
         public V get(Object key)               { return m.get(key); }

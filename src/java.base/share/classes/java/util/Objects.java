@@ -151,7 +151,7 @@ public final class Objects {
     * @see List#hashCode
     */
     @Pure
-    public static int hash(@GuardSatisfied @Nullable @GuardSatisfied Object... values) {
+    public static int hash(@GuardSatisfied @Nullable Object... values) {
         return Arrays.hashCode(values);
     }
 

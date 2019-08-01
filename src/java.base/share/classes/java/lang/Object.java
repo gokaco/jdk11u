@@ -27,7 +27,6 @@ package java.lang;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
-import org.checkerframework.checker.nullness.qual.Raw;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -77,7 +76,7 @@ public class Object {
      */
     @Pure
     @HotSpotIntrinsicCandidate
-    public final native Class<?> getClass(@GuardSatisfied @UnknownInitialization @Raw @GuardSatisfied @UnknownInitialization Object this);
+    public final native Class<?> getClass(@GuardSatisfied @UnknownInitialization Object this);
 
     /**
      * Returns a hash code value for the object. This method is
@@ -336,7 +335,7 @@ public class Object {
      * @see    #wait(long)
      * @see    #wait(long, int)
      */
-    public final void wait(@UnknownInitialization @Raw @UnknownInitialization Object this) throws InterruptedException {
+    public final void wait(@UnknownInitialization Object this) throws InterruptedException {
         wait(0L);
     }
 
@@ -457,7 +456,7 @@ public class Object {
      * @see    #wait()
      * @see    #wait(long)
      */
-    public final void wait(@UnknownInitialization @Raw @UnknownInitialization Object this, long timeoutMillis, @NonNegative int nanos) throws InterruptedException {
+    public final void wait(@UnknownInitialization Object this, long timeoutMillis, @NonNegative int nanos) throws InterruptedException {
         if (timeoutMillis < 0) {
             throw new IllegalArgumentException("timeoutMillis value is negative");
         }

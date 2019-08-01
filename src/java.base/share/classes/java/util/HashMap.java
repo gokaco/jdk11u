@@ -598,7 +598,7 @@ public class HashMap<K extends @Nullable Object,V extends @Nullable Object> exte
      * @return {@code true} if this map contains a mapping for the specified
      * key.
      */
-    @EnsuresKeyForIf(result=true, map={"this"}, expression={"#1"})
+    @EnsuresKeyForIf(expression={"#1"}, result=true, map={"this"})
     @Pure
     public boolean containsKey(@GuardSatisfied HashMap<K, V> this, @GuardSatisfied @Nullable Object key) {
         return getNode(hash(key), key) != null;

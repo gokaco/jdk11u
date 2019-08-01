@@ -2580,7 +2580,7 @@ public class Arrays {
      * @return {@code true} if the two arrays are equal
      */
     @Pure
-    public static boolean equals(long @Nullable [] a, long @Nullable [] a2) {
+    public static boolean equals(@PolySigned long @Nullable [] a, @PolySigned long @Nullable [] a2) {
         if (a==a2)
             return true;
         if (a==null || a2==null)
@@ -2653,7 +2653,7 @@ public class Arrays {
      * @return {@code true} if the two arrays are equal
      */
     @Pure
-    public static boolean equals(int @Nullable [] a, int @Nullable [] a2) {
+    public static boolean equals(@PolySigned int @Nullable [] a, @PolySigned int @Nullable [] a2) {
         if (a==a2)
             return true;
         if (a==null || a2==null)
@@ -2726,7 +2726,7 @@ public class Arrays {
      * @return {@code true} if the two arrays are equal
      */
     @Pure
-    public static boolean equals(short @Nullable [] a, short a2 @Nullable []) {
+    public static boolean equals(@PolySigned short @Nullable [] a, @PolySigned short a2 @Nullable []) {
         if (a==a2)
             return true;
         if (a==null || a2==null)
@@ -2800,7 +2800,7 @@ public class Arrays {
      */
     @Pure
     @HotSpotIntrinsicCandidate
-    public static boolean equals(char @Nullable [] a, char @Nullable [] a2) {
+    public static boolean equals(@PolySigned char @Nullable [] a, @PolySigned char @Nullable [] a2) {
         if (a==a2)
             return true;
         if (a==null || a2==null)
@@ -2874,7 +2874,7 @@ public class Arrays {
      */
     @Pure
     @HotSpotIntrinsicCandidate
-    public static boolean equals(byte @Nullable [] a, byte @Nullable [] a2) {
+    public static boolean equals(@PolySigned byte @Nullable [] a, @PolySigned byte @Nullable [] a2) {
         if (a==a2)
             return true;
         if (a==null || a2==null)
@@ -4473,7 +4473,7 @@ public class Arrays {
      * @since 1.5
      */
     @Pure
-    public static int hashCode(long a @Nullable []) {
+    public static int hashCode(@PolySigned long a @Nullable []) {
         if (a == null)
             return 0;
 
@@ -4503,7 +4503,7 @@ public class Arrays {
      * @since 1.5
      */
     @Pure
-    public static int hashCode(int a @Nullable []) {
+    public static int hashCode(@PolySigned int a @Nullable []) {
         if (a == null)
             return 0;
 
@@ -4531,7 +4531,7 @@ public class Arrays {
      * @since 1.5
      */
     @Pure
-    public static int hashCode(short a @Nullable []) {
+    public static int hashCode(@PolySigned short a @Nullable []) {
         if (a == null)
             return 0;
 
@@ -4559,7 +4559,7 @@ public class Arrays {
      * @since 1.5
      */
     @Pure
-    public static int hashCode(char a @Nullable []) {
+    public static int hashCode(@PolySigned char a @Nullable []) {
         if (a == null)
             return 0;
 
@@ -4587,7 +4587,7 @@ public class Arrays {
      * @since 1.5
      */
     @Pure
-    public static int hashCode(byte a @Nullable []) {
+    public static int hashCode(@PolySigned byte a @Nullable []) {
         if (a == null)
             return 0;
 

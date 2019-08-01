@@ -32,7 +32,6 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
-import org.checkerframework.checker.nullness.qual.Raw;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -1144,7 +1143,7 @@ class Thread implements Runnable {
      * @see        #MIN_PRIORITY
      * @see        ThreadGroup#getMaxPriority()
      */
-    public final void setPriority(@UnknownInitialization(java.lang.Thread.class) @Raw(java.lang.Thread.class) @UnknownInitialization(java.lang.Thread.class) Thread this, int newPriority) {
+    public final void setPriority(@UnknownInitialization(java.lang.Thread.class) Thread this, int newPriority) {
         ThreadGroup g;
         checkAccess();
         if (newPriority > MAX_PRIORITY || newPriority < MIN_PRIORITY) {
@@ -1414,7 +1413,7 @@ class Thread implements Runnable {
      *          if {@link #checkAccess} determines that the current
      *          thread cannot modify this thread
      */
-    public final void setDaemon(@UnknownInitialization @Raw @UnknownInitialization Thread this, boolean on) {
+    public final void setDaemon(@UnknownInitialization Thread this, boolean on) {
         checkAccess();
         if (isAlive()) {
             throw new IllegalThreadStateException();

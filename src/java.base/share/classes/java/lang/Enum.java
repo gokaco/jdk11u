@@ -32,7 +32,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardedByUnknown;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
-import org.checkerframework.checker.nullness.qual.Raw;
 import java.io.Serializable;
 import java.io.IOException;
 import java.io.InvalidObjectException;
@@ -83,7 +82,7 @@ public abstract class Enum<E extends Enum<E>>
      *
      * @return the name of this enum constant
      */
-    public final String name(@GuardedByUnknown @UnknownInitialization(java.lang.Enum.class) @Raw(java.lang.Enum.class) @GuardedByUnknown @UnknownInitialization(java.lang.Enum.class) Enum<E> this) {
+    public final String name(@GuardedByUnknown @UnknownInitialization(java.lang.Enum.class) Enum<E> this) {
         return name;
     }
 

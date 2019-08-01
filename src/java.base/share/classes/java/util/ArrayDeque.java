@@ -664,7 +664,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      *
      * @return {@code true} if this deque contains no elements
      */
-    @EnsuresNonNullIf(result=false, expression={"peek()", "peekFirst()", "peekLast()", "poll()", "pollFirst()", "pollLast()"})
+    @EnsuresNonNullIf(expression={"peek()", "peekFirst()", "peekLast()", "poll()", "pollFirst()", "pollLast()"}, result=false)
     @Pure
     public boolean isEmpty(@GuardSatisfied ArrayDeque<E> this) {
         return head == tail;

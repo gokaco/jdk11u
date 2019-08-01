@@ -234,7 +234,7 @@ public class TreeMap<K,V>
      *         and this map uses natural ordering, or its comparator
      *         does not permit null keys
      */
-    @EnsuresKeyForIf(result=true, map={"this"}, expression={"#1"})
+    @EnsuresKeyForIf(expression={"#1"}, result=true, map={"this"})
     public boolean containsKey(@GuardSatisfied TreeMap<K, V> this, @GuardSatisfied @Nullable Object key) {
         return getEntry(key) != null;
     }

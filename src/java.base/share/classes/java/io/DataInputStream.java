@@ -103,7 +103,7 @@ class DataInputStream extends FilterInputStream implements DataInput {
      * @see        java.io.FilterInputStream#in
      * @see        java.io.InputStream#read(byte[], int, int)
      */
-    public final @GTENegativeOne @LTEqLengthOf({"#1"}) int read(byte b @Nullable []) throws IOException {
+    public final @GTENegativeOne @LTEqLengthOf({"#1"}) int read(@PolySigned byte b @Nullable []) throws IOException {
         return in.read(b, 0, b.length);
     }
 

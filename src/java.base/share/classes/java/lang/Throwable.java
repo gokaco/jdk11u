@@ -29,7 +29,6 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
-import org.checkerframework.checker.nullness.qual.Raw;
 import org.checkerframework.dataflow.qual.Pure;
 import  java.io.*;
 import  java.util.*;
@@ -470,7 +469,7 @@ public class Throwable implements Serializable {
      *         been called on this throwable.
      * @since  1.4
      */
-    public synchronized @UnknownInitialization @Raw Throwable initCause(@UnknownInitialization @Raw Throwable this, @Nullable Throwable cause) {
+    public synchronized @UnknownInitialization Throwable initCause(@UnknownInitialization Throwable this, @Nullable Throwable cause) {
         if (this.cause != this)
             throw new IllegalStateException("Can't overwrite cause with " +
                                             Objects.toString(cause, "a null"), this);

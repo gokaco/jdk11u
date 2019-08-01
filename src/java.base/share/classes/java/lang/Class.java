@@ -633,7 +633,7 @@ public final class Class<@UnknownKeyFor T> implements java.io.Serializable,
      *
      * @since 1.1
      */
-    @EnsuresNonNullIf(result=true, expression={"#1"})
+    @EnsuresNonNullIf(expression={"#1"}, result=true)
     @Pure
     @HotSpotIntrinsicCandidate
     public native boolean isInstance(@GuardSatisfied Class<T> this, @Nullable Object obj);
@@ -687,7 +687,7 @@ public final class Class<@UnknownKeyFor T> implements java.io.Serializable,
      *          {@code false} otherwise.
      * @since   1.1
      */
-    @EnsuresNonNullIf(result=true, expression={"getComponentType()"})
+    @EnsuresNonNullIf(expression={"getComponentType()"}, result=true)
     @Pure
     @HotSpotIntrinsicCandidate
     public native boolean isArray(@GuardSatisfied Class<T> this);

@@ -483,7 +483,7 @@ public final class String
      * @since  1.1
      */
     @SideEffectFree
-    public String(byte bytes @GuardSatisfied [], @IndexOrHigh({"#1"}) int offset, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int length, String charsetName)
+    public String(@PolySigned byte bytes @GuardSatisfied [], @IndexOrHigh({"#1"}) int offset, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int length, String charsetName)
             throws UnsupportedEncodingException {
         if (charsetName == null)
             throw new NullPointerException("charsetName");
@@ -525,7 +525,7 @@ public final class String
      * @since  1.6
      */
     @SideEffectFree
-    public String(byte bytes @GuardSatisfied [], @IndexOrHigh({"#1"}) int offset, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int length, Charset charset) {
+    public String(@PolySigned byte bytes @GuardSatisfied [], @IndexOrHigh({"#1"}) int offset, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int length, Charset charset) {
         if (charset == null)
             throw new NullPointerException("charset");
         checkBoundsOffCount(offset, length, bytes.length);
@@ -559,7 +559,7 @@ public final class String
      * @since  1.1
      */
     @SideEffectFree
-    public String(byte bytes @GuardSatisfied [], String charsetName)
+    public String(@PolySigned byte bytes @GuardSatisfied [], String charsetName)
             throws UnsupportedEncodingException {
         this(bytes, 0, bytes.length, charsetName);
     }
@@ -585,7 +585,7 @@ public final class String
      * @since  1.6
      */
     @SideEffectFree
-    public String(byte bytes @GuardSatisfied [], Charset charset) {
+    public String(@PolySigned byte bytes @GuardSatisfied [], Charset charset) {
         this(bytes, 0, bytes.length, charset);
     }
 
@@ -616,7 +616,7 @@ public final class String
      * @since  1.1
      */
     @SideEffectFree
-    public String(byte bytes @GuardSatisfied [], @IndexOrHigh({"#1"}) int offset, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int length) {
+    public String(@PolySigned byte bytes @GuardSatisfied [], @IndexOrHigh({"#1"}) int offset, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int length) {
         checkBoundsOffCount(offset, length, bytes.length);
         StringCoding.Result ret = StringCoding.decode(bytes, offset, length);
         this.value = ret.value;
@@ -640,7 +640,7 @@ public final class String
      * @since  1.1
      */
     @SideEffectFree
-    public String(byte @GuardSatisfied [] bytes) {
+    public String(@PolySigned byte @GuardSatisfied [] bytes) {
         this(bytes, 0, bytes.length);
     }
 
