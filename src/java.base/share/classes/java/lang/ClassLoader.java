@@ -25,6 +25,7 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.signature.qual.BinaryName;
 import org.checkerframework.checker.signature.qual.FullyQualifiedName;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -233,8 +234,8 @@ import sun.security.util.SecurityConstants;
  * @revised 9
  * @spec JPMS
  */
-@AnnotatedFor({"signature"})
-public abstract class ClassLoader {
+@AnnotatedFor({"signature", "interning"})
+public abstract @UsesObjectEquals class ClassLoader {
 
     private static native void registerNatives();
     static {

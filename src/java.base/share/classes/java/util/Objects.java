@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.util.Preconditions;
 import jdk.internal.vm.annotation.ForceInline;
 
@@ -53,7 +56,8 @@ import java.util.function.Supplier;
  *
  * @since 1.7
  */
-public final class Objects {
+@AnnotatedFor({"interning"})
+public final @UsesObjectEquals class Objects {
     private Objects() {
         throw new AssertionError("No java.util.Objects instances for you!");
     }

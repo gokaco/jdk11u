@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
@@ -121,8 +124,9 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @author  Ulf Zibis
  * @since   1.0
  */
+@AnnotatedFor({"interning"})
 public final
-class Character implements java.io.Serializable, Comparable<Character> {
+@Interned class Character implements java.io.Serializable, Comparable<Character> {
     /**
      * The minimum radix available for conversion to and from strings.
      * The constant value of this field is the smallest value permitted

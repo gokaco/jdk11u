@@ -25,6 +25,8 @@
 
 package java.util.logging;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.signature.qual.BinaryName;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
@@ -223,8 +225,8 @@ import static jdk.internal.logger.DefaultLoggerFinder.isSystem;
  *
  * @since 1.4
  */
-@AnnotatedFor({"signature"})
-public class Logger {
+@AnnotatedFor({"interning", "signature"})
+public @UsesObjectEquals class Logger {
     private static final Handler emptyHandlers[] = new Handler[0];
     private static final int offValue = Level.OFF.intValue();
 
@@ -471,7 +473,7 @@ public class Logger {
      *
      * @since 1.6
      */
-    public static final String GLOBAL_LOGGER_NAME = "global";
+    public static final @Interned String GLOBAL_LOGGER_NAME = "global";
 
     /**
      * Return global logger object with the name Logger.GLOBAL_LOGGER_NAME.

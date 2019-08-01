@@ -25,6 +25,9 @@
 
 package java.net;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -52,8 +55,9 @@ import java.util.Collections;
  * @see     java.nio.channels.SocketChannel
  * @since   1.0
  */
+@AnnotatedFor({"interning"})
 public
-class Socket implements java.io.Closeable {
+@UsesObjectEquals class Socket implements java.io.Closeable {
     /**
      * Various states of this socket.
      */

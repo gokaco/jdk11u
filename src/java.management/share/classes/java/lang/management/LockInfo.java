@@ -25,6 +25,7 @@
 
 package java.lang.management;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.signature.qual.ClassGetName;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
@@ -55,9 +56,8 @@ import sun.management.LockInfoCompositeData;
  * @author  Mandy Chung
  * @since   1.6
  */
-
-@AnnotatedFor({"signature"})
-public class LockInfo {
+@AnnotatedFor({"signature", "interning"})
+public @UsesObjectEquals class LockInfo {
 
     private String className;
     private int    identityHashCode;

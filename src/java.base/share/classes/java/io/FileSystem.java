@@ -25,13 +25,17 @@
 
 package java.io;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.annotation.Native;
 
 /**
  * Package-private abstract class for the local filesystem abstraction.
  */
 
-abstract class FileSystem {
+@AnnotatedFor({"interning"})
+abstract @UsesObjectEquals class FileSystem {
 
     /* -- Normalization and construction -- */
 

@@ -25,6 +25,9 @@
 
 package java.security;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -58,7 +61,8 @@ import sun.security.util.SecurityConstants;
  * @since 1.2
  */
 
-public class ProtectionDomain {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class ProtectionDomain {
 
     /**
      * If true, {@link #impliesWithAltFilePerm} will try to be compatible on

@@ -26,6 +26,7 @@
 package java.lang;
 
 import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.checker.interning.qual.Interned;
 import org.checkerframework.checker.regex.qual.PolyRegex;
 import org.checkerframework.checker.regex.qual.Regex;
 import org.checkerframework.checker.signature.qual.PolySignature;
@@ -128,7 +129,7 @@ import jdk.internal.vm.annotation.Stable;
  * @jls     15.18.1 String Concatenation Operator +
  */
 
-@AnnotatedFor({"formatter", "regex", "signature"})
+@AnnotatedFor({"formatter", "interning", "regex", "signature"})
 public final class String
     implements java.io.Serializable, Comparable<String>, CharSequence {
 

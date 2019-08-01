@@ -25,6 +25,9 @@
 
 package java.nio.file;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Closeable;
@@ -90,7 +93,8 @@ import sun.nio.fs.AbstractFileSystemProvider;
  * @since 1.7
  */
 
-public final class Files {
+@AnnotatedFor({"interning"})
+public final @UsesObjectEquals class Files {
     private Files() { }
 
     /**

@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.HotSpotIntrinsicCandidate;
 
 /**
@@ -43,6 +46,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @see     java.lang.Number
  * @since   1.1
  */
+@AnnotatedFor({"interning"})
 public final class Byte extends Number implements Comparable<Byte> {
 
     /**
@@ -101,7 +105,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @since  1.5
      */
     @HotSpotIntrinsicCandidate
-    public static Byte valueOf(byte b) {
+    public static @Interned Byte valueOf(byte b) {
         final int offset = 128;
         return ByteCache.cache[(int)b + offset];
     }
@@ -203,7 +207,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @throws          NumberFormatException If the {@code String} does
      *                  not contain a parsable {@code byte}.
      */
-    public static Byte valueOf(String s, int radix)
+    public static @Interned Byte valueOf(String s, int radix)
         throws NumberFormatException {
         return valueOf(parseByte(s, radix));
     }
@@ -230,7 +234,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @throws          NumberFormatException If the {@code String} does
      *                  not contain a parsable {@code byte}.
      */
-    public static Byte valueOf(String s) throws NumberFormatException {
+    public static @Interned Byte valueOf(String s) throws NumberFormatException {
         return valueOf(s, 10);
     }
 

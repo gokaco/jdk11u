@@ -82,8 +82,9 @@ import java.io.ObjectStreamException;
  * @since 1.4
  */
 
+@AnnotatedFor({"interning"})
 public final
-class Inet4Address extends InetAddress {
+@UsesObjectEquals class Inet4Address extends InetAddress {
     static final int INADDRSZ = 4;
 
     /** use serialVersionUID from InetAddress, but Inet4Address instance

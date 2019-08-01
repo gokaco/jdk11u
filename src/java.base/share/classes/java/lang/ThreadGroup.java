@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.PrintStream;
 import java.util.Arrays;
 import jdk.internal.misc.VM;
@@ -53,8 +56,9 @@ import jdk.internal.misc.VM;
  * and working off of that snapshot, rather than holding the thread group locked
  * while we work on the children.
  */
+@AnnotatedFor({"interning"})
 public
-class ThreadGroup implements Thread.UncaughtExceptionHandler {
+@UsesObjectEquals class ThreadGroup implements Thread.UncaughtExceptionHandler {
     private final ThreadGroup parent;
     String name;
     int maxPriority;

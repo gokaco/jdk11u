@@ -25,6 +25,7 @@
 
 package java.util.logging;
 
+import org.checkerframework.checker.interning.qual.Interned;
 import org.checkerframework.checker.signature.qual.BinaryName;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
@@ -78,8 +79,8 @@ import jdk.internal.misc.SharedSecrets;
  * @since 1.4
  */
 
-@AnnotatedFor({"signature"})
-public class Level implements java.io.Serializable {
+@AnnotatedFor({"interning", "signature"})
+public  @Interned class Level implements java.io.Serializable {
     private static final String defaultBundle =
         "sun.util.logging.resources.logging";
 

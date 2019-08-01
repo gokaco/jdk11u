@@ -26,6 +26,7 @@
 package java.io;
 
 import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.util.*;
@@ -93,9 +94,8 @@ import sun.nio.cs.StreamEncoder;
  * @author  Xueming Shen
  * @since   1.6
  */
-
-@AnnotatedFor("formatter")
-public final class Console implements Flushable
+@AnnotatedFor({"formatter", "interning"})
+public final @UsesObjectEquals class Console implements Flushable
 {
    /**
     * Retrieves the unique {@link java.io.PrintWriter PrintWriter} object

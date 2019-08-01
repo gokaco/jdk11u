@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.nio.channels.FileChannel;
 import java.util.concurrent.atomic.AtomicBoolean;
 import jdk.internal.misc.JavaIORandomAccessFileAccess;
@@ -59,7 +62,8 @@ import sun.nio.ch.FileChannelImpl;
  * @since   1.0
  */
 
-public class RandomAccessFile implements DataOutput, DataInput, Closeable {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class RandomAccessFile implements DataOutput, DataInput, Closeable {
 
     private FileDescriptor fd;
     private volatile FileChannel channel;

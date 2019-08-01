@@ -26,6 +26,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This is a near duplicate of {@link TimSort}, modified for use with
  * arrays of objects that implement {@link Comparable}, instead of using
@@ -39,7 +42,8 @@ package java.util;
  *
  * @author Josh Bloch
  */
-class ComparableTimSort {
+@AnnotatedFor({"interning"})
+@UsesObjectEquals class ComparableTimSort {
     /**
      * This is the minimum sized sequence that will be merged.  Shorter
      * sequences will be lengthened by calling binarySort.  If the entire

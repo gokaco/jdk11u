@@ -26,6 +26,9 @@
 package java.lang;
 import jdk.internal.misc.TerminatingThreadLocal;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.ref.*;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -73,7 +76,8 @@ import java.util.function.Supplier;
  * @author  Josh Bloch and Doug Lea
  * @since   1.2
  */
-public class ThreadLocal<T> {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class ThreadLocal<T> {
     /**
      * ThreadLocals rely on per-thread linear-probe hash maps attached
      * to each thread (Thread.threadLocals and

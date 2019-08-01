@@ -43,7 +43,8 @@ import sun.security.x509.GeneralNameInterface;
  *
  * @author Andreas Sterbenz
  */
-public abstract class CertPathHelper {
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class CertPathHelper {
 
     /**
      * Object used to tunnel the calls. Initialized by CertPathHelperImpl.

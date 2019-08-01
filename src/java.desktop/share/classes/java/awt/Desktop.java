@@ -26,6 +26,7 @@
 package java.awt;
 
 import org.checkerframework.checker.guieffect.qual.SafeEffect;
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.awt.desktop.AboutEvent;
@@ -93,8 +94,8 @@ import sun.security.util.SecurityConstants;
  * @author Armin Chen
  * @author George Zhang
  */
-@AnnotatedFor({"guieffect"})
-public class Desktop {
+@AnnotatedFor({"guieffect", "interning"})
+public @UsesObjectEquals class Desktop {
 
     /**
      * Represents an action type.  Each platform supports a different

@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.net.URI;
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -145,6 +148,7 @@ import sun.security.action.GetPropertyAction;
  * @since   1.0
  */
 
+@AnnotatedFor({"interning"})
 public class File
     implements Serializable, Comparable<File>
 {
@@ -218,7 +222,7 @@ public class File
      * string for convenience.  This string contains a single character, namely
      * {@link #separatorChar}.
      */
-    public static final String separator = "" + separatorChar;
+    public static final @Interned String separator = "" + separatorChar;
 
     /**
      * The system-dependent path-separator character.  This field is
@@ -237,7 +241,7 @@ public class File
      * for convenience.  This string contains a single character, namely
      * {@link #pathSeparatorChar}.
      */
-    public static final String pathSeparator = "" + pathSeparatorChar;
+    public static final @Interned String pathSeparator = "" + pathSeparatorChar;
 
 
     /* -- Constructors -- */

@@ -25,10 +25,12 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.Interned;
 import org.checkerframework.checker.signature.qual.ClassGetName;
 import org.checkerframework.checker.signature.qual.ClassGetSimpleName;
 import org.checkerframework.checker.signature.qual.DotSeparatedIdentifiers;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.CFComment;
 
 import java.lang.annotation.Annotation;
 import java.lang.module.ModuleReader;
@@ -155,8 +157,9 @@ import sun.reflect.misc.ReflectUtil;
  * @see     java.lang.ClassLoader#defineClass(byte[], int, int)
  * @since   1.0
  */
-@AnnoatedFor({"signature"})
-public final class Class<T> implements java.io.Serializable,
+@CFComment("interning: All instances of Class are interned.")
+@AnnotatedFor({"interning", "signature"})
+public final @Interned class Class<T> implements java.io.Serializable,
                               GenericDeclaration,
                               Type,
                               AnnotatedElement {
@@ -794,7 +797,8 @@ public final class Class<T> implements java.io.Serializable,
      * @return  the name of the class or interface
      *          represented by this object.
      */
-    public @ClassGetName String getName() {
+    @CFComment("interning: In the Oracle JDK, the result of getName is interned")
+    public @ClassGetName @Interned String getName() {
         String name = this.name;
         if (name == null)
             this.name = name = getName0();

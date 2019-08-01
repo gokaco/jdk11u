@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.math.FloatingDecimal;
 import java.util.Arrays;
 import java.util.Spliterator;
@@ -53,7 +56,8 @@ import static java.lang.String.checkOffset;
  * @author      Ulf Zibis
  * @since       1.5
  */
-abstract class AbstractStringBuilder implements Appendable, CharSequence {
+@AnnotatedFor({"interning"})
+abstract @UsesObjectEquals class AbstractStringBuilder implements Appendable, CharSequence {
     /**
      * The value is used for character storage.
      */

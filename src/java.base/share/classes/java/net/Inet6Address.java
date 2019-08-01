@@ -172,8 +172,9 @@ import java.util.Arrays;
  * @since 1.4
  */
 
+@AnnotatedFor({"interning"})
 public final
-class Inet6Address extends InetAddress {
+@UsesObjectEquals class Inet6Address extends InetAddress {
     static final int INADDRSZ = 16;
 
     /*
