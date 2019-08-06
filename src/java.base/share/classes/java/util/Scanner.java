@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.index.qual.NonNegative;
@@ -1958,7 +1959,7 @@ public final class Scanner implements Iterator<String>, Closeable {
      * @throws NoSuchElementException if input is exhausted
      * @throws IllegalStateException if this scanner is closed
      */
-    public byte nextByte(@GuardSatisfied Scanner this) {
+    public @PolySigned byte nextByte(@GuardSatisfied Scanner this) {
          return nextByte(defaultRadix);
     }
 
@@ -1993,7 +1994,7 @@ public final class Scanner implements Iterator<String>, Closeable {
      * @throws IllegalStateException if this scanner is closed
      * @throws IllegalArgumentException if the radix is out of range
      */
-    public byte nextByte(@GuardSatisfied Scanner this, @Positive int radix) {
+    public @PolySigned byte nextByte(@GuardSatisfied Scanner this, @Positive int radix) {
         // Check cached result
         if ((typeCache != null) && (typeCache instanceof Byte)
             && this.radix == radix) {
@@ -2074,7 +2075,7 @@ public final class Scanner implements Iterator<String>, Closeable {
      * @throws NoSuchElementException if input is exhausted
      * @throws IllegalStateException if this scanner is closed
      */
-    public short nextShort(@GuardSatisfied Scanner this) {
+    public @PolySigned short nextShort(@GuardSatisfied Scanner this) {
         return nextShort(defaultRadix);
     }
 
@@ -2109,7 +2110,7 @@ public final class Scanner implements Iterator<String>, Closeable {
      * @throws IllegalStateException if this scanner is closed
      * @throws IllegalArgumentException if the radix is out of range
      */
-    public short nextShort(@GuardSatisfied Scanner this, @Positive int radix) {
+    public @PolySigned short nextShort(@GuardSatisfied Scanner this, @Positive int radix) {
         // Check cached result
         if ((typeCache != null) && (typeCache instanceof Short)
             && this.radix == radix) {
@@ -2214,7 +2215,7 @@ public final class Scanner implements Iterator<String>, Closeable {
      * @throws NoSuchElementException if input is exhausted
      * @throws IllegalStateException if this scanner is closed
      */
-    public int nextInt(@GuardSatisfied Scanner this) {
+    public @PolySigned int nextInt(@GuardSatisfied Scanner this) {
         return nextInt(defaultRadix);
     }
 
@@ -2249,7 +2250,7 @@ public final class Scanner implements Iterator<String>, Closeable {
      * @throws IllegalStateException if this scanner is closed
      * @throws IllegalArgumentException if the radix is out of range
      */
-    public int nextInt(@GuardSatisfied Scanner this, @Positive int radix) {
+    public @PolySigned int nextInt(@GuardSatisfied Scanner this, @Positive int radix) {
         // Check cached result
         if ((typeCache != null) && (typeCache instanceof Integer)
             && this.radix == radix) {
@@ -2330,7 +2331,7 @@ public final class Scanner implements Iterator<String>, Closeable {
      * @throws NoSuchElementException if input is exhausted
      * @throws IllegalStateException if this scanner is closed
      */
-    public long nextLong(@GuardSatisfied Scanner this) {
+    public @PolySigned long nextLong(@GuardSatisfied Scanner this) {
         return nextLong(defaultRadix);
     }
 
@@ -2365,7 +2366,7 @@ public final class Scanner implements Iterator<String>, Closeable {
      * @throws IllegalStateException if this scanner is closed
      * @throws IllegalArgumentException if the radix is out of range
      */
-    public long nextLong(@GuardSatisfied Scanner this, @Positive int radix) {
+    public @PolySigned long nextLong(@GuardSatisfied Scanner this, @Positive int radix) {
         // Check cached result
         if ((typeCache != null) && (typeCache instanceof Long)
             && this.radix == radix) {
