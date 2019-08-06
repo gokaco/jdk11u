@@ -24,6 +24,7 @@
  */
 package java.lang;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.dataflow.qual.TerminatesExecution;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
@@ -537,8 +538,8 @@ public final class System {
      */
     @SideEffectFree
     @HotSpotIntrinsicCandidate
-    public static native void arraycopy(@GuardSatisfied Object src,  @NonNegative int  srcPos,
-                                        @GuardSatisfied Object dest, @NonNegative int destPos,
+    public static native void arraycopy(@PolySigned @GuardSatisfied Object src,  @NonNegative int  srcPos,
+                                        @PolySigned @GuardSatisfied Object dest, @NonNegative int destPos,
                                         @LTLengthOf(value={"#1", "#3"}, offset={"#2 - 1", "#4 - 1"}) @NonNegative int length);
 
     /**
