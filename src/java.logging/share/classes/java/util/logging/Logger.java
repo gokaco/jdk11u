@@ -29,6 +29,7 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+
 import java.lang.ref.WeakReference;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -231,16 +232,16 @@ public class Logger {
 
     // This class is immutable and it is important that it remains so.
     private static final class LoggerBundle {
-        final String resourceBundleName; // Base name of the bundle.
-        final ResourceBundle userBundle; // Bundle set through setResourceBundle.
-        private LoggerBundle(String resourceBundleName, ResourceBundle bundle) {
+        final @Nullable String resourceBundleName; // Base name of the bundle.
+        final @Nullable ResourceBundle userBundle; // Bundle set through setResourceBundle.
+        private LoggerBundle(@Nullable String resourceBundleName, @Nullable ResourceBundle bundle) {
             this.resourceBundleName = resourceBundleName;
             this.userBundle = bundle;
         }
         boolean isSystemBundle() {
             return SYSTEM_LOGGER_RB_NAME.equals(resourceBundleName);
         }
-        static LoggerBundle get(String name, ResourceBundle bundle) {
+        static LoggerBundle get(@Nullable String name, @Nullable ResourceBundle bundle) {
             if (name == null && bundle == null) {
                 return NO_RESOURCE_BUNDLE;
             } else if (SYSTEM_LOGGER_RB_NAME.equals(name) && bundle == null) {
@@ -1935,7 +1936,7 @@ public class Logger {
      * @since   1.8
      */
     @SideEffectFree
-    public void warning(@GuardSatisfied Logger this, Supplier<String> msgSupplier) {
+    public void warning(@GuardSatisfied Logger this, Supplier<? extends @Nullable String> msgSupplier) {
         log(Level.WARNING, msgSupplier);
     }
 
@@ -1953,7 +1954,7 @@ public class Logger {
      * @since   1.8
      */
     @SideEffectFree
-    public void info(@GuardSatisfied Logger this, Supplier<String> msgSupplier) {
+    public void info(@GuardSatisfied Logger this, Supplier<? extends @Nullable String> msgSupplier) {
         log(Level.INFO, msgSupplier);
     }
 
@@ -1971,7 +1972,7 @@ public class Logger {
      * @since   1.8
      */
     @SideEffectFree
-    public void config(@GuardSatisfied Logger this, Supplier<String> msgSupplier) {
+    public void config(@GuardSatisfied Logger this, Supplier<? extends @Nullable String> msgSupplier) {
         log(Level.CONFIG, msgSupplier);
     }
 
@@ -1989,7 +1990,7 @@ public class Logger {
      * @since   1.8
      */
     @SideEffectFree
-    public void fine(@GuardSatisfied Logger this, Supplier<String> msgSupplier) {
+    public void fine(@GuardSatisfied Logger this, Supplier<? extends @Nullable String> msgSupplier) {
         log(Level.FINE, msgSupplier);
     }
 
@@ -2025,7 +2026,7 @@ public class Logger {
      * @since   1.8
      */
     @SideEffectFree
-    public void finest(@GuardSatisfied Logger this, Supplier<String> msgSupplier) {
+    public void finest(@GuardSatisfied Logger this, Supplier<? extends @Nullable String> msgSupplier) {
         log(Level.FINEST, msgSupplier);
     }
 
