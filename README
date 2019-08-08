@@ -3,9 +3,15 @@ Typetools fork of the JDK
 
 This fork of the JDK contains type annotations for pluggable type-checking.
 
-This fork is not up to date with respect to OpenJDK.
+This fork is not up to date with respect to `openjdk/jdk` (the current OpenJDK version).
 This fork contains all commits through the release of JDK 11:
 https://github.com/typetools/jdk/commit/8a780d3273fe6f38ca392d63e89e3e8e552ac767
+
+After you make changes to this repository, you will need to pull the
+changes into `typetools/jdk11u`, and that may be necessary even to make
+pull requests succeed.
+
+The remainder of this file is the README from `openjdk/jdk`.
 
 
 Welcome to the JDK!
