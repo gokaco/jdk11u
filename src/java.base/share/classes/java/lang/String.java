@@ -2931,7 +2931,7 @@ public final class String
      *          the character sequence represented by this string.
      */
     @SideEffectFree
-    public char @PolySigned @SameLen({"this"}) [] toCharArray() {
+    public @PolySigned char @SameLen({"this"}) [] toCharArray() {
         return isLatin1() ? StringLatin1.toChars(value)
                           : StringUTF16.toChars(value);
     }
