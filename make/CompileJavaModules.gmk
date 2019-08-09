@@ -587,6 +587,7 @@ ifeq ($(MODULE), jdk.aot)
   MODULESOURCEPATH := $(call PathList, $(AOT_MODULESOURCEPATH))
 endif
 
+# Checker Framework Comment: Add Checker Framework annotation classes
 $(eval $(call SetupJavaCompilation, $(MODULE), \
     SETUP := $(if $($(MODULE)_SETUP), $($(MODULE)_SETUP), GENERATE_JDKBYTECODE), \
     MODULE := $(MODULE), \
@@ -599,6 +600,7 @@ $(eval $(call SetupJavaCompilation, $(MODULE), \
     ADD_JAVAC_FLAGS := \
         $($(MODULE)_ADD_JAVAC_FLAGS) \
         --module-source-path $(MODULESOURCEPATH) \
+        --patch-module $(MODULE)=$(TOPDIR)/checker-qual.jar \
         --module-path $(MODULEPATH) \
         --system none, \
 ))
