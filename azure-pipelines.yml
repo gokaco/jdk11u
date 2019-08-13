@@ -30,6 +30,3 @@ jobs:
     displayName: version
   # - bash: make -C /jdk run-test-tier1
   #   displayName: make run-test-tier1
-
-trigger:
-  batch: true
