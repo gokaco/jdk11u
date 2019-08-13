@@ -17,6 +17,7 @@ jobs:
     displayName: make images
   - bash: build/*/images/jdk/bin/java -version
     displayName: version
+  ## Don't run tests, which pass only with old version of tools (compilers, etc.).
   # - bash: make -C /jdk run-test-tier1
   #   displayName: make run-test-tier1
 - job: build_jdk11u
@@ -56,7 +57,7 @@ jobs:
       git config --global user.email "you@example.com"
       git config --global user.name "Your Name"
       eval `/tmp/plume-scripts/ci-info typetools`
-      cd /jdk11u && git pull https://github.com/${CI_ORGANIZATION}/jdk ${CI_BRANCH}
+      cd ../jdk11u && git pull https://github.com/${CI_ORGANIZATION}/jdk ${CI_BRANCH}
     displayName: git merge
   # - bash: make -C /jdk11u run-test-tier1
   #   timeoutInMinutes: 0
