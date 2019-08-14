@@ -24,6 +24,10 @@
  */
 
 package java.util;
+
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.DoubleConsumer;
@@ -73,8 +77,9 @@ import jdk.internal.misc.Unsafe;
  * @author  Frank Yellin
  * @since   1.0
  */
+@AnnotatedFor("interning")
 public
-class Random implements java.io.Serializable {
+@UsesObjectEquals class Random implements java.io.Serializable {
     /** use serialVersionUID from JDK 1.1 for interoperability */
     static final long serialVersionUID = 3905348978240129619L;
 

@@ -25,6 +25,9 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.nio.ByteBuffer;
 import sun.nio.ch.DirectBuffer;
 
@@ -41,8 +44,9 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @author      David Connelly
  * @since 1.1
  */
+@AnnotatedFor({"interning"})
 public
-class Adler32 implements Checksum {
+@UsesObjectEquals class Adler32 implements Checksum {
 
     private int adler = 1;
 

@@ -25,6 +25,9 @@
 
 package java.util.jar;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.misc.SharedSecrets;
 import jdk.internal.misc.JavaUtilZipFileAccess;
 import sun.security.action.GetPropertyAction;
@@ -211,7 +214,7 @@ class JarFile extends ZipFile {
     /**
      * The JAR manifest file name.
      */
-    public static final String MANIFEST_NAME = META_INF + "MANIFEST.MF";
+    public static final @Interned String MANIFEST_NAME = META_INF + "MANIFEST.MF";
 
     /**
      * Returns the version that represents the unversioned configuration of a

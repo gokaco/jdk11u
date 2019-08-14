@@ -25,6 +25,9 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -39,7 +42,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Utility class for zipfile name and comment decoding and encoding
  */
 
-class ZipCoder {
+@AnnotatedFor({"interning"})
+@UsesObjectEquals ZipCoder {
 
     private static final jdk.internal.misc.JavaLangAccess JLA =
         jdk.internal.misc.SharedSecrets.getJavaLangAccess();

@@ -34,6 +34,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import org.checkerframework.framework.qual.CFComment;
+
 import sun.util.logging.PlatformLogger;
 
 /**
@@ -54,6 +56,15 @@ import sun.util.logging.PlatformLogger;
  * @see     Manifest
  * @since   1.2
  */
+@CFComment("signature: 
+    TODO: Attributes does not declare a toString method.
+    This declaration then pollutes java.lang.Object.toString, making
+    any override illegal.
+
+    public class Attributes implements Map<Object,Object>, Cloneable {
+    public @Interned String toString();
+    }"
+)
 public class Attributes implements Map<Object,Object>, Cloneable {
     /**
      * The attribute name-value mappings.

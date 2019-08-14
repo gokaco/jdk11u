@@ -35,7 +35,8 @@ import java.util.Set;
  * @since  1.1
  */
 
-public abstract class DatagramSocketImpl implements SocketOptions {
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class DatagramSocketImpl implements SocketOptions {
 
     /**
      * The local port number.

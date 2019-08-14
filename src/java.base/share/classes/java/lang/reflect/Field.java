@@ -25,6 +25,9 @@
 
 package java.lang.reflect;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.misc.SharedSecrets;
 import jdk.internal.reflect.CallerSensitive;
 import jdk.internal.reflect.FieldAccessor;
@@ -62,6 +65,7 @@ import sun.reflect.annotation.TypeAnnotationParser;
  * @author Nakul Saraiya
  * @since 1.1
  */
+@AnnotatedFor({"interning"})
 public final
 class Field extends AccessibleObject implements Member {
 
@@ -188,7 +192,7 @@ class Field extends AccessibleObject implements Member {
     /**
      * Returns the name of the field represented by this {@code Field} object.
      */
-    public String getName() {
+    public @Interned String getName() {
         return name;
     }
 

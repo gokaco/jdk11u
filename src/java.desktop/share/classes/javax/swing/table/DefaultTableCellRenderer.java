@@ -25,6 +25,9 @@
 
 package javax.swing.table;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -82,6 +85,7 @@ import sun.swing.SwingUtilities2;
  * @author Philip Milne
  * @see JTable
  */
+@AnnotatedFor({"interning"})
 @SuppressWarnings("serial") // Same-version serialization only
 public class DefaultTableCellRenderer extends JLabel
     implements TableCellRenderer, Serializable
@@ -342,7 +346,7 @@ public class DefaultTableCellRenderer extends JLabel
      * See the <a href="#override">Implementation Note</a>
      * for more information.
      */
-    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+    protected void firePropertyChange(@Interned String propertyName, Object oldValue, Object newValue) {
         // Strings get interned...
         if (propertyName=="text"
             || propertyName == "labelFor"

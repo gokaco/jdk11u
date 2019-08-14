@@ -25,6 +25,8 @@
 
 package java.io;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.nio.CharBuffer;
 import java.util.Objects;
@@ -51,7 +53,8 @@ import java.util.Objects;
  * @since       1.1
  */
 
-public abstract class Reader implements Readable, Closeable {
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class Reader implements Readable, Closeable {
 
     private static final int TRANSFER_BUFFER_SIZE = 8192;
 

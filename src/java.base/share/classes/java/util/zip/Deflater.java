@@ -25,6 +25,9 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.ref.Cleaner.Cleanable;
 import java.lang.ref.Reference;
 import java.nio.ByteBuffer;
@@ -101,7 +104,8 @@ import sun.nio.ch.DirectBuffer;
  * @since 1.1
  */
 
-public class Deflater {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class Deflater {
 
     private final DeflaterZStreamRef zsRef;
     private ByteBuffer input = ZipUtils.defaultBuf;

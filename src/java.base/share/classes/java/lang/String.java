@@ -25,6 +25,13 @@
 
 package java.lang;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.checker.regex.qual.PolyRegex;
+import org.checkerframework.checker.regex.qual.Regex;
+import org.checkerframework.checker.signature.qual.PolySignature;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.ObjectStreamField;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Native;
@@ -122,6 +129,7 @@ import jdk.internal.vm.annotation.Stable;
  * @jls     15.18.1 String Concatenation Operator +
  */
 
+@AnnotatedFor({"formatter", "interning", "regex", "signature"})
 public final class String
     implements java.io.Serializable, Comparable<String>, CharSequence {
 
@@ -2020,7 +2028,7 @@ public final class String
      * @since 1.4
      * @spec JSR-51
      */
-    public boolean matches(String regex) {
+    public boolean matches(@Regex String regex) {
         return Pattern.matches(regex, this);
     }
 
@@ -2077,7 +2085,7 @@ public final class String
      * @since 1.4
      * @spec JSR-51
      */
-    public String replaceFirst(String regex, String replacement) {
+    public String replaceFirst(@Regex String regex, String replacement) {
         return Pattern.compile(regex).matcher(this).replaceFirst(replacement);
     }
 
@@ -2122,7 +2130,7 @@ public final class String
      * @since 1.4
      * @spec JSR-51
      */
-    public String replaceAll(String regex, String replacement) {
+    public String replaceAll(@Regex String regex, String replacement) {
         return Pattern.compile(regex).matcher(this).replaceAll(replacement);
     }
 
@@ -2262,7 +2270,7 @@ public final class String
      * @since 1.4
      * @spec JSR-51
      */
-    public String[] split(String regex, int limit) {
+    public String[] split(@Regex String regex, int limit) {
         /* fastpath if the regex is a
          (1)one-char String and this character is not one of the
             RegEx's meta characters ".$|()[{^?*+\\", or
@@ -2360,7 +2368,7 @@ public final class String
      * @since 1.4
      * @spec JSR-51
      */
-    public String[] split(String regex) {
+    public String[] split(@Regex String regex) {
         return split(regex, 0);
     }
 
@@ -2803,7 +2811,7 @@ public final class String
      *
      * @return  the string itself.
      */
-    public String toString() {
+    public @PolyRegex String toString(@PolyRegex String this) {
         return this;
     }
 
@@ -2893,6 +2901,7 @@ public final class String
      * @see  java.util.Formatter
      * @since  1.5
      */
+    @FormatMethod
     public static String format(String format, Object... args) {
         return new Formatter().format(format, args).toString();
     }
@@ -2934,6 +2943,7 @@ public final class String
      * @see  java.util.Formatter
      * @since  1.5
      */
+    @FormatMethod
     public static String format(Locale l, String format, Object... args) {
         return new Formatter(l).format(format, args).toString();
     }
@@ -3124,7 +3134,7 @@ public final class String
      *          guaranteed to be from a pool of unique strings.
      * @jls 3.10.5 String Literals
      */
-    public native String intern();
+    public native @Interned @PolyAll String intern(@PolyAll String this);
 
     /**
      * Returns a string whose value is the concatenation of this

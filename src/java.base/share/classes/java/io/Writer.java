@@ -25,6 +25,8 @@
 
 package java.io;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.util.Objects;
 
@@ -48,7 +50,8 @@ import java.util.Objects;
  * @since       1.1
  */
 
-public abstract class Writer implements Appendable, Closeable, Flushable {
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class Writer implements Appendable, Closeable, Flushable {
 
     /**
      * Temporary buffer used to hold writes of strings and single characters

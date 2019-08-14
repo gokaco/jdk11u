@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.*;
 
 /**
@@ -99,8 +102,9 @@ import java.lang.*;
  * @see     java.io.StreamTokenizer
  * @since   1.0
  */
+@AnnotatedFor({"interning"})
 public
-class StringTokenizer implements Enumeration<Object> {
+@UsesObjectEquals class StringTokenizer implements Enumeration<Object> {
     private int currentPosition;
     private int newPosition;
     private int maxPosition;

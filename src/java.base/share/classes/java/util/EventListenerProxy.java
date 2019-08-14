@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * An abstract wrapper class for an {@code EventListener} class
  * which associates a set of additional parameters with the listener.
@@ -50,7 +53,8 @@ package java.util;
  *
  * @since 1.4
  */
-public abstract class EventListenerProxy<T extends EventListener>
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class EventListenerProxy<T extends EventListener>
         implements EventListener {
 
     private final T listener;

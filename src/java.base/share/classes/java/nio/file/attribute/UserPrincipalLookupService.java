@@ -25,6 +25,9 @@
 
 package java.nio.file.attribute;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.IOException;
 
 /**
@@ -37,7 +40,7 @@ import java.io.IOException;
  * The exact definition of a group is implementation specific but typically a
  * group represents an identity created for administrative purposes so as to
  * determine the access rights for the members of the group. In particular it is
- * implementation specific if the <em>namespace</em> for names and groups is the
+ * implementation specific if the < @UsesObjectEqualsem>namespace</em> for names and groups is the
  * same or is distinct. To ensure consistent and correct behavior across
  * platforms it is recommended that this API be used as if the namespaces are
  * distinct. In other words, the {@link #lookupPrincipalByName
@@ -50,7 +53,8 @@ import java.io.IOException;
  * @see java.nio.file.FileSystem#getUserPrincipalLookupService
  */
 
-public abstract class UserPrincipalLookupService {
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class UserPrincipalLookupService {
 
     /**
      * Initializes a new instance of this class.

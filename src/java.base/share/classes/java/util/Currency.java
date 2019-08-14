@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -111,7 +114,8 @@ import sun.util.logging.PlatformLogger;
  * @see java.math.BigDecimal
  * @since 1.4
  */
-public final class Currency implements Serializable {
+@AnnotatedFor({"interning"})
+public final @UsesObjectEquals class Currency implements Serializable {
 
     private static final long serialVersionUID = -158308464356906721L;
 

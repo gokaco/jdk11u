@@ -25,6 +25,9 @@
 
 package java.lang.reflect;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.HotSpotIntrinsicCandidate;
 import jdk.internal.misc.SharedSecrets;
 import jdk.internal.reflect.CallerSensitive;
@@ -65,6 +68,7 @@ import java.util.StringJoiner;
  * @author Nakul Saraiya
  * @since 1.1
  */
+@AnnotatedFor({"interning"})
 public final class Method extends Executable {
     private Class<?>            clazz;
     private int                 slot;
@@ -227,7 +231,7 @@ public final class Method extends Executable {
      * object, as a {@code String}.
      */
     @Override
-    public String getName() {
+    public @Interned String getName() {
         return name;
     }
 

@@ -25,6 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
+
 import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.IOException;
@@ -1912,6 +1914,7 @@ import sun.util.locale.provider.ResourceBundleBasedAdapter;
  * @author  Iris Clark
  * @since 1.5
  */
+@AnnotatedFor("formatter")
 public final class Formatter implements Closeable, Flushable {
     private Appendable a;
     private final Locale l;
@@ -2605,6 +2608,7 @@ public final class Formatter implements Closeable, Flushable {
      *
      * @return  This formatter
      */
+    @FormatMethod
     public Formatter format(String format, Object ... args) {
         return format(l, format, args);
     }
@@ -2644,6 +2648,7 @@ public final class Formatter implements Closeable, Flushable {
      *
      * @return  This formatter
      */
+    @FormatMethod
     public Formatter format(Locale l, String format, Object ... args) {
         ensureOpen();
 

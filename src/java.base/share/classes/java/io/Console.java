@@ -25,6 +25,10 @@
 
 package java.io;
 
+import org.checkerframework.checker.formatter.qual.FormatMethod;
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.*;
 import java.nio.charset.Charset;
 import jdk.internal.misc.JavaIOAccess;
@@ -90,8 +94,8 @@ import sun.nio.cs.StreamEncoder;
  * @author  Xueming Shen
  * @since   1.6
  */
-
-public final class Console implements Flushable
+@AnnotatedFor({"formatter", "interning"})
+public final @UsesObjectEquals class Console implements Flushable
 {
    /**
     * Retrieves the unique {@link java.io.PrintWriter PrintWriter} object
@@ -168,6 +172,7 @@ public final class Console implements Flushable
     *
     * @return  This console
     */
+    @FormatMethod
     public Console format(String fmt, Object ...args) {
         formatter.format(fmt, args).flush();
         return this;
@@ -208,6 +213,7 @@ public final class Console implements Flushable
     *
     * @return  This console
     */
+    @FormatMethod
     public Console printf(String format, Object ... args) {
         return format(format, args);
     }

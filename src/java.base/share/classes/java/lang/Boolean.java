@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.HotSpotIntrinsicCandidate;
 
 /**
@@ -42,6 +45,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @author  Arthur van Hoff
  * @since   1.0
  */
+@AnnotatedFor({"interning"})
 public final class Boolean implements java.io.Serializable,
                                       Comparable<Boolean>
 {
@@ -49,13 +53,13 @@ public final class Boolean implements java.io.Serializable,
      * The {@code Boolean} object corresponding to the primitive
      * value {@code true}.
      */
-    public static final Boolean TRUE = new Boolean(true);
+    public static final @Interned Boolean TRUE = new Boolean(true);
 
     /**
      * The {@code Boolean} object corresponding to the primitive
      * value {@code false}.
      */
-    public static final Boolean FALSE = new Boolean(false);
+    public static final @Interned Boolean FALSE = new Boolean(false);
 
     /**
      * The Class object representing the primitive type boolean.
@@ -158,7 +162,7 @@ public final class Boolean implements java.io.Serializable,
      * @since  1.4
      */
     @HotSpotIntrinsicCandidate
-    public static Boolean valueOf(boolean b) {
+    public static @Interned Boolean valueOf(boolean b) {
         return (b ? TRUE : FALSE);
     }
 
@@ -173,7 +177,7 @@ public final class Boolean implements java.io.Serializable,
      * @param   s   a string.
      * @return  the {@code Boolean} value represented by the string.
      */
-    public static Boolean valueOf(String s) {
+    public static @Interned Boolean valueOf(String s) {
         return parseBoolean(s) ? TRUE : FALSE;
     }
 

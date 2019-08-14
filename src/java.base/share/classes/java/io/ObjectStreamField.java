@@ -25,6 +25,10 @@
 
 package java.io;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.checker.interning.qual.Interned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.reflect.Field;
 import jdk.internal.reflect.CallerSensitive;
 import jdk.internal.reflect.Reflection;
@@ -39,7 +43,8 @@ import sun.reflect.misc.ReflectUtil;
  * @see ObjectStreamClass
  * @since 1.2
  */
-public class ObjectStreamField
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class ObjectStreamField
     implements Comparable<Object>
 {
 
@@ -253,7 +258,7 @@ public class ObjectStreamField
      * @return  null if this field has a primitive type.
      */
     // REMIND: deprecate?
-    public String getTypeString() {
+    public @Interned String getTypeString() {
         return isPrimitive() ? null : getSignature();
     }
 

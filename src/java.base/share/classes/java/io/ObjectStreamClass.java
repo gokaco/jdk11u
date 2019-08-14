@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.signature.qual.BinaryName;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
@@ -78,6 +81,7 @@ import static java.io.ObjectStreamField.*;
  *     Object Serialization Specification, Section 4, Class Descriptors</a>
  * @since   1.1
  */
+@AnnotatedFor({"signature"})
 public class ObjectStreamClass implements Serializable {
 
     /** serialPersistentFields value indicating no serializable fields */
@@ -244,7 +248,7 @@ public class ObjectStreamClass implements Serializable {
      *
      * @return a string representing the name of the class
      */
-    public String getName() {
+    public @BinaryName String getName() {
         return name;
     }
 

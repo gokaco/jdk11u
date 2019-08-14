@@ -121,7 +121,8 @@ import java.nio.ByteBuffer;
  * @since 1.7
  */
 
-public abstract class AsynchronousSocketChannel
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class AsynchronousSocketChannel
     implements AsynchronousByteChannel, NetworkChannel
 {
     private final AsynchronousChannelProvider provider;

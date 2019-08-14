@@ -25,6 +25,9 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.Closeable;
 import java.io.InputStream;
 import java.io.IOException;
@@ -95,8 +98,9 @@ import static java.util.zip.ZipUtils.*;
  * @author      David Connelly
  * @since 1.1
  */
+@AnnotatedFor({"interning"})
 public
-class ZipFile implements ZipConstants, Closeable {
+@UsesObjectEquals class ZipFile implements ZipConstants, Closeable {
 
     private final String name;     // zip file name
     private volatile boolean closeRequested;

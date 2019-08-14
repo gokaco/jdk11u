@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.PolyInterned;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.HotSpotIntrinsicCandidate;
 import jdk.internal.util.ArraysSupport;
 
@@ -71,6 +74,7 @@ import java.util.stream.StreamSupport;
  * @author John Rose
  * @since  1.2
  */
+@AnnotatedFor({"interning"})
 public class Arrays {
 
     /**
@@ -1242,7 +1246,7 @@ public class Arrays {
      *         ordering of the array elements is found to violate the
      *         {@link Comparable} contract
      */
-    public static void sort(Object[] a) {
+    public static void sort(@PolyInterned Object[] a) {
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a);
         else
@@ -1307,7 +1311,7 @@ public class Arrays {
      *         not <i>mutually comparable</i> (for example, strings and
      *         integers).
      */
-    public static void sort(Object[] a, int fromIndex, int toIndex) {
+    public static void sort(@PolyInterned Object[] a, int fromIndex, int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a, fromIndex, toIndex);
@@ -2378,7 +2382,7 @@ public class Arrays {
      * @throws ClassCastException if the search key is not comparable to the
      *         elements of the array.
      */
-    public static int binarySearch(Object[] a, Object key) {
+    public static int binarySearch(@PolyInterned Object[] a, @PolyInterned Object key) {
         return binarySearch0(a, 0, a.length, key);
     }
 
@@ -2422,8 +2426,8 @@ public class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
-    public static int binarySearch(Object[] a, int fromIndex, int toIndex,
-                                   Object key) {
+    public static int binarySearch(@PolyInterned Object[] a, int fromIndex, int toIndex,
+                                   @PolyInterned Object key) {
         rangeCheck(a.length, fromIndex, toIndex);
         return binarySearch0(a, fromIndex, toIndex, key);
     }
@@ -3173,7 +3177,7 @@ public class Arrays {
      * @param a2 the other array to be tested for equality
      * @return {@code true} if the two arrays are equal
      */
-    public static boolean equals(Object[] a, Object[] a2) {
+    public static boolean equals(@PolyInterned Object[] a, @PolyInterned Object[] a2) {
         if (a==a2)
             return true;
         if (a==null || a2==null)
@@ -3633,7 +3637,7 @@ public class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
-    public static void fill(Object[] a, Object val) {
+    public static void fill(@PolyInterned Object[] a, @PolyInterned Object val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
     }
@@ -3657,7 +3661,7 @@ public class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
-    public static void fill(Object[] a, int fromIndex, int toIndex, Object val) {
+    public static void fill(@PolyInterned Object[] a, int fromIndex, int toIndex, @PolyInterned Object val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
             a[i] = val;
@@ -4675,7 +4679,7 @@ public class Arrays {
      * @see #deepHashCode(Object[])
      * @since 1.5
      */
-    public static int hashCode(Object a[]) {
+    public static int hashCode(@PolyInterned Object a[]) {
         if (a == null)
             return 0;
 
@@ -4716,7 +4720,7 @@ public class Arrays {
      * @see #hashCode(Object[])
      * @since 1.5
      */
-    public static int deepHashCode(Object a[]) {
+    public static int deepHashCode(@PolyInterned Object a[]) {
         if (a == null)
             return 0;
 
@@ -4789,7 +4793,7 @@ public class Arrays {
      * @see Objects#deepEquals(Object, Object)
      * @since 1.5
      */
-    public static boolean deepEquals(Object[] a1, Object[] a2) {
+    public static boolean deepEquals(@PolyInterned Object[] a1, @PolyInterned Object[] a2) {
         if (a1 == a2)
             return true;
         if (a1 == null || a2==null)
@@ -5099,7 +5103,7 @@ public class Arrays {
      * @see #deepToString(Object[])
      * @since 1.5
      */
-    public static String toString(Object[] a) {
+    public static String toString(@PolyInterned Object[] a) {
         if (a == null)
             return "null";
 
@@ -5150,7 +5154,7 @@ public class Arrays {
      * @see #toString(Object[])
      * @since 1.5
      */
-    public static String deepToString(Object[] a) {
+    public static String deepToString(@PolyInterned Object[] a) {
         if (a == null)
             return "null";
 

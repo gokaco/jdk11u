@@ -25,6 +25,9 @@
 
 package java.util.regex;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -112,7 +115,8 @@ import java.util.stream.StreamSupport;
  * @spec        JSR-51
  */
 
-public final class Matcher implements MatchResult {
+@AnnotatedFor({"interning"})
+public final @UsesObjectEquals class Matcher implements MatchResult {
 
     /**
      * The Pattern object that created this Matcher.

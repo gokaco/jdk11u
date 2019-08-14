@@ -24,6 +24,10 @@
  */
 
 package java.util.logging;
+
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -71,7 +75,8 @@ import static jdk.internal.logger.SurrogateLogger.isFilteredFrame;
  * @since 1.4
  */
 
-public class LogRecord implements java.io.Serializable {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class LogRecord implements java.io.Serializable {
     private static final AtomicLong globalSequenceNumber
         = new AtomicLong(0);
 

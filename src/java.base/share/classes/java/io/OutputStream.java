@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.util.Objects;
 
 /**
@@ -45,7 +48,8 @@ import java.util.Objects;
  * @see     java.io.OutputStream#write(int)
  * @since   1.0
  */
-public abstract class OutputStream implements Closeable, Flushable {
+@AnnotatedFor({"interning"})
+public abstract @UsesObjectEquals class OutputStream implements Closeable, Flushable {
     /**
      * Returns a new {@code OutputStream} which discards all bytes.  The
      * returned stream is initially open.  The stream is closed by calling

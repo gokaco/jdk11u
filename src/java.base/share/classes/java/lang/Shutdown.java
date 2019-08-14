@@ -25,6 +25,8 @@
 
 package java.lang;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
 
 import jdk.internal.misc.VM;
 
@@ -40,7 +42,8 @@ import jdk.internal.misc.VM;
  * @see java.io.DeleteOnExitHook
  */
 
-class Shutdown {
+@AnnotatedFor({"interning"})
+@UsesObjectEquals class Shutdown {
 
     // The system shutdown hooks are registered with a predefined slot.
     // The list of shutdown hooks is as follows:

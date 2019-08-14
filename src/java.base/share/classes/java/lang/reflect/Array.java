@@ -25,6 +25,9 @@
 
 package java.lang.reflect;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import jdk.internal.HotSpotIntrinsicCandidate;
 
 /**
@@ -38,8 +41,9 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @author Nakul Saraiya
  * @since 1.1
  */
+@AnnotatedFor({"interning"})
 public final
-class Array {
+@UsesObjectEquals class Array {
 
     /**
      * Constructor.  Class Array is not instantiable.

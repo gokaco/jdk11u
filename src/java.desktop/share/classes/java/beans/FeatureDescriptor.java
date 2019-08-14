@@ -25,6 +25,9 @@
 
 package java.beans;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import com.sun.beans.TypeResolver;
 
 import java.lang.ref.Reference;
@@ -50,7 +53,8 @@ import java.util.Map.Entry;
  * @since 1.1
  */
 
-public class FeatureDescriptor {
+@AnnotatedFor({"interning"})
+public @UsesObjectEquals class FeatureDescriptor {
     private static final String TRANSIENT = "transient";
 
     private Reference<? extends Class<?>> classRef;

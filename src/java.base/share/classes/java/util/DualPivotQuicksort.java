@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 /**
  * This class implements the Dual-Pivot Quicksort algorithm by
  * Vladimir Yaroslavskiy, Jon Bentley, and Josh Bloch. The algorithm
@@ -44,7 +47,8 @@ package java.util;
  * @version 2011.02.11 m765.827.12i:5\7pm
  * @since 1.7
  */
-final class DualPivotQuicksort {
+@AnnotatedFor({"interning"})
+final @UsesObjectEquals class DualPivotQuicksort {
 
     /**
      * Prevents instantiation.

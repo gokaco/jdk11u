@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import java.io.*;
 import java.math.*;
 import java.nio.*;
@@ -307,7 +310,8 @@ import sun.util.locale.provider.ResourceBundleBasedAdapter;
  *
  * @since   1.5
  */
-public final class Scanner implements Iterator<String>, Closeable {
+@AnnotatedFor({"interning"})
+public final @UsesObjectEquals class Scanner implements Iterator<String>, Closeable {
 
     // Internal buffer used to hold input
     private CharBuffer buf;

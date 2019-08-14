@@ -25,6 +25,9 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.framework.qual.AnnotatedFor;
+
 import static java.util.zip.ZipUtils.*;
 import java.nio.file.attribute.FileTime;
 import java.util.Objects;
@@ -41,8 +44,9 @@ import static java.util.zip.ZipConstants64.*;
  * @author      David Connelly
  * @since 1.1
  */
+@AnnotatedFor({"interning"})
 public
-class ZipEntry implements ZipConstants, Cloneable {
+@UsesObjectEquals class ZipEntry implements ZipConstants, Cloneable {
 
     String name;        // entry name
     long xdostime = -1; // last modification time (in extended DOS time,
