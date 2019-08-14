@@ -44,12 +44,14 @@ Suppose that a pull request, from branch `MYBRANCH` of `ORG`'s fork of
 the master branch of `ORG`'s fork of `jdk11u` (create the fork if it does
 not exist):
 
+ * `BRANCHNAME=<MYBRANCH>`
  * `git pull --ff-only https://github.com/typetools/jdk11u.git`
- * `git checkout -b MYBRANCH`
- * `git pull https://github.com/typetools/jdk.git MYBRANCH`
+ * `git checkout -b $BRANCHNAME`
+ * `git pull https://github.com/ORG/jdk.git $BRANCHNAME`
  * Resolve conflicts
- * `git push`
+ * `git push --set-upstream origin $BRANCHNAME`
  * `git checkout master`
+ * Rerun CI for the pull request
 
 After the pull request is merged to https://github.com/typetools/jdk,
 follow the instructions at https://github.com/typetools/jdk11u to update
