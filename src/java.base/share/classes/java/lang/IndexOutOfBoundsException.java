@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown to indicate that an index of some sort (such as to an array, to a
@@ -40,6 +42,7 @@ public class IndexOutOfBoundsException extends RuntimeException {
     /**
      * Constructs an {@code IndexOutOfBoundsException} with no detail message.
      */
+    @SideEffectFree
     public IndexOutOfBoundsException() {
         super();
     }
@@ -50,7 +53,8 @@ public class IndexOutOfBoundsException extends RuntimeException {
      *
      * @param s the detail message
      */
-    public IndexOutOfBoundsException(String s) {
+    @SideEffectFree
+    public IndexOutOfBoundsException(@Nullable String s) {
         super(s);
     }
 

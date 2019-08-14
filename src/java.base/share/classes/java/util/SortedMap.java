@@ -24,6 +24,9 @@
  */
 
 package java.util;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.nullness.qual.KeyFor;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * A {@link Map} that further provides a <em>total ordering</em> on its keys.
@@ -120,7 +123,8 @@ public interface SortedMap<K,V> extends Map<K,V> {
      *         or {@code null} if this map uses the natural ordering
      *         of its keys
      */
-    Comparator<? super K> comparator();
+    @SideEffectFree
+    Comparator<? super K> comparator(@GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns a view of the portion of this map whose keys range from
@@ -151,7 +155,8 @@ public interface SortedMap<K,V> extends Map<K,V> {
      *         range, and {@code fromKey} or {@code toKey} lies
      *         outside the bounds of the range
      */
-    SortedMap<K,V> subMap(K fromKey, K toKey);
+    @SideEffectFree
+    SortedMap<K,V> subMap(@GuardSatisfied SortedMap<K, V> this, @GuardSatisfied K fromKey, @GuardSatisfied K toKey);
 
     /**
      * Returns a view of the portion of this map whose keys are
@@ -178,7 +183,8 @@ public interface SortedMap<K,V> extends Map<K,V> {
      *         restricted range, and {@code toKey} lies outside the
      *         bounds of the range
      */
-    SortedMap<K,V> headMap(K toKey);
+    @SideEffectFree
+    SortedMap<K,V> headMap(@GuardSatisfied SortedMap<K, V> this, K toKey);
 
     /**
      * Returns a view of the portion of this map whose keys are
@@ -205,7 +211,8 @@ public interface SortedMap<K,V> extends Map<K,V> {
      *         restricted range, and {@code fromKey} lies outside the
      *         bounds of the range
      */
-    SortedMap<K,V> tailMap(K fromKey);
+    @SideEffectFree
+    SortedMap<K,V> tailMap(@GuardSatisfied SortedMap<K, V> this, K fromKey);
 
     /**
      * Returns the first (lowest) key currently in this map.
@@ -213,7 +220,8 @@ public interface SortedMap<K,V> extends Map<K,V> {
      * @return the first (lowest) key currently in this map
      * @throws NoSuchElementException if this map is empty
      */
-    K firstKey();
+    @SideEffectFree
+    K firstKey(@GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns the last (highest) key currently in this map.
@@ -221,7 +229,8 @@ public interface SortedMap<K,V> extends Map<K,V> {
      * @return the last (highest) key currently in this map
      * @throws NoSuchElementException if this map is empty
      */
-    K lastKey();
+    @SideEffectFree
+    K lastKey(@GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns a {@link Set} view of the keys contained in this map.
@@ -240,7 +249,8 @@ public interface SortedMap<K,V> extends Map<K,V> {
      * @return a set view of the keys contained in this map, sorted in
      *         ascending order
      */
-    Set<K> keySet();
+    @SideEffectFree
+    Set<@KeyFor({"this"}) K> keySet(@GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns a {@link Collection} view of the values contained in this map.
@@ -260,7 +270,8 @@ public interface SortedMap<K,V> extends Map<K,V> {
      * @return a collection view of the values contained in this map,
      *         sorted in ascending key order
      */
-    Collection<V> values();
+    @SideEffectFree
+    Collection<V> values(@GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns a {@link Set} view of the mappings contained in this map.
@@ -280,5 +291,6 @@ public interface SortedMap<K,V> extends Map<K,V> {
      * @return a set view of the mappings contained in this map,
      *         sorted in ascending key order
      */
-    Set<Map.Entry<K, V>> entrySet();
+    @SideEffectFree
+    Set<Map.Entry<@KeyFor({"this"}) K, V>> entrySet(@GuardSatisfied SortedMap<K, V> this);
 }

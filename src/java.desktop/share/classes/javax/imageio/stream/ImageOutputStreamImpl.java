@@ -25,6 +25,7 @@
 
 package javax.imageio.stream;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import java.io.IOException;
 import java.io.UTFDataFormatException;
 import java.nio.ByteOrder;
@@ -47,11 +48,11 @@ public abstract class ImageOutputStreamImpl
 
     public abstract void write(int b) throws IOException;
 
-    public void write(byte b[]) throws IOException {
+    public void write(@PolySigned byte b[]) throws IOException {
         write(b, 0, b.length);
     }
 
-    public abstract void write(byte b[], int off, int len) throws IOException;
+    public abstract void write(@PolySigned byte b[], int off, int len) throws IOException;
 
     public void writeBoolean(boolean v) throws IOException {
         write(v ? 1 : 0);

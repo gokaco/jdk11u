@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when a thread is waiting, sleeping, or otherwise occupied,
@@ -53,6 +55,7 @@ class InterruptedException extends Exception {
     /**
      * Constructs an <code>InterruptedException</code> with no detail  message.
      */
+    @SideEffectFree
     public InterruptedException() {
         super();
     }
@@ -63,7 +66,8 @@ class InterruptedException extends Exception {
      *
      * @param   s   the detail message.
      */
-    public InterruptedException(String s) {
+    @SideEffectFree
+    public InterruptedException(@Nullable String s) {
         super(s);
     }
 }

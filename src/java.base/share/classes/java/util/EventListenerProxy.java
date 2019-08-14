@@ -24,6 +24,7 @@
  */
 
 package java.util;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 
 /**
  * An abstract wrapper class for an {@code EventListener} class
@@ -69,7 +70,7 @@ public abstract class EventListenerProxy<T extends EventListener>
      *
      * @return  the listener associated with the proxy
      */
-    public T getListener() {
+    public T getListener(@GuardSatisfied EventListenerProxy<T> this) {
         return this.listener;
     }
 }

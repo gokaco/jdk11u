@@ -40,6 +40,8 @@
  */
 
 package org.w3c.dom.ls;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  *  <code>LSResourceResolver</code> provides a way for applications to
@@ -103,10 +105,11 @@ public interface LSResourceResolver {
      *   source, or <code>null</code> to request that the parser open a
      *   regular URI connection to the resource.
      */
-    public LSInput resolveResource(String type,
-                                   String namespaceURI,
-                                   String publicId,
-                                   String systemId,
-                                   String baseURI);
+    @Pure
+    public @Nullable LSInput resolveResource(String type,
+                                   @Nullable String namespaceURI,
+                                   @Nullable String publicId,
+                                   @Nullable String systemId,
+                                   @Nullable String baseURI);
 
 }

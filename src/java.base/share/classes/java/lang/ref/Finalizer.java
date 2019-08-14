@@ -31,6 +31,7 @@ import jdk.internal.misc.JavaLangAccess;
 import jdk.internal.misc.SharedSecrets;
 import jdk.internal.misc.VM;
 
+@SuppressWarnings({"rawtypes"})
 final class Finalizer extends FinalReference<Object> { /* Package-private; must be in
                                                           same package as the Reference
                                                           class */
@@ -45,6 +46,7 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
 
     private Finalizer next, prev;
 
+    @SuppressWarnings({"unchecked"})
     private Finalizer(Object finalizee) {
         super(finalizee, queue);
         // push onto unfinalized

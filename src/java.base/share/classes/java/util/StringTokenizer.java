@@ -25,6 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.*;
 
 /**
@@ -191,7 +193,7 @@ class StringTokenizer implements Enumeration<Object> {
      *                         as tokens.
      * @exception NullPointerException if str is {@code null}
      */
-    public StringTokenizer(String str, String delim, boolean returnDelims) {
+    public StringTokenizer(String str, @Nullable String delim, boolean returnDelims) {
         currentPosition = 0;
         newPosition = -1;
         delimsChanged = false;
@@ -217,7 +219,7 @@ class StringTokenizer implements Enumeration<Object> {
      * @param   delim   the delimiters.
      * @exception NullPointerException if str is {@code null}
      */
-    public StringTokenizer(String str, String delim) {
+    public StringTokenizer(String str, @Nullable String delim) {
         this(str, delim, false);
     }
 
@@ -416,7 +418,7 @@ class StringTokenizer implements Enumeration<Object> {
      *          delimiter set.
      * @see     java.util.StringTokenizer#nextToken()
      */
-    public int countTokens() {
+    public @NonNegative int countTokens() {
         int count = 0;
         int currpos = currentPosition;
         while (currpos < maxPosition) {

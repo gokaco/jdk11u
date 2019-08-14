@@ -25,6 +25,7 @@
 
 package java.lang;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -398,7 +399,7 @@ public final class ProcessBuilder
      *
      * @return this process builder's working directory
      */
-    public File directory() {
+    public @Nullable File directory() {
         return directory;
     }
 
@@ -415,7 +416,7 @@ public final class ProcessBuilder
      * @param  directory the new working directory
      * @return this process builder
      */
-    public ProcessBuilder directory(File directory) {
+    public ProcessBuilder directory(@Nullable File directory) {
         this.directory = directory;
         return this;
     }

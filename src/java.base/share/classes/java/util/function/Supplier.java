@@ -23,6 +23,7 @@
  * questions.
  */
 package java.util.function;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 
 /**
  * Represents a supplier of results.
@@ -45,5 +46,5 @@ public interface Supplier<T> {
      *
      * @return a result
      */
-    T get();
+    T get(@GuardSatisfied Supplier<T> this);
 }

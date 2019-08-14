@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when a particular method cannot be found.
@@ -38,6 +40,7 @@ class NoSuchMethodException extends ReflectiveOperationException {
     /**
      * Constructs a <code>NoSuchMethodException</code> without a detail message.
      */
+    @SideEffectFree
     public NoSuchMethodException() {
         super();
     }
@@ -47,7 +50,8 @@ class NoSuchMethodException extends ReflectiveOperationException {
      *
      * @param      s   the detail message.
      */
-    public NoSuchMethodException(String s) {
+    @SideEffectFree
+    public NoSuchMethodException(@Nullable String s) {
         super(s);
     }
 }

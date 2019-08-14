@@ -24,6 +24,14 @@
  */
 package java.lang;
 
+import org.checkerframework.dataflow.qual.TerminatesExecution;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.Console;
@@ -239,7 +247,7 @@ public final class System {
      *
      * @since   1.6
      */
-     public static Console console() {
+     public static @Nullable Console console() {
          Console c;
          if ((c = cons) == null) {
              synchronized (System.class) {
@@ -276,7 +284,7 @@ public final class System {
      *
      * @since 1.5
      */
-    public static Channel inheritedChannel() throws IOException {
+    public static @Nullable Channel inheritedChannel() throws IOException {
         return SelectorProvider.provider().inheritedChannel();
     }
 
@@ -314,7 +322,7 @@ public final class System {
      * @see SecurityManager#checkPermission
      * @see java.lang.RuntimePermission
      */
-    public static void setSecurityManager(final SecurityManager s) {
+    public static void setSecurityManager(final @Nullable SecurityManager s) {
         if (security == null) {
             // ensure image reader is initialized
             Object.class.getResource("java/lang/ANY");
@@ -368,7 +376,7 @@ public final class System {
      *          otherwise, {@code null} is returned.
      * @see     #setSecurityManager
      */
-    public static SecurityManager getSecurityManager() {
+    public static @Nullable SecurityManager getSecurityManager() {
         return security;
     }
 
@@ -527,10 +535,11 @@ public final class System {
      * @throws     NullPointerException if either {@code src} or
      *             {@code dest} is {@code null}.
      */
+    @SideEffectFree
     @HotSpotIntrinsicCandidate
-    public static native void arraycopy(Object src,  int  srcPos,
-                                        Object dest, int destPos,
-                                        int length);
+    public static native void arraycopy(@GuardSatisfied Object src,  @NonNegative int  srcPos,
+                                        @GuardSatisfied Object dest, @NonNegative int destPos,
+                                        @LTLengthOf(value={"#1", "#3"}, offset={"#2 - 1", "#4 - 1"}) @NonNegative int length);
 
     /**
      * Returns the same hash code for the given object as
@@ -545,8 +554,9 @@ public final class System {
      * @see Object#hashCode
      * @see java.util.Objects#hashCode(Object)
      */
+    @Pure
     @HotSpotIntrinsicCandidate
-    public static native int identityHashCode(Object x);
+    public static native int identityHashCode(@GuardSatisfied @Nullable Object x);
 
     /**
      * System properties. The following properties are guaranteed to be defined:
@@ -761,7 +771,7 @@ public final class System {
      * @see        java.lang.SecurityException
      * @see        java.lang.SecurityManager#checkPropertiesAccess()
      */
-    public static void setProperties(Properties props) {
+    public static void setProperties(@Nullable Properties props) {
         SecurityManager sm = getSecurityManager();
         if (sm != null) {
             sm.checkPropertiesAccess();
@@ -803,7 +813,8 @@ public final class System {
      * @see        java.lang.SecurityManager#checkPropertyAccess(java.lang.String)
      * @see        java.lang.System#getProperties()
      */
-    public static String getProperty(String key) {
+    @Pure
+    public static @Nullable String getProperty(String key) {
         checkKey(key);
         SecurityManager sm = getSecurityManager();
         if (sm != null) {
@@ -838,7 +849,8 @@ public final class System {
      * @see        java.lang.SecurityManager#checkPropertyAccess(java.lang.String)
      * @see        java.lang.System#getProperties()
      */
-    public static String getProperty(String key, String def) {
+    @Pure
+    public static @PolyNull String getProperty(String key, @PolyNull String def) {
         checkKey(key);
         SecurityManager sm = getSecurityManager();
         if (sm != null) {
@@ -881,7 +893,7 @@ public final class System {
      * @see        SecurityManager#checkPermission
      * @since      1.2
      */
-    public static String setProperty(String key, String value) {
+    public static @Nullable String setProperty(String key, String value) {
         checkKey(key);
         SecurityManager sm = getSecurityManager();
         if (sm != null) {
@@ -922,7 +934,7 @@ public final class System {
      * @see        java.lang.SecurityManager#checkPropertiesAccess()
      * @since 1.5
      */
-    public static String clearProperty(String key) {
+    public static @Nullable String clearProperty(String key) {
         checkKey(key);
         SecurityManager sm = getSecurityManager();
         if (sm != null) {
@@ -987,7 +999,7 @@ public final class System {
      * @see    #getenv()
      * @see    ProcessBuilder#environment()
      */
-    public static String getenv(String name) {
+    public static @Nullable String getenv(String name) {
         SecurityManager sm = getSecurityManager();
         if (sm != null) {
             sm.checkPermission(new RuntimePermission("getenv."+name));
@@ -1742,6 +1754,7 @@ public final class System {
      *        method doesn't allow exit with the specified status.
      * @see        java.lang.Runtime#exit(int)
      */
+    @TerminatesExecution
     public static void exit(int status) {
         Runtime.getRuntime().exit(status);
     }

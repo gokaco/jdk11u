@@ -25,6 +25,10 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
+import org.checkerframework.checker.index.qual.Positive;
 import java.io.SequenceInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.FilterInputStream;
@@ -74,7 +78,7 @@ class GZIPInputStream extends InflaterInputStream {
      * @exception IOException if an I/O error has occurred
      * @exception IllegalArgumentException if {@code size <= 0}
      */
-    public GZIPInputStream(InputStream in, int size) throws IOException {
+    public GZIPInputStream(InputStream in, @Positive int size) throws IOException {
         super(in, new Inflater(true), size);
         usesDefaultInflater = true;
         readHeader(in);
@@ -110,7 +114,7 @@ class GZIPInputStream extends InflaterInputStream {
      * @exception IOException if an I/O error has occurred.
      *
      */
-    public int read(byte[] buf, int off, int len) throws IOException {
+    public @GTENegativeOne @LTEqLengthOf({"#1"}) int read(byte[] buf, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len) throws IOException {
         ensureOpen();
         if (eos) {
             return -1;

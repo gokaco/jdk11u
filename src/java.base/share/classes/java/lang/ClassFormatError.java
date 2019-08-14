@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when the Java Virtual Machine attempts to read a class
@@ -40,6 +42,7 @@ class ClassFormatError extends LinkageError {
     /**
      * Constructs a <code>ClassFormatError</code> with no detail message.
      */
+    @SideEffectFree
     public ClassFormatError() {
         super();
     }
@@ -50,7 +53,8 @@ class ClassFormatError extends LinkageError {
      *
      * @param   s   the detail message.
      */
-    public ClassFormatError(String s) {
+    @SideEffectFree
+    public ClassFormatError(@Nullable String s) {
         super(s);
     }
 }

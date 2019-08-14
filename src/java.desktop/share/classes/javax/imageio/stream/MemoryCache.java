@@ -25,6 +25,7 @@
 
 package javax.imageio.stream;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import java.util.ArrayList;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -213,7 +214,7 @@ class MemoryCache {
      * or if {@code off+len > b.length}.
      * @throws IOException if there is an I/O error while writing to the cache
      */
-    public void write(byte[] b, int off, int len, long pos)
+    public void write(@PolySigned byte[] b, int off, int len, long pos)
         throws IOException {
         if (b == null) {
             throw new NullPointerException("b == null!");

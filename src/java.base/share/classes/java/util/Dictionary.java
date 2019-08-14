@@ -24,6 +24,11 @@
  */
 
 package java.util;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * The {@code Dictionary} class is the abstract parent of any
@@ -60,7 +65,8 @@ class Dictionary<K,V> {
      *
      * @return  the number of keys in this dictionary.
      */
-    public abstract int size();
+    @Pure
+    public abstract @NonNegative int size(@GuardSatisfied Dictionary<K, V> this);
 
     /**
      * Tests if this dictionary maps no keys to value. The general contract
@@ -70,7 +76,8 @@ class Dictionary<K,V> {
      * @return  {@code true} if this dictionary maps no keys to values;
      *          {@code false} otherwise.
      */
-    public abstract boolean isEmpty();
+    @Pure
+    public abstract boolean isEmpty(@GuardSatisfied Dictionary<K, V> this);
 
     /**
      * Returns an enumeration of the keys in this dictionary. The general
@@ -109,7 +116,8 @@ class Dictionary<K,V> {
      * @exception NullPointerException if the {@code key} is {@code null}.
      * @see     java.util.Dictionary#put(java.lang.Object, java.lang.Object)
      */
-    public abstract V get(Object key);
+    @Pure
+    public abstract @Nullable V get(@GuardSatisfied Dictionary<K, V> this, @Nullable Object key);
 
     /**
      * Maps the specified {@code key} to the specified
@@ -138,7 +146,8 @@ class Dictionary<K,V> {
      * @see        java.lang.Object#equals(java.lang.Object)
      * @see        java.util.Dictionary#get(java.lang.Object)
      */
-    public abstract V put(K key, V value);
+    @EnsuresKeyFor(value={"#1"}, map={"this"})
+    public abstract @Nullable V put(@GuardSatisfied Dictionary<K, V> this, K key, V value);
 
     /**
      * Removes the {@code key} (and its corresponding
@@ -151,5 +160,5 @@ class Dictionary<K,V> {
      *          mapping.
      * @exception NullPointerException if {@code key} is {@code null}.
      */
-    public abstract V remove(Object key);
+    public abstract @Nullable V remove(@GuardSatisfied Dictionary<K, V> this, Object key);
 }

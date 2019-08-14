@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown if an application attempts to access or modify a field, or
@@ -42,6 +44,7 @@ public class IllegalAccessError extends IncompatibleClassChangeError {
     /**
      * Constructs an <code>IllegalAccessError</code> with no detail message.
      */
+    @SideEffectFree
     public IllegalAccessError() {
         super();
     }
@@ -52,7 +55,8 @@ public class IllegalAccessError extends IncompatibleClassChangeError {
      *
      * @param   s   the detail message.
      */
-    public IllegalAccessError(String s) {
+    @SideEffectFree
+    public IllegalAccessError(@Nullable String s) {
         super(s);
     }
 }

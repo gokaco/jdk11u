@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * The class {@code Exception} and its subclasses are a form of
@@ -50,6 +52,7 @@ public class Exception extends Throwable {
      * The cause is not initialized, and may subsequently be initialized by a
      * call to {@link #initCause}.
      */
+    @SideEffectFree
     public Exception() {
         super();
     }
@@ -62,7 +65,8 @@ public class Exception extends Throwable {
      * @param   message   the detail message. The detail message is saved for
      *          later retrieval by the {@link #getMessage()} method.
      */
-    public Exception(String message) {
+    @SideEffectFree
+    public Exception(@Nullable String message) {
         super(message);
     }
 
@@ -80,7 +84,8 @@ public class Exception extends Throwable {
      *         unknown.)
      * @since  1.4
      */
-    public Exception(String message, Throwable cause) {
+    @SideEffectFree
+    public Exception(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 
@@ -98,7 +103,8 @@ public class Exception extends Throwable {
      *         unknown.)
      * @since  1.4
      */
-    public Exception(Throwable cause) {
+    @SideEffectFree
+    public Exception(@Nullable Throwable cause) {
         super(cause);
     }
 
@@ -116,7 +122,7 @@ public class Exception extends Throwable {
      *                           be writable
      * @since 1.7
      */
-    protected Exception(String message, Throwable cause,
+    protected Exception(@Nullable String message, @Nullable Throwable cause,
                         boolean enableSuppression,
                         boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);

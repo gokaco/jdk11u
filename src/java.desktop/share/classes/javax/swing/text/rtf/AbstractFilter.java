@@ -24,6 +24,7 @@
  */
 package javax.swing.text.rtf;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import java.io.*;
 import java.lang.*;
 
@@ -157,7 +158,7 @@ abstract class AbstractFilter extends OutputStream
      * call <code>write(byte[], int, int)</code> or is it the other way
      * around?
      */
-    public void write(byte[] buf, int off, int len)
+    public void write(@PolySigned byte[] buf, int off, int len)
       throws IOException
     {
       StringBuilder accumulator = null;

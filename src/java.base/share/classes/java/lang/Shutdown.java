@@ -26,6 +26,7 @@
 package java.lang;
 
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import jdk.internal.misc.VM;
 
 /**
@@ -49,7 +50,7 @@ class Shutdown {
     //     shutdown hooks and waits until they finish
     // (2) DeleteOnExit hook
     private static final int MAX_SYSTEM_HOOKS = 10;
-    private static final Runnable[] hooks = new Runnable[MAX_SYSTEM_HOOKS];
+    private static final @Nullable Runnable[] hooks = new Runnable[MAX_SYSTEM_HOOKS];
 
     // the index of the currently running shutdown hook to the hooks array
     private static int currentRunningHook = -1;

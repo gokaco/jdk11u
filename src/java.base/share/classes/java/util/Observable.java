@@ -24,6 +24,9 @@
  */
 
 package java.util;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * This class represents an observable object, or "data"
@@ -92,7 +95,7 @@ public class Observable {
      * @param   o   an observer to be added.
      * @throws NullPointerException   if the parameter o is null.
      */
-    public synchronized void addObserver(Observer o) {
+    public synchronized void addObserver(@GuardSatisfied Observable this, Observer o) {
         if (o == null)
             throw new NullPointerException();
         if (!obs.contains(o)) {
@@ -105,7 +108,7 @@ public class Observable {
      * Passing {@code null} to this method will have no effect.
      * @param   o   the observer to be deleted.
      */
-    public synchronized void deleteObserver(Observer o) {
+    public synchronized void deleteObserver(@GuardSatisfied Observable this, @Nullable Observer o) {
         obs.removeElement(o);
     }
 
@@ -143,7 +146,7 @@ public class Observable {
      * @see     java.util.Observable#hasChanged()
      * @see     java.util.Observer#update(java.util.Observable, java.lang.Object)
      */
-    public void notifyObservers(Object arg) {
+    public void notifyObservers(@Nullable Object arg) {
         /*
          * a temporary array buffer, used as a snapshot of the state of
          * current Observers.
@@ -176,7 +179,7 @@ public class Observable {
     /**
      * Clears the observer list so that this object no longer has any observers.
      */
-    public synchronized void deleteObservers() {
+    public synchronized void deleteObservers(@GuardSatisfied Observable this) {
         obs.removeAllElements();
     }
 
@@ -221,7 +224,7 @@ public class Observable {
      *
      * @return  the number of observers of this object.
      */
-    public synchronized int countObservers() {
+    public synchronized @NonNegative int countObservers() {
         return obs.size();
     }
 }

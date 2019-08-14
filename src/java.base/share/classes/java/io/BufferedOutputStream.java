@@ -24,6 +24,11 @@
  */
 
 package java.io;
+import org.checkerframework.checker.signedness.qual.PolySigned;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.Positive;
 
 /**
  * The class implements a buffered output stream. By setting up such
@@ -67,7 +72,7 @@ public class BufferedOutputStream extends FilterOutputStream {
      * @param   size   the buffer size.
      * @exception IllegalArgumentException if size &lt;= 0.
      */
-    public BufferedOutputStream(OutputStream out, int size) {
+    public BufferedOutputStream(OutputStream out, @Positive int size) {
         super(out);
         if (size <= 0) {
             throw new IllegalArgumentException("Buffer size <= 0");
@@ -114,7 +119,7 @@ public class BufferedOutputStream extends FilterOutputStream {
      * @exception  IOException  if an I/O error occurs.
      */
     @Override
-    public synchronized void write(byte b[], int off, int len) throws IOException {
+    public synchronized void write(@PolySigned byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         if (len >= buf.length) {
             /* If the request length exceeds the size of the output buffer,
                flush the output buffer and then write the data directly.

@@ -25,6 +25,10 @@
 
 package java.io;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
 import java.util.Objects;
 
 /**
@@ -118,7 +122,7 @@ public abstract class OutputStream implements Closeable, Flushable {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.OutputStream#write(byte[], int, int)
      */
-    public void write(byte b[]) throws IOException {
+    public void write(@PolySigned byte b[]) throws IOException {
         write(b, 0, b.length);
     }
 
@@ -150,7 +154,7 @@ public abstract class OutputStream implements Closeable, Flushable {
      *             an <code>IOException</code> is thrown if the output
      *             stream is closed.
      */
-    public void write(byte b[], int off, int len) throws IOException {
+    public void write(@PolySigned byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         Objects.checkFromIndexSize(off, len, b.length);
         // len == 0 condition implicitly handled by loop bounds
         for (int i = 0 ; i < len ; i++) {

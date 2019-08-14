@@ -40,6 +40,9 @@
  */
 
 package org.w3c.dom;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * The <code>Text</code> interface inherits from <code>CharacterData</code>
@@ -95,6 +98,7 @@ public interface Text extends CharacterData {
      * <code>Document.normalizeDocument()</code>.
      * @since 1.5, DOM Level 3
      */
+    @Pure
     public boolean isElementContentWhitespace();
 
     /**
@@ -123,6 +127,7 @@ public interface Text extends CharacterData {
      *
      * @since 1.5, DOM Level 3
      */
+    @SideEffectFree
     public String getWholeText();
 
     /**
@@ -181,7 +186,7 @@ public interface Text extends CharacterData {
      *   nodes being replaced is readonly.
      * @since 1.5, DOM Level 3
      */
-    public Text replaceWholeText(String content)
+    public @Nullable Text replaceWholeText(String content)
                                  throws DOMException;
 
 }

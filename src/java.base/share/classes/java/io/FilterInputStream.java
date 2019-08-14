@@ -24,6 +24,12 @@
  */
 
 package java.io;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A <code>FilterInputStream</code> contains
@@ -58,7 +64,7 @@ class FilterInputStream extends InputStream {
      * @param   in   the underlying input stream, or <code>null</code> if
      *          this instance is to be created without an underlying stream.
      */
-    protected FilterInputStream(InputStream in) {
+    protected FilterInputStream(@Nullable InputStream in) {
         this.in = in;
     }
 
@@ -79,7 +85,7 @@ class FilterInputStream extends InputStream {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.FilterInputStream#in
      */
-    public int read() throws IOException {
+    public @GTENegativeOne int read() throws IOException {
         return in.read();
     }
 
@@ -103,7 +109,7 @@ class FilterInputStream extends InputStream {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.FilterInputStream#read(byte[], int, int)
      */
-    public int read(byte b[]) throws IOException {
+    public @GTENegativeOne @LTEqLengthOf({"#1"}) int read(byte b[]) throws IOException {
         return read(b, 0, b.length);
     }
 
@@ -129,7 +135,7 @@ class FilterInputStream extends InputStream {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.FilterInputStream#in
      */
-    public int read(byte b[], int off, int len) throws IOException {
+    public @GTENegativeOne @LTEqLengthOf({"#1"}) int read(byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         return in.read(b, off, len);
     }
 
@@ -146,7 +152,7 @@ class FilterInputStream extends InputStream {
      * @return     the actual number of bytes skipped.
      * @throws     IOException  if {@code in.skip(n)} throws an IOException.
      */
-    public long skip(long n) throws IOException {
+    public @NonNegative long skip(long n) throws IOException {
         return in.skip(n);
     }
 
@@ -163,7 +169,7 @@ class FilterInputStream extends InputStream {
      *             over) from this input stream without blocking.
      * @exception  IOException  if an I/O error occurs.
      */
-    public int available() throws IOException {
+    public @NonNegative int available() throws IOException {
         return in.available();
     }
 
@@ -196,7 +202,7 @@ class FilterInputStream extends InputStream {
      * @see     java.io.FilterInputStream#in
      * @see     java.io.FilterInputStream#reset()
      */
-    public synchronized void mark(int readlimit) {
+    public synchronized void mark(@NonNegative int readlimit) {
         in.mark(readlimit);
     }
 

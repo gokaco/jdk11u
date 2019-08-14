@@ -25,6 +25,12 @@
 
 package java.io;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
 import java.util.Formatter;
 import java.util.Locale;
 import java.nio.charset.Charset;
@@ -410,7 +416,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @see        java.io.OutputStream#flush()
      */
-    public void flush() {
+    public void flush(@GuardSatisfied PrintStream this) {
         synchronized (this) {
             try {
                 ensureOpen();
@@ -430,7 +436,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @see        java.io.OutputStream#close()
      */
-    public void close() {
+    public void close(@GuardSatisfied PrintStream this) {
         synchronized (this) {
             if (! closing) {
                 closing = true;
@@ -466,7 +472,7 @@ public class PrintStream extends FilterOutputStream
      *         {@code InterruptedIOException}, or the
      *         {@code setError} method has been invoked
      */
-    public boolean checkError() {
+    public boolean checkError(@GuardSatisfied PrintStream this) {
         if (out != null)
             flush();
         if (out instanceof java.io.PrintStream) {
@@ -521,7 +527,7 @@ public class PrintStream extends FilterOutputStream
      * @see #print(char)
      * @see #println(char)
      */
-    public void write(int b) {
+    public void write(@GuardSatisfied PrintStream this, int b) {
         try {
             synchronized (this) {
                 ensureOpen();
@@ -552,7 +558,7 @@ public class PrintStream extends FilterOutputStream
      * @param  off   Offset from which to start taking bytes
      * @param  len   Number of bytes to write
      */
-    public void write(byte buf[], int off, int len) {
+    public void write(@GuardSatisfied PrintStream this, @PolySigned byte buf[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) {
         try {
             synchronized (this) {
                 ensureOpen();
@@ -575,7 +581,7 @@ public class PrintStream extends FilterOutputStream
      * stream occur as promptly as with the original PrintStream.
      */
 
-    private void write(char buf[]) {
+    private void write(@PolySigned char buf[]) {
         try {
             synchronized (this) {
                 ensureOpen();
@@ -646,7 +652,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param      b   The {@code boolean} to be printed
      */
-    public void print(boolean b) {
+    public void print(@GuardSatisfied PrintStream this, boolean b) {
         write(String.valueOf(b));
     }
 
@@ -658,7 +664,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param      c   The {@code char} to be printed
      */
-    public void print(char c) {
+    public void print(@GuardSatisfied PrintStream this, char c) {
         write(String.valueOf(c));
     }
 
@@ -672,7 +678,7 @@ public class PrintStream extends FilterOutputStream
      * @param      i   The {@code int} to be printed
      * @see        java.lang.Integer#toString(int)
      */
-    public void print(int i) {
+    public void print(@GuardSatisfied PrintStream this, int i) {
         write(String.valueOf(i));
     }
 
@@ -686,7 +692,7 @@ public class PrintStream extends FilterOutputStream
      * @param      l   The {@code long} to be printed
      * @see        java.lang.Long#toString(long)
      */
-    public void print(long l) {
+    public void print(@GuardSatisfied PrintStream this, long l) {
         write(String.valueOf(l));
     }
 
@@ -700,7 +706,7 @@ public class PrintStream extends FilterOutputStream
      * @param      f   The {@code float} to be printed
      * @see        java.lang.Float#toString(float)
      */
-    public void print(float f) {
+    public void print(@GuardSatisfied PrintStream this, float f) {
         write(String.valueOf(f));
     }
 
@@ -714,7 +720,7 @@ public class PrintStream extends FilterOutputStream
      * @param      d   The {@code double} to be printed
      * @see        java.lang.Double#toString(double)
      */
-    public void print(double d) {
+    public void print(@GuardSatisfied PrintStream this, double d) {
         write(String.valueOf(d));
     }
 
@@ -728,7 +734,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @throws  NullPointerException  If {@code s} is {@code null}
      */
-    public void print(char s[]) {
+    public void print(@GuardSatisfied PrintStream this, @PolySigned char s[]) {
         write(s);
     }
 
@@ -741,7 +747,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param      s   The {@code String} to be printed
      */
-    public void print(String s) {
+    public void print(@GuardSatisfied PrintStream this, @Nullable String s) {
         write(String.valueOf(s));
     }
 
@@ -755,7 +761,7 @@ public class PrintStream extends FilterOutputStream
      * @param      obj   The {@code Object} to be printed
      * @see        java.lang.Object#toString()
      */
-    public void print(Object obj) {
+    public void print(@GuardSatisfied PrintStream this, @Nullable Object obj) {
         write(String.valueOf(obj));
     }
 
@@ -768,7 +774,7 @@ public class PrintStream extends FilterOutputStream
      * {@code line.separator}, and is not necessarily a single newline
      * character ({@code '\n'}).
      */
-    public void println() {
+    public void println(@GuardSatisfied PrintStream this) {
         newLine();
     }
 
@@ -779,7 +785,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  The {@code boolean} to be printed
      */
-    public void println(boolean x) {
+    public void println(@GuardSatisfied PrintStream this, boolean x) {
         synchronized (this) {
             print(x);
             newLine();
@@ -793,7 +799,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  The {@code char} to be printed.
      */
-    public void println(char x) {
+    public void println(@GuardSatisfied PrintStream this, char x) {
         synchronized (this) {
             print(x);
             newLine();
@@ -807,7 +813,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  The {@code int} to be printed.
      */
-    public void println(int x) {
+    public void println(@GuardSatisfied PrintStream this, int x) {
         synchronized (this) {
             print(x);
             newLine();
@@ -821,7 +827,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  a The {@code long} to be printed.
      */
-    public void println(long x) {
+    public void println(@GuardSatisfied PrintStream this, long x) {
         synchronized (this) {
             print(x);
             newLine();
@@ -835,7 +841,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  The {@code float} to be printed.
      */
-    public void println(float x) {
+    public void println(@GuardSatisfied PrintStream this, float x) {
         synchronized (this) {
             print(x);
             newLine();
@@ -849,7 +855,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  The {@code double} to be printed.
      */
-    public void println(double x) {
+    public void println(@GuardSatisfied PrintStream this, double x) {
         synchronized (this) {
             print(x);
             newLine();
@@ -863,7 +869,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  an array of chars to print.
      */
-    public void println(char x[]) {
+    public void println(@GuardSatisfied PrintStream this, char x[]) {
         synchronized (this) {
             print(x);
             newLine();
@@ -877,7 +883,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  The {@code String} to be printed.
      */
-    public void println(String x) {
+    public void println(@GuardSatisfied PrintStream this, @Nullable String x) {
         synchronized (this) {
             print(x);
             newLine();
@@ -893,7 +899,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @param x  The {@code Object} to be printed.
      */
-    public void println(Object x) {
+    public void println(@GuardSatisfied PrintStream this, @Nullable Object x) {
         String s = String.valueOf(x);
         synchronized (this) {
             print(s);
@@ -945,7 +951,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
-    public PrintStream printf(String format, Object ... args) {
+    public PrintStream printf(@GuardSatisfied PrintStream this, String format, @Nullable Object ... args) {
         return format(format, args);
     }
 
@@ -997,7 +1003,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
-    public PrintStream printf(Locale l, String format, Object ... args) {
+    public PrintStream printf(@GuardSatisfied PrintStream this, @Nullable Locale l, String format, @Nullable Object ... args) {
         return format(l, format, args);
     }
 
@@ -1042,7 +1048,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
-    public PrintStream format(String format, Object ... args) {
+    public PrintStream format(@GuardSatisfied PrintStream this, String format, @Nullable Object ... args) {
         try {
             synchronized (this) {
                 ensureOpen();
@@ -1101,7 +1107,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
-    public PrintStream format(Locale l, String format, Object ... args) {
+    public PrintStream format(@GuardSatisfied PrintStream this, @Nullable Locale l, String format, @Nullable Object ... args) {
         try {
             synchronized (this) {
                 ensureOpen();
@@ -1143,7 +1149,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
-    public PrintStream append(CharSequence csq) {
+    public PrintStream append(@Nullable CharSequence csq) {
         print(String.valueOf(csq));
         return this;
     }
@@ -1183,7 +1189,7 @@ public class PrintStream extends FilterOutputStream
      *
      * @since  1.5
      */
-    public PrintStream append(CharSequence csq, int start, int end) {
+    public PrintStream append(@Nullable CharSequence csq, @IndexOrHigh({"#1"}) int start, @IndexOrHigh({"#1"}) int end) {
         if (csq == null) csq = "null";
         return append(csq.subSequence(start, end));
     }

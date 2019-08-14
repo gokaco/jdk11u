@@ -25,6 +25,9 @@
 
 package java.io;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URI;
 import java.nio.file.*;
 import java.security.*;
@@ -553,7 +556,7 @@ public final class FilePermission extends Permission implements Serializable {
      *                  <code>false</code> otherwise.
      */
     @Override
-    public boolean implies(Permission p) {
+    public boolean implies(@Nullable Permission p) {
         if (!(p instanceof FilePermission))
             return false;
 
@@ -774,8 +777,9 @@ public final class FilePermission extends Permission implements Serializable {
      *          pathname and actions as this FilePermission object,
      *          <code>false</code> otherwise.
      */
+    @Pure
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@GuardSatisfied FilePermission this, @GuardSatisfied @Nullable Object obj) {
         if (obj == this)
             return true;
 
@@ -807,8 +811,9 @@ public final class FilePermission extends Permission implements Serializable {
      *
      * @return a hash code value for this object.
      */
+    @Pure
     @Override
-    public int hashCode() {
+    public int hashCode(@GuardSatisfied FilePermission this) {
         if (FilePermCompat.nb) {
             return Objects.hash(
                     mask, allFiles, directory, recursive, npath, npath2, invalid);

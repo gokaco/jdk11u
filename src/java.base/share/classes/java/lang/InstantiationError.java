@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when an application tries to use the Java <code>new</code>
@@ -45,6 +47,7 @@ class InstantiationError extends IncompatibleClassChangeError {
     /**
      * Constructs an <code>InstantiationError</code> with no detail  message.
      */
+    @SideEffectFree
     public InstantiationError() {
         super();
     }
@@ -55,7 +58,8 @@ class InstantiationError extends IncompatibleClassChangeError {
      *
      * @param   s   the detail message.
      */
-    public InstantiationError(String s) {
+    @SideEffectFree
+    public InstantiationError(@Nullable String s) {
         super(s);
     }
 }

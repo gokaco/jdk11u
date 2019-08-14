@@ -25,6 +25,7 @@
 
 package java.lang.instrument;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
@@ -194,10 +195,10 @@ public interface ClassFileTransformer {
      * @revised 9
      * @spec JPMS
      */
-    default byte[]
-    transform(  ClassLoader         loader,
+    default byte @Nullable []
+    transform(  @Nullable ClassLoader         loader,
                 String              className,
-                Class<?>            classBeingRedefined,
+                @Nullable Class<?>            classBeingRedefined,
                 ProtectionDomain    protectionDomain,
                 byte[]              classfileBuffer)
         throws IllegalClassFormatException {

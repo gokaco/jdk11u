@@ -25,6 +25,9 @@
 
 package java.lang.ref;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import jdk.internal.vm.annotation.ForceInline;
 import jdk.internal.HotSpotIntrinsicCandidate;
 import jdk.internal.misc.JavaLangRefAccess;
@@ -41,6 +44,7 @@ import jdk.internal.ref.Cleaner;
  * @since    1.2
  */
 
+@SuppressWarnings({"rawtypes"})
 public abstract class Reference<T> {
 
     /* The state of a Reference object is characterized by two attributes.  It
@@ -208,6 +212,7 @@ public abstract class Reference<T> {
             super(g, null, name, 0, false);
         }
 
+        @SuppressWarnings({"unchecked"})
         public void run() {
             while (true) {
                 processPendingReferences();
@@ -328,8 +333,9 @@ public abstract class Reference<T> {
      * @return   The object to which this reference refers, or
      *           <code>null</code> if this reference object has been cleared
      */
+    @SideEffectFree
     @HotSpotIntrinsicCandidate
-    public T get() {
+    public @Nullable T get(@GuardSatisfied Reference<T> this) {
         return this.referent;
     }
 
@@ -395,6 +401,7 @@ public abstract class Reference<T> {
         this(referent, null);
     }
 
+    @SuppressWarnings({"unchecked"})
     Reference(T referent, ReferenceQueue<? super T> queue) {
         this.referent = referent;
         this.queue = (queue == null) ? ReferenceQueue.NULL : queue;

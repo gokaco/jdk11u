@@ -25,6 +25,13 @@
 
 package java.util;
 
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
+import org.checkerframework.checker.index.qual.IndexFor;
 import java.util.function.Consumer;
 
 /**
@@ -107,7 +114,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this list
      */
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied AbstractList<E> this, E e) {
         add(size(), e);
         return true;
     }
@@ -117,7 +124,8 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public abstract E get(int index);
+    @Pure
+    public abstract E get(@GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index);
 
     /**
      * {@inheritDoc}
@@ -132,7 +140,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public E set(int index, E element) {
+    public E set(@GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -149,7 +157,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public void add(int index, E element) {
+    public void add(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -163,7 +171,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws UnsupportedOperationException {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public E remove(int index) {
+    public E remove(@GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index) {
         throw new UnsupportedOperationException();
     }
 
@@ -181,7 +189,8 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws ClassCastException   {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    public int indexOf(Object o) {
+    @Pure
+    public @GTENegativeOne int indexOf(@GuardSatisfied AbstractList<E> this, @GuardSatisfied @Nullable Object o) {
         ListIterator<E> it = listIterator();
         if (o==null) {
             while (it.hasNext())
@@ -207,7 +216,8 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws ClassCastException   {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    public int lastIndexOf(Object o) {
+    @Pure
+    public @GTENegativeOne int lastIndexOf(@GuardSatisfied AbstractList<E> this, @GuardSatisfied @Nullable Object o) {
         ListIterator<E> it = listIterator(size());
         if (o==null) {
             while (it.hasPrevious())
@@ -239,7 +249,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    public void clear() {
+    public void clear(@GuardSatisfied AbstractList<E> this) {
         removeRange(0, size());
     }
 
@@ -263,7 +273,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public boolean addAll(int index, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
         boolean modified = false;
         for (E e : c) {
@@ -295,6 +305,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *
      * @return an iterator over the elements in this list in proper sequence
      */
+    @SideEffectFree
     public Iterator<E> iterator() {
         return new Itr();
     }
@@ -334,7 +345,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public ListIterator<E> listIterator(final int index) {
+    public ListIterator<E> listIterator(final @IndexOrHigh({"this"}) int index) {
         rangeCheckForAdd(index);
 
         return new ListItr(index);
@@ -493,7 +504,8 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException if the endpoint indices are out of order
      *         {@code (fromIndex > toIndex)}
      */
-    public List<E> subList(int fromIndex, int toIndex) {
+    @SideEffectFree
+    public List<E> subList(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
         subListRangeCheck(fromIndex, toIndex, size());
         return (this instanceof RandomAccess ?
                 new RandomAccessSubList<>(this, fromIndex, toIndex) :
@@ -534,7 +546,8 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @param o the object to be compared for equality with this list
      * @return {@code true} if the specified object is equal to this list
      */
-    public boolean equals(Object o) {
+    @Pure
+    public boolean equals(@GuardSatisfied AbstractList<E> this, @GuardSatisfied @Nullable Object o) {
         if (o == this)
             return true;
         if (!(o instanceof List))
@@ -561,7 +574,8 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *
      * @return the hash code value for this list
      */
-    public int hashCode() {
+    @Pure
+    public int hashCode(@GuardSatisfied AbstractList<E> this) {
         int hashCode = 1;
         for (E e : this)
             hashCode = 31*hashCode + (e==null ? 0 : e.hashCode());
@@ -591,7 +605,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @param fromIndex index of first element to be removed
      * @param toIndex index after last element to be removed
      */
-    protected void removeRange(int fromIndex, int toIndex) {
+    protected void removeRange(@IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
         ListIterator<E> it = listIterator(fromIndex);
         for (int i=0, n=toIndex-fromIndex; i<n; i++) {
             it.next();

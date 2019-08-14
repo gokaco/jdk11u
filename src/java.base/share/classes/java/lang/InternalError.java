@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown to indicate some unexpected internal error has occurred in
@@ -38,6 +40,7 @@ public class InternalError extends VirtualMachineError {
     /**
      * Constructs an <code>InternalError</code> with no detail message.
      */
+    @SideEffectFree
     public InternalError() {
         super();
     }
@@ -48,7 +51,8 @@ public class InternalError extends VirtualMachineError {
      *
      * @param   message   the detail message.
      */
-    public InternalError(String message) {
+    @SideEffectFree
+    public InternalError(@Nullable String message) {
         super(message);
     }
 
@@ -67,7 +71,8 @@ public class InternalError extends VirtualMachineError {
      *         unknown.)
      * @since  1.8
      */
-    public InternalError(String message, Throwable cause) {
+    @SideEffectFree
+    public InternalError(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 
@@ -83,7 +88,8 @@ public class InternalError extends VirtualMachineError {
      *         unknown.)
      * @since  1.8
      */
-    public InternalError(Throwable cause) {
+    @SideEffectFree
+    public InternalError(@Nullable Throwable cause) {
         super(cause);
     }
 

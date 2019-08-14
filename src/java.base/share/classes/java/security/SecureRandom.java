@@ -25,6 +25,7 @@
 
 package java.security;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import java.util.*;
 import java.util.regex.*;
 
@@ -736,7 +737,7 @@ public class SecureRandom extends java.util.Random {
      * @param bytes the array to be filled in with random bytes.
      */
     @Override
-    public void nextBytes(byte[] bytes) {
+    public void nextBytes(@PolySigned byte[] bytes) {
         if (threadSafe) {
             secureRandomSpi.engineNextBytes(bytes);
         } else {

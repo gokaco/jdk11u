@@ -24,6 +24,7 @@
  */
 package java.util;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
@@ -109,6 +110,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
          * @param action The action to be performed for each element
          * @throws NullPointerException if the specified action is null
          */
+        @Override
         default void forEachRemaining(IntConsumer action) {
             Objects.requireNonNull(action);
             while (hasNext())
@@ -122,7 +124,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
          * {@link #nextInt()}, and returns that boxed result.
          */
         @Override
-        default Integer next() {
+        default Integer next(PrimitiveIterator.@GuardSatisfied OfInt this) {
             if (Tripwire.ENABLED)
                 Tripwire.trip(getClass(), "{0} calling PrimitiveIterator.OfInt.nextInt()");
             return nextInt();
@@ -183,6 +185,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
          * @param action The action to be performed for each element
          * @throws NullPointerException if the specified action is null
          */
+        @Override
         default void forEachRemaining(LongConsumer action) {
             Objects.requireNonNull(action);
             while (hasNext())
@@ -196,7 +199,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
          * {@link #nextLong()}, and returns that boxed result.
          */
         @Override
-        default Long next() {
+        default Long next(PrimitiveIterator.@GuardSatisfied OfLong this) {
             if (Tripwire.ENABLED)
                 Tripwire.trip(getClass(), "{0} calling PrimitiveIterator.OfLong.nextLong()");
             return nextLong();
@@ -256,6 +259,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
          * @param action The action to be performed for each element
          * @throws NullPointerException if the specified action is null
          */
+        @Override
         default void forEachRemaining(DoubleConsumer action) {
             Objects.requireNonNull(action);
             while (hasNext())
@@ -269,7 +273,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
          * {@link #nextDouble()}, and returns that boxed result.
          */
         @Override
-        default Double next() {
+        default Double next(PrimitiveIterator.@GuardSatisfied OfDouble this) {
             if (Tripwire.ENABLED)
                 Tripwire.trip(getClass(), "{0} calling PrimitiveIterator.OfDouble.nextLong()");
             return nextDouble();

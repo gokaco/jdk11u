@@ -25,6 +25,15 @@
 
 package java.lang;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.index.qual.Positive;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.IndexFor;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
@@ -146,7 +155,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Integer#toString(int, int)
      * @see     Integer#valueOf(String)
      */
-    public static final int MIN_RADIX = 2;
+    public static final @Positive int MIN_RADIX = 2;
 
     /**
      * The maximum radix available for conversion to and from strings.
@@ -160,7 +169,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Integer#toString(int, int)
      * @see     Integer#valueOf(String)
      */
-    public static final int MAX_RADIX = 36;
+    public static final @Positive int MAX_RADIX = 36;
 
     /**
      * The constant value of this field is the smallest value of type
@@ -647,7 +656,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
          * object; since this method is {@code final}, this
          * guarantee holds for all subclasses.
          */
-        public final boolean equals(Object obj) {
+        @Pure
+        public final boolean equals(@Nullable Object obj) {
             return (this == obj);
         }
 
@@ -658,6 +668,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
          * {@code equals} and {@code hashCode} methods will
          * be consistent in all subclasses.
          */
+        @Pure
         public final int hashCode() {
             return super.hashCode();
         }
@@ -665,6 +676,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
         /**
          * Returns the name of this subset.
          */
+        @SideEffectFree
         public final String toString() {
             return name;
         }
@@ -3787,7 +3799,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
          *          {@code null} if the character is not a member of any
          *          Unicode block
          */
-        public static UnicodeBlock of(char c) {
+        @Pure
+        public static @Nullable UnicodeBlock of(char c) {
             return of((int)c);
         }
 
@@ -3807,7 +3820,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
          * @see Character#isValidCodePoint(int)
          * @since   1.5
          */
-        public static UnicodeBlock of(int codePoint) {
+        @Pure
+        public static @Nullable UnicodeBlock of(int codePoint) {
             if (!isValidCodePoint(codePoint)) {
                 throw new IllegalArgumentException(
                     String.format("Not a valid Unicode code point: 0x%X", codePoint));
@@ -3866,6 +3880,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
          * @throws NullPointerException if {@code blockName} is null
          * @since 1.5
          */
+        @Pure
         public static final UnicodeBlock forName(String blockName) {
             UnicodeBlock block = map.get(blockName.toUpperCase(Locale.US));
             if (block == null) {
@@ -7843,6 +7858,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
          * @see Character#isValidCodePoint(int)
          *
          */
+        @Pure
         public static UnicodeScript of(int codePoint) {
             if (!isValidCodePoint(codePoint))
                 throw new IllegalArgumentException(
@@ -7877,6 +7893,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
          *         invalid name
          * @throws NullPointerException if {@code scriptName} is null
          */
+        @Pure
         public static final UnicodeScript forName(String scriptName) {
             scriptName = scriptName.toUpperCase(Locale.ENGLISH);
                                  //.replace(' ', '_'));
@@ -7909,6 +7926,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@link #valueOf(char)} is generally a better choice, as it is
      * likely to yield significantly better space and time performance.
      */
+    @Pure
     @Deprecated(since="9")
     public Character(char value) {
         this.value = value;
@@ -7955,8 +7973,9 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @return  the primitive {@code char} value represented by
      *          this object.
      */
+    @Pure
     @HotSpotIntrinsicCandidate
-    public char charValue() {
+    public @NonNegative char charValue() {
         return value;
     }
 
@@ -7966,6 +7985,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @return a hash code value for this {@code Character}
      */
+    @Pure
     @Override
     public int hashCode() {
         return Character.hashCode(value);
@@ -7994,7 +8014,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @return  {@code true} if the objects are the same;
      *          {@code false} otherwise.
      */
-    public boolean equals(Object obj) {
+    @Pure
+    public boolean equals(@Nullable Object obj) {
         if (obj instanceof Character) {
             return value == ((Character)obj).charValue();
         }
@@ -8010,6 +8031,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @return  a string representation of this object.
      */
+    @SideEffectFree
     public String toString() {
         char buf[] = {value};
         return String.valueOf(buf);
@@ -8029,6 +8051,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @return the string representation of the specified {@code char}
      * @since 1.4
      */
+    @SideEffectFree
     public static String toString(char c) {
         return String.valueOf(c);
     }
@@ -8061,6 +8084,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         {@code false} otherwise.
      * @since  1.5
      */
+    @Pure
     public static boolean isValidCodePoint(int codePoint) {
         // Optimized form of:
         //     codePoint >= MIN_CODE_POINT && codePoint <= MAX_CODE_POINT
@@ -8079,6 +8103,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         {@code false} otherwise.
      * @since  1.7
      */
+    @Pure
     public static boolean isBmpCodePoint(int codePoint) {
         return codePoint >>> 16 == 0;
         // Optimized form of:
@@ -8098,6 +8123,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         {@code false} otherwise.
      * @since  1.5
      */
+    @Pure
     public static boolean isSupplementaryCodePoint(int codePoint) {
         return codePoint >= MIN_SUPPLEMENTARY_CODE_POINT
             && codePoint <  MAX_CODE_POINT + 1;
@@ -8123,6 +8149,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see    Character.UnicodeBlock#of(int)
      * @since  1.5
      */
+    @Pure
     public static boolean isHighSurrogate(char ch) {
         // Help VM constant-fold; MAX_HIGH_SURROGATE + 1 == MIN_LOW_SURROGATE
         return ch >= MIN_HIGH_SURROGATE && ch < (MAX_HIGH_SURROGATE + 1);
@@ -8147,6 +8174,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see    Character#isHighSurrogate(char)
      * @since  1.5
      */
+    @Pure
     public static boolean isLowSurrogate(char ch) {
         return ch >= MIN_LOW_SURROGATE && ch < (MAX_LOW_SURROGATE + 1);
     }
@@ -8171,6 +8199,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         {@code false} otherwise.
      * @since  1.7
      */
+    @Pure
     public static boolean isSurrogate(char ch) {
         return ch >= MIN_SURROGATE && ch < (MAX_SURROGATE + 1);
     }
@@ -8193,6 +8222,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@code false} otherwise.
      * @since  1.5
      */
+    @Pure
     public static boolean isSurrogatePair(char high, char low) {
         return isHighSurrogate(high) && isLowSurrogate(low);
     }
@@ -8213,7 +8243,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isSupplementaryCodePoint(int)
      * @since   1.5
      */
-    public static int charCount(int codePoint) {
+    @Pure
+    public static @Positive int charCount(int codePoint) {
         return codePoint >= MIN_SUPPLEMENTARY_CODE_POINT ? 2 : 1;
     }
 
@@ -8229,6 +8260,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         specified surrogate pair.
      * @since  1.5
      */
+    @Pure
     public static int toCodePoint(char high, char low) {
         // Optimized form of:
         // return ((high - MIN_HIGH_SURROGATE) << 10)
@@ -8261,7 +8293,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@link CharSequence#length() seq.length()}.
      * @since  1.5
      */
-    public static int codePointAt(CharSequence seq, int index) {
+    @Pure
+    public static int codePointAt(CharSequence seq, @IndexFor({"#1"}) int index) {
         char c1 = seq.charAt(index);
         if (isHighSurrogate(c1) && ++index < seq.length()) {
             char c2 = seq.charAt(index);
@@ -8293,7 +8326,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * the length of the {@code char} array.
      * @since  1.5
      */
-    public static int codePointAt(char[] a, int index) {
+    @Pure
+    public static int codePointAt(char[] a, @IndexFor({"#1"}) int index) {
         return codePointAtImpl(a, index, a.length);
     }
 
@@ -8322,7 +8356,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * greater than the length of the {@code char} array.
      * @since  1.5
      */
-    public static int codePointAt(char[] a, int index, int limit) {
+    @Pure
+    public static int codePointAt(char[] a, @IndexFor({"#1"}) int index, @IndexOrHigh({"#1"}) int limit) {
         if (index >= limit || limit < 0 || limit > a.length) {
             throw new IndexOutOfBoundsException();
         }
@@ -8362,7 +8397,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * CharSequence#length() seq.length()}.
      * @since  1.5
      */
-    public static int codePointBefore(CharSequence seq, int index) {
+    @Pure
+    public static int codePointBefore(CharSequence seq, @LTEqLengthOf({"#1"}) @Positive int index) {
         char c2 = seq.charAt(--index);
         if (isLowSurrogate(c2) && index > 0) {
             char c1 = seq.charAt(--index);
@@ -8394,7 +8430,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@code char} array
      * @since  1.5
      */
-    public static int codePointBefore(char[] a, int index) {
+    @Pure
+    public static int codePointBefore(char[] a, @LTEqLengthOf({"#1"}) @Positive int index) {
         return codePointBeforeImpl(a, index, 0);
     }
 
@@ -8425,7 +8462,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * the length of the {@code char} array.
      * @since  1.5
      */
-    public static int codePointBefore(char[] a, int index, int start) {
+    @Pure
+    public static int codePointBefore(char[] a, @LTEqLengthOf({"#1"}) @Positive int index, @IndexOrHigh({"#1"}) int start) {
         if (index <= start || start < 0 || start >= a.length) {
             throw new IndexOutOfBoundsException();
         }
@@ -8468,6 +8506,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          character in the UTF-16 encoding
      * @since   1.7
      */
+    @Pure
     public static char highSurrogate(int codePoint) {
         return (char) ((codePoint >>> 10)
             + (MIN_HIGH_SURROGATE - (MIN_SUPPLEMENTARY_CODE_POINT >>> 10)));
@@ -8497,6 +8536,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          character in the UTF-16 encoding
      * @since   1.7
      */
+    @Pure
     public static char lowSurrogate(int codePoint) {
         return (char) ((codePoint & 0x3ff) + MIN_LOW_SURROGATE);
     }
@@ -8532,7 +8572,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@code dst[dstIndex]}.)
      * @since  1.5
      */
-    public static int toChars(int codePoint, char[] dst, int dstIndex) {
+    @Pure
+    public static int toChars(int codePoint, char[] dst, @IndexFor({"#2"}) int dstIndex) {
         if (isBmpCodePoint(codePoint)) {
             dst[dstIndex] = (char) codePoint;
             return 1;
@@ -8561,6 +8602,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@code codePoint} is not a valid Unicode code point.
      * @since  1.5
      */
+    @Pure
     public static char[] toChars(int codePoint) {
         if (isBmpCodePoint(codePoint)) {
             return new char[] { (char) codePoint };
@@ -8603,7 +8645,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@code beginIndex} is larger than {@code endIndex}.
      * @since  1.5
      */
-    public static int codePointCount(CharSequence seq, int beginIndex, int endIndex) {
+    @Pure
+    public static @NonNegative int codePointCount(CharSequence seq, @IndexOrHigh({"#1"}) int beginIndex, @IndexOrHigh({"#1"}) int endIndex) {
         int length = seq.length();
         if (beginIndex < 0 || endIndex > length || beginIndex > endIndex) {
             throw new IndexOutOfBoundsException();
@@ -8638,7 +8681,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * count} is larger than the length of the given array.
      * @since  1.5
      */
-    public static int codePointCount(char[] a, int offset, int count) {
+    @Pure
+    public static @NonNegative int codePointCount(char[] a, @IndexOrHigh({"#1"}) int offset, @IndexOrHigh({"#1"}) int count) {
         if (count > a.length - offset || offset < 0 || count < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -8680,7 +8724,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *   of {@code codePointOffset} code points.
      * @since 1.5
      */
-    public static int offsetByCodePoints(CharSequence seq, int index,
+    @Pure
+    public static int offsetByCodePoints(CharSequence seq, @IndexOrHigh({"#1"}) int index,
                                          int codePointOffset) {
         int length = seq.length();
         if (index < 0 || index > length) {
@@ -8747,8 +8792,9 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *   {@code codePointOffset} code points.
      * @since 1.5
      */
-    public static int offsetByCodePoints(char[] a, int start, int count,
-                                         int index, int codePointOffset) {
+    @Pure
+    public static @IndexOrHigh({"#1"}) int offsetByCodePoints(char[] a, @IndexOrHigh({"#1"}) int start, @IndexOrHigh({"#1"}) int count,
+                                         @IndexOrHigh({"#1"}) int index, int codePointOffset) {
         if (count > a.length-start || start < 0 || count < 0
             || index < start || index > start+count) {
             throw new IndexOutOfBoundsException();
@@ -8817,6 +8863,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#toLowerCase(char)
      * @see     Character#getType(char)
      */
+    @Pure
     public static boolean isLowerCase(char ch) {
         return isLowerCase((int)ch);
     }
@@ -8849,6 +8896,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isLowerCase(int codePoint) {
         return CharacterData.of(codePoint).isLowerCase(codePoint) ||
                CharacterData.of(codePoint).isOtherLowercase(codePoint);
@@ -8885,6 +8933,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(char)
      * @since   1.0
      */
+    @Pure
     public static boolean isUpperCase(char ch) {
         return isUpperCase((int)ch);
     }
@@ -8915,6 +8964,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isUpperCase(int codePoint) {
         return CharacterData.of(codePoint).isUpperCase(codePoint) ||
                CharacterData.of(codePoint).isOtherUppercase(codePoint);
@@ -8957,6 +9007,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(char)
      * @since   1.0.2
      */
+    @Pure
     public static boolean isTitleCase(char ch) {
         return isTitleCase((int)ch);
     }
@@ -8993,6 +9044,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isTitleCase(int codePoint) {
         return getType(codePoint) == Character.TITLECASE_LETTER;
     }
@@ -9032,6 +9084,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#forDigit(int, int)
      * @see     Character#getType(char)
      */
+    @Pure
     public static boolean isDigit(char ch) {
         return isDigit((int)ch);
     }
@@ -9066,6 +9119,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isDigit(int codePoint) {
         return CharacterData.of(codePoint).isDigit(codePoint);
     }
@@ -9095,6 +9149,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUpperCase(char)
      * @since   1.0.2
      */
+    @Pure
     public static boolean isDefined(char ch) {
         return isDefined((int)ch);
     }
@@ -9119,6 +9174,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUpperCase(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isDefined(int codePoint) {
         return getType(codePoint) != Character.UNASSIGNED;
     }
@@ -9158,6 +9214,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierStart(char)
      * @see     Character#isUpperCase(char)
      */
+    @Pure
     public static boolean isLetter(char ch) {
         return isLetter((int)ch);
     }
@@ -9191,6 +9248,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUpperCase(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isLetter(int codePoint) {
         return ((((1 << Character.UPPERCASE_LETTER) |
             (1 << Character.LOWERCASE_LETTER) |
@@ -9224,6 +9282,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierPart(char)
      * @since   1.0.2
      */
+    @Pure
     public static boolean isLetterOrDigit(char ch) {
         return isLetterOrDigit((int)ch);
     }
@@ -9245,6 +9304,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierPart(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isLetterOrDigit(int codePoint) {
         return ((((1 << Character.UPPERCASE_LETTER) |
             (1 << Character.LOWERCASE_LETTER) |
@@ -9283,6 +9343,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @since   1.0.2
      * @deprecated Replaced by isJavaIdentifierStart(char).
      */
+    @Pure
     @Deprecated(since="1.1")
     public static boolean isJavaLetter(char ch) {
         return isJavaIdentifierStart(ch);
@@ -9322,6 +9383,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @since   1.0.2
      * @deprecated Replaced by isJavaIdentifierPart(char).
      */
+    @Pure
     @Deprecated(since="1.1")
     public static boolean isJavaLetterOrDigit(char ch) {
         return isJavaIdentifierPart(ch);
@@ -9349,6 +9411,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          character, {@code false} otherwise.
      * @since   1.7
      */
+    @Pure
     public static boolean isAlphabetic(int codePoint) {
         return (((((1 << Character.UPPERCASE_LETTER) |
             (1 << Character.LOWERCASE_LETTER) |
@@ -9369,6 +9432,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          character, {@code false} otherwise.
      * @since   1.7
      */
+    @Pure
     public static boolean isIdeographic(int codePoint) {
         return CharacterData.of(codePoint).isIdeographic(codePoint);
     }
@@ -9403,6 +9467,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     javax.lang.model.SourceVersion#isIdentifier(CharSequence)
      * @since   1.1
      */
+    @Pure
     public static boolean isJavaIdentifierStart(char ch) {
         return isJavaIdentifierStart((int)ch);
     }
@@ -9435,6 +9500,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     javax.lang.model.SourceVersion#isIdentifier(CharSequence)
      * @since   1.5
      */
+    @Pure
     public static boolean isJavaIdentifierStart(int codePoint) {
         return CharacterData.of(codePoint).isJavaIdentifierStart(codePoint);
     }
@@ -9475,6 +9541,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     javax.lang.model.SourceVersion#isIdentifier(CharSequence)
      * @since   1.1
      */
+    @Pure
     public static boolean isJavaIdentifierPart(char ch) {
         return isJavaIdentifierPart((int)ch);
     }
@@ -9511,6 +9578,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     javax.lang.model.SourceVersion#isIdentifier(CharSequence)
      * @since   1.5
      */
+    @Pure
     public static boolean isJavaIdentifierPart(int codePoint) {
         return CharacterData.of(codePoint).isJavaIdentifierPart(codePoint);
     }
@@ -9540,6 +9608,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierPart(char)
      * @since   1.1
      */
+    @Pure
     public static boolean isUnicodeIdentifierStart(char ch) {
         return isUnicodeIdentifierStart((int)ch);
     }
@@ -9564,6 +9633,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierPart(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isUnicodeIdentifierStart(int codePoint) {
         return CharacterData.of(codePoint).isUnicodeIdentifierStart(codePoint);
     }
@@ -9599,6 +9669,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierStart(char)
      * @since   1.1
      */
+    @Pure
     public static boolean isUnicodeIdentifierPart(char ch) {
         return isUnicodeIdentifierPart((int)ch);
     }
@@ -9628,6 +9699,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierStart(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isUnicodeIdentifierPart(int codePoint) {
         return CharacterData.of(codePoint).isUnicodeIdentifierPart(codePoint);
     }
@@ -9663,6 +9735,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierPart(char)
      * @since   1.1
      */
+    @Pure
     public static boolean isIdentifierIgnorable(char ch) {
         return isIdentifierIgnorable((int)ch);
     }
@@ -9693,6 +9766,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierPart(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isIdentifierIgnorable(int codePoint) {
         return CharacterData.of(codePoint).isIdentifierIgnorable(codePoint);
     }
@@ -9724,6 +9798,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isLowerCase(char)
      * @see     String#toLowerCase()
      */
+    @Pure
     public static char toLowerCase(char ch) {
         return (char)toLowerCase((int)ch);
     }
@@ -9753,6 +9828,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since   1.5
      */
+    @Pure
     public static int toLowerCase(int codePoint) {
         return CharacterData.of(codePoint).toLowerCase(codePoint);
     }
@@ -9784,6 +9860,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUpperCase(char)
      * @see     String#toUpperCase()
      */
+    @Pure
     public static char toUpperCase(char ch) {
         return (char)toUpperCase((int)ch);
     }
@@ -9813,6 +9890,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since   1.5
      */
+    @Pure
     public static int toUpperCase(int codePoint) {
         return CharacterData.of(codePoint).toUpperCase(codePoint);
     }
@@ -9845,6 +9923,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#toUpperCase(char)
      * @since   1.0.2
      */
+    @Pure
     public static char toTitleCase(char ch) {
         return (char)toTitleCase((int)ch);
     }
@@ -9872,6 +9951,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#toUpperCase(int)
      * @since   1.5
      */
+    @Pure
     public static int toTitleCase(int codePoint) {
         return CharacterData.of(codePoint).toTitleCase(codePoint);
     }
@@ -9926,7 +10006,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#forDigit(int, int)
      * @see     Character#isDigit(char)
      */
-    public static int digit(char ch, int radix) {
+    @Pure
+    public static @GTENegativeOne int digit(char ch, @Positive int radix) {
         return digit((int)ch, radix);
     }
 
@@ -9978,7 +10059,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isDigit(int)
      * @since   1.5
      */
-    public static int digit(int codePoint, int radix) {
+    @Pure
+    public static @GTENegativeOne int digit(int codePoint, @Positive int radix) {
         return CharacterData.of(codePoint).digit(codePoint, radix);
     }
 
@@ -10017,6 +10099,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isDigit(char)
      * @since   1.1
      */
+    @Pure
     public static int getNumericValue(char ch) {
         return getNumericValue((int)ch);
     }
@@ -10051,6 +10134,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isDigit(int)
      * @since   1.5
      */
+    @Pure
     public static int getNumericValue(int codePoint) {
         return CharacterData.of(codePoint).getNumericValue(codePoint);
     }
@@ -10087,6 +10171,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see        Character#isWhitespace(char)
      * @deprecated Replaced by isWhitespace(char).
      */
+    @Pure
     @Deprecated(since="1.1")
     public static boolean isSpace(char ch) {
         return (ch <= 0x0020) &&
@@ -10121,6 +10206,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isWhitespace(char)
      * @since   1.1
      */
+    @Pure
     public static boolean isSpaceChar(char ch) {
         return isSpaceChar((int)ch);
     }
@@ -10144,6 +10230,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isWhitespace(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isSpaceChar(int codePoint) {
         return ((((1 << Character.SPACE_SEPARATOR) |
                   (1 << Character.LINE_SEPARATOR) |
@@ -10182,6 +10269,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isSpaceChar(char)
      * @since   1.1
      */
+    @Pure
     public static boolean isWhitespace(char ch) {
         return isWhitespace((int)ch);
     }
@@ -10213,6 +10301,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isSpaceChar(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isWhitespace(int codePoint) {
         return CharacterData.of(codePoint).isWhitespace(codePoint);
     }
@@ -10237,6 +10326,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isWhitespace(char)
      * @since   1.1
      */
+    @Pure
     public static boolean isISOControl(char ch) {
         return isISOControl((int)ch);
     }
@@ -10255,6 +10345,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isWhitespace(int)
      * @since   1.5
      */
+    @Pure
     public static boolean isISOControl(int codePoint) {
         // Optimized form of:
         //     (codePoint >= 0x00 && codePoint <= 0x1F) ||
@@ -10306,6 +10397,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#UPPERCASE_LETTER
      * @since   1.1
      */
+    @Pure
     public static int getType(char ch) {
         return getType((int)ch);
     }
@@ -10348,6 +10440,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#UPPERCASE_LETTER UPPERCASE_LETTER
      * @since   1.5
      */
+    @Pure
     public static int getType(int codePoint) {
         return CharacterData.of(codePoint).getType(codePoint);
     }
@@ -10376,7 +10469,8 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#MAX_RADIX
      * @see     Character#digit(char, int)
      */
-    public static char forDigit(int digit, int radix) {
+    @Pure
+    public static char forDigit(int digit, @Positive int radix) {
         if ((digit >= radix) || (digit < 0)) {
             return '\0';
         }
@@ -10430,6 +10524,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see Character#DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE
      * @since 1.4
      */
+    @Pure
     public static byte getDirectionality(char ch) {
         return getDirectionality((int)ch);
     }
@@ -10471,6 +10566,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see Character#DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE
      * @since    1.5
      */
+    @Pure
     public static byte getDirectionality(int codePoint) {
         return CharacterData.of(codePoint).getDirectionality(codePoint);
     }
@@ -10494,6 +10590,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         if the {@code char} is not mirrored or is not defined.
      * @since 1.4
      */
+    @Pure
     public static boolean isMirrored(char ch) {
         return isMirrored((int)ch);
     }
@@ -10513,6 +10610,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          if the character is not mirrored or is not defined.
      * @since   1.5
      */
+    @Pure
     public static boolean isMirrored(int codePoint) {
         return CharacterData.of(codePoint).isMirrored(codePoint);
     }
@@ -10532,6 +10630,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          locale-dependent.
      * @since   1.2
      */
+    @Pure
     public int compareTo(Character anotherCharacter) {
         return compare(this.value, anotherCharacter.value);
     }
@@ -10550,6 +10649,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         a value greater than {@code 0} if {@code x > y}
      * @since 1.7
      */
+    @Pure
     public static int compare(char x, char y) {
         return x - y;
     }
@@ -10596,7 +10696,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final int SIZE = 16;
+    public static final @Positive int SIZE = 16;
 
     /**
      * The number of bytes used to represent a {@code char} value in unsigned
@@ -10615,6 +10715,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *     the bytes in the specified {@code char} value.
      * @since 1.5
      */
+    @Pure
     @HotSpotIntrinsicCandidate
     public static char reverseBytes(char ch) {
         return (char) (((ch & 0xFF00) >> 8) | (ch << 8));
@@ -10648,6 +10749,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.7
      */
+    @Pure
     public static String getName(int codePoint) {
         if (!isValidCodePoint(codePoint)) {
             throw new IllegalArgumentException(

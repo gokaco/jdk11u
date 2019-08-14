@@ -24,6 +24,7 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 
 /**
  * An object that may hold resources (such as file or socket handles)
@@ -94,5 +95,5 @@ public interface AutoCloseable {
      *
      * @throws Exception if this resource cannot be closed
      */
-    void close() throws Exception;
+    void close(@GuardSatisfied AutoCloseable this) throws Exception;
 }

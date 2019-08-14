@@ -24,6 +24,7 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import jdk.internal.misc.TerminatingThreadLocal;
 
 import java.lang.ref.*;
@@ -73,7 +74,7 @@ import java.util.function.Supplier;
  * @author  Josh Bloch and Doug Lea
  * @since   1.2
  */
-public class ThreadLocal<T> {
+public class ThreadLocal<@Nullable T> {
     /**
      * ThreadLocals rely on per-thread linear-probe hash maps attached
      * to each thread (Thread.threadLocals and

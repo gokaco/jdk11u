@@ -24,6 +24,8 @@
  */
 
 package java.lang.ref;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 
 /**
@@ -56,7 +58,8 @@ public class PhantomReference<T> extends Reference<T> {
      *
      * @return {@code null}
      */
-    public T get() {
+    @SideEffectFree
+    public T get(@GuardSatisfied PhantomReference<T> this) {
         return null;
     }
 

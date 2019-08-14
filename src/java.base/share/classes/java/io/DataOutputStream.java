@@ -24,6 +24,12 @@
  */
 
 package java.io;
+import org.checkerframework.checker.signedness.qual.PolySigned;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
 
 /**
  * A data output stream lets an application write primitive Java data
@@ -101,7 +107,7 @@ class DataOutputStream extends FilterOutputStream implements DataOutput {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.FilterOutputStream#out
      */
-    public synchronized void write(byte b[], int off, int len)
+    public synchronized void write(@PolySigned byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len)
         throws IOException
     {
         out.write(b, off, len);
@@ -410,7 +416,8 @@ class DataOutputStream extends FilterOutputStream implements DataOutput {
      * @return  the value of the <code>written</code> field.
      * @see     java.io.DataOutputStream#written
      */
-    public final int size() {
+    @Pure
+    public final @NonNegative int size(@GuardSatisfied DataOutputStream this) {
         return written;
     }
 }

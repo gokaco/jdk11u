@@ -25,6 +25,8 @@
 
 package javax.xml.xpath;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 import javax.xml.namespace.QName;
 
 /**
@@ -54,5 +56,6 @@ public interface XPathVariableResolver {
    *
    * @throws NullPointerException If <code>variableName</code> is <code>null</code>.
    */
-  public Object resolveVariable(QName variableName);
+  @Pure
+  public @Nullable Object resolveVariable(QName variableName);
 }

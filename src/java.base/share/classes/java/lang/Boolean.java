@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import jdk.internal.HotSpotIntrinsicCandidate;
 
 /**
@@ -109,7 +112,7 @@ public final class Boolean implements java.io.Serializable,
      * to convert a string to a {@code Boolean} object.
      */
     @Deprecated(since="9")
-    public Boolean(String s) {
+    public Boolean(@Nullable String s) {
         this(parseBoolean(s));
     }
 
@@ -128,7 +131,8 @@ public final class Boolean implements java.io.Serializable,
      * @return     the boolean represented by the string argument
      * @since 1.5
      */
-    public static boolean parseBoolean(String s) {
+    @Pure
+    public static boolean parseBoolean(@Nullable String s) {
         return "true".equalsIgnoreCase(s);
     }
 
@@ -138,6 +142,7 @@ public final class Boolean implements java.io.Serializable,
      *
      * @return  the primitive {@code boolean} value of this object.
      */
+    @Pure
     @HotSpotIntrinsicCandidate
     public boolean booleanValue() {
         return value;
@@ -157,6 +162,7 @@ public final class Boolean implements java.io.Serializable,
      * @return a {@code Boolean} instance representing {@code b}.
      * @since  1.4
      */
+    @Pure
     @HotSpotIntrinsicCandidate
     public static Boolean valueOf(boolean b) {
         return (b ? TRUE : FALSE);
@@ -173,7 +179,8 @@ public final class Boolean implements java.io.Serializable,
      * @param   s   a string.
      * @return  the {@code Boolean} value represented by the string.
      */
-    public static Boolean valueOf(String s) {
+    @Pure
+    public static Boolean valueOf(@Nullable String s) {
         return parseBoolean(s) ? TRUE : FALSE;
     }
 
@@ -187,6 +194,7 @@ public final class Boolean implements java.io.Serializable,
      * @return the string representation of the specified {@code boolean}
      * @since 1.4
      */
+    @Pure
     public static String toString(boolean b) {
         return b ? "true" : "false";
     }
@@ -199,6 +207,7 @@ public final class Boolean implements java.io.Serializable,
      *
      * @return  a string representation of this object.
      */
+    @SideEffectFree
     public String toString() {
         return value ? "true" : "false";
     }
@@ -210,6 +219,7 @@ public final class Boolean implements java.io.Serializable,
      * {@code true}; returns the integer {@code 1237} if this
      * object represents {@code false}.
      */
+    @Pure
     @Override
     public int hashCode() {
         return Boolean.hashCode(value);
@@ -236,7 +246,8 @@ public final class Boolean implements java.io.Serializable,
      * @return  {@code true} if the Boolean objects represent the
      *          same value; {@code false} otherwise.
      */
-    public boolean equals(Object obj) {
+    @Pure
+    public boolean equals(@Nullable Object obj) {
         if (obj instanceof Boolean) {
             return value == ((Boolean)obj).booleanValue();
         }
@@ -259,7 +270,8 @@ public final class Boolean implements java.io.Serializable,
      * @see     java.lang.System#getProperty(java.lang.String)
      * @see     java.lang.System#getProperty(java.lang.String, java.lang.String)
      */
-    public static boolean getBoolean(String name) {
+    @Pure
+    public static boolean getBoolean(@Nullable String name) {
         boolean result = false;
         try {
             result = parseBoolean(System.getProperty(name));
@@ -280,6 +292,7 @@ public final class Boolean implements java.io.Serializable,
      * @see     Comparable
      * @since  1.5
      */
+    @Pure
     public int compareTo(Boolean b) {
         return compare(this.value, b.value);
     }

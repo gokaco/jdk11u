@@ -25,6 +25,7 @@
  */
 
 package java.util;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
 
 /**
  * This is a near duplicate of {@link TimSort}, modified for use with
@@ -176,7 +177,7 @@ class ComparableTimSort {
      * @param workLen usable size of work array
      * @since 1.8
      */
-    static void sort(Object[] a, int lo, int hi, Object[] work, int workBase, int workLen) {
+    static void sort(Object[] a, @IndexOrHigh({"#1"}) int lo, @IndexOrHigh({"#1"}) int hi, Object[] work, int workBase, int workLen) {
         assert a != null && lo >= 0 && lo <= hi && hi <= a.length;
 
         int nRemaining  = hi - lo;

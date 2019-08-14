@@ -24,6 +24,9 @@
  */
 package java.util.stream;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -674,7 +677,8 @@ public interface Stream<T> extends BaseStream<T, Stream<T>> {
      * @return an array, whose {@linkplain Class#getComponentType runtime component
      * type} is {@code Object}, containing the elements of this stream
      */
-    Object[] toArray();
+    @SideEffectFree
+    @PolyNull Object[] toArray(Stream<@PolyNull T> this);
 
     /**
      * Returns an array containing the elements of this stream, using the
@@ -703,6 +707,7 @@ public interface Stream<T> extends BaseStream<T, Stream<T>> {
      *         stream is not assignable to the {@linkplain Class#getComponentType
      *         runtime component type} of the generated array
      */
+    @SideEffectFree
     <A> A[] toArray(IntFunction<A[]> generator);
 
     /**
@@ -1425,7 +1430,7 @@ public interface Stream<T> extends BaseStream<T, Stream<T>> {
          * @throws IllegalStateException if the builder has already transitioned to
          * the built state
          */
-        default Builder<T> add(T t) {
+        default Builder<T> add(Stream.@GuardSatisfied Builder<T> this, T t) {
             accept(t);
             return this;
         }

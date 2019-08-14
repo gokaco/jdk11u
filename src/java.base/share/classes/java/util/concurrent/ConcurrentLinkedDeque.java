@@ -35,6 +35,12 @@
 
 package java.util.concurrent;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.util.AbstractCollection;
@@ -93,7 +99,7 @@ import java.util.function.Predicate;
  * @author Martin Buchholz
  * @param <E> the type of elements held in this deque
  */
-public class ConcurrentLinkedDeque<E>
+public class ConcurrentLinkedDeque<E extends @NonNull Object>
     extends AbstractCollection<E>
     implements Deque<E>, java.io.Serializable {
 
@@ -866,7 +872,7 @@ public class ConcurrentLinkedDeque<E>
         return true;
     }
 
-    public E peekFirst() {
+    public @Nullable E peekFirst() {
         restart: for (;;) {
             E item;
             Node<E> first = first(), p = first;
@@ -881,7 +887,7 @@ public class ConcurrentLinkedDeque<E>
         }
     }
 
-    public E peekLast() {
+    public @Nullable E peekLast() {
         restart: for (;;) {
             E item;
             Node<E> last = last(), p = last;
@@ -910,7 +916,7 @@ public class ConcurrentLinkedDeque<E>
         return screenNullResult(peekLast());
     }
 
-    public E pollFirst() {
+    public @Nullable E pollFirst() {
         restart: for (;;) {
             for (Node<E> first = first(), p = first;;) {
                 final E item;
@@ -931,7 +937,7 @@ public class ConcurrentLinkedDeque<E>
         }
     }
 
-    public E pollLast() {
+    public @Nullable E pollLast() {
         restart: for (;;) {
             for (Node<E> last = last(), p = last;;) {
                 final E item;
@@ -991,8 +997,8 @@ public class ConcurrentLinkedDeque<E>
         return offerLast(e);
     }
 
-    public E poll()           { return pollFirst(); }
-    public E peek()           { return peekFirst(); }
+    public @Nullable E poll()           { return pollFirst(); }
+    public @Nullable E peek()           { return peekFirst(); }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
@@ -1074,7 +1080,8 @@ public class ConcurrentLinkedDeque<E>
      * @param o element whose presence in this deque is to be tested
      * @return {@code true} if this deque contains the specified element
      */
-    public boolean contains(Object o) {
+    @Pure
+    public boolean contains(@Nullable Object o) {
         if (o != null) {
             for (Node<E> p = first(); p != null; p = succ(p)) {
                 final E item;
@@ -1090,6 +1097,8 @@ public class ConcurrentLinkedDeque<E>
      *
      * @return {@code true} if this collection contains no elements
      */
+    @EnsuresNonNullIf(expression={"peek()", "peekFirst()", "peekLast()", "poll()", "pollFirst()", "pollLast()"}, result=false)
+    @Pure
     public boolean isEmpty() {
         return peekFirst() == null;
     }
@@ -1110,6 +1119,7 @@ public class ConcurrentLinkedDeque<E>
      *
      * @return the number of elements in this deque
      */
+    @Pure
     public int size() {
         restart: for (;;) {
             int count = 0;
@@ -1282,7 +1292,8 @@ public class ConcurrentLinkedDeque<E>
      *
      * @return an array containing all of the elements in this deque
      */
-    public Object[] toArray() {
+    @SideEffectFree
+    public @PolyNull Object[] toArray(ConcurrentLinkedDeque<@PolyNull E> this) {
         return toArrayInternal(null);
     }
 
@@ -1323,6 +1334,7 @@ public class ConcurrentLinkedDeque<E>
      *         this deque
      * @throws NullPointerException if the specified array is null
      */
+    @SideEffectFree
     @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] a) {
         if (a == null) throw new NullPointerException();
@@ -1338,6 +1350,7 @@ public class ConcurrentLinkedDeque<E>
      *
      * @return an iterator over the elements in this deque in proper sequence
      */
+    @SideEffectFree
     public Iterator<E> iterator() {
         return new Itr();
     }
@@ -1360,7 +1373,7 @@ public class ConcurrentLinkedDeque<E>
         /**
          * Next node to return item for.
          */
-        private Node<E> nextNode;
+        private @Nullable Node<E> nextNode;
 
         /**
          * nextItem holds on to item fields because once we claim
@@ -1368,13 +1381,13 @@ public class ConcurrentLinkedDeque<E>
          * the following next() call even if it was in the process of
          * being removed when hasNext() was called.
          */
-        private E nextItem;
+        private @Nullable E nextItem;
 
         /**
          * Node returned by most recent call to next. Needed by remove.
          * Reset to null if this element is deleted by a call to remove.
          */
-        private Node<E> lastRet;
+        private @Nullable Node<E> lastRet;
 
         abstract Node<E> startNode();
         abstract Node<E> nextNode(Node<E> p);
@@ -1543,6 +1556,7 @@ public class ConcurrentLinkedDeque<E>
      * @return a {@code Spliterator} over the elements in this deque
      * @since 1.8
      */
+    @SideEffectFree
     public Spliterator<E> spliterator() {
         return new CLDSpliterator();
     }

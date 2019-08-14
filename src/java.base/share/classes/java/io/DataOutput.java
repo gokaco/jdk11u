@@ -24,6 +24,9 @@
  */
 
 package java.io;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
 
 /**
  * The <code>DataOutput</code> interface provides
@@ -94,7 +97,7 @@ interface DataOutput {
      * @param      len   the number of bytes to write.
      * @throws     IOException  if an I/O error occurs.
      */
-    void write(byte b[], int off, int len) throws IOException;
+    void write(byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException;
 
     /**
      * Writes a <code>boolean</code> value to this output stream.

@@ -25,6 +25,7 @@
 
 package javax.swing.table;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -189,7 +190,7 @@ public class DefaultTableCellRenderer extends JLabel
      * @see javax.swing.JComponent#isPaintingForPrint()
      */
     public Component getTableCellRendererComponent(JTable table, Object value,
-                          boolean isSelected, boolean hasFocus, int row, int column) {
+                          boolean isSelected, boolean hasFocus, @NonNegative int row, @NonNegative int column) {
         if (table == null) {
             return this;
         }

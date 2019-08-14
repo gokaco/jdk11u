@@ -35,6 +35,7 @@
 
 package java.util.concurrent;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Collection;
 import java.util.List;
 
@@ -262,7 +263,7 @@ public interface ExecutorService extends Executor {
      *         scheduled for execution
      * @throws NullPointerException if the task is null
      */
-    Future<?> submit(Runnable task);
+    Future<@Nullable ?> submit(Runnable task);
 
     /**
      * Executes the given tasks, returning a list of Futures holding

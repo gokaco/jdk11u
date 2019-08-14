@@ -35,6 +35,11 @@
 
 package java.util.concurrent;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.PolyNull;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 import java.util.AbstractQueue;
@@ -74,7 +79,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Doug Lea
  * @param <E> the type of elements held in this queue
  */
-public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
+public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
     implements BlockingQueue<E> {
 
     private final transient ReentrantLock lock = new ReentrantLock();
@@ -96,7 +101,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      * signalled.  So waiting threads must be prepared to acquire
      * and lose leadership while waiting.
      */
-    private Thread leader;
+    private @Nullable Thread leader;
 
     /**
      * Condition signalled when a newer element becomes available
@@ -187,7 +192,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      * @return the head of this queue, or {@code null} if this
      *         queue has no elements with an expired delay
      */
-    public E poll() {
+    public @Nullable E poll() {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -251,7 +256,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      *         an expired delay becomes available
      * @throws InterruptedException {@inheritDoc}
      */
-    public E poll(long timeout, TimeUnit unit) throws InterruptedException {
+    public @Nullable E poll(long timeout, TimeUnit unit) throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -302,7 +307,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      * @return the head of this queue, or {@code null} if this
      *         queue is empty
      */
-    public E peek() {
+    public @Nullable E peek() {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -312,6 +317,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
         }
     }
 
+    @Pure
     public int size() {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -401,7 +407,8 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      *
      * @return an array containing all of the elements in this queue
      */
-    public Object[] toArray() {
+    @SideEffectFree
+    public @PolyNull Object[] toArray(DelayQueue<@PolyNull E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -446,6 +453,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      *         this queue
      * @throws NullPointerException if the specified array is null
      */
+    @SideEffectFree
     public <T> T[] toArray(T[] a) {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -498,6 +506,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      *
      * @return an iterator over the elements in this queue
      */
+    @SideEffectFree
     public Iterator<E> iterator() {
         return new Itr(toArray());
     }

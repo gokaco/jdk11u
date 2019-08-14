@@ -25,6 +25,7 @@
 
 package java.io;
 
+import org.checkerframework.checker.index.qual.IndexOrHigh;
 import java.lang.annotation.Native;
 
 /**
@@ -55,7 +56,7 @@ abstract class FileSystem {
      * Compute the length of this pathname string's prefix.  The pathname
      * string must be in normal form.
      */
-    public abstract int prefixLength(String path);
+    public abstract @IndexOrHigh({"#1"}) int prefixLength(String path);
 
     /**
      * Resolve the child pathname string against the parent.
