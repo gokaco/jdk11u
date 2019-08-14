@@ -7,9 +7,40 @@ This fork is not up to date with respect to `openjdk/jdk` (the current OpenJDK v
 This fork contains all commits through the release of JDK 11:
 https://github.com/typetools/jdk/commit/8a780d3273fe6f38ca392d63e89e3e8e552ac767
 
-After you make changes to this repository, you will need to pull the
-changes into `typetools/jdk11u`, and that may be necessary even to make
-pull requests succeed.
+This fork is an ancestor of JDK release forks such as jdk11u.  This fork
+does not compile, because the commit of `openjdk/jdk` on which it is based
+no longer compiles, due to changes to tools such as compilers.
+Repositories such as jdk11u and jdk12u have been updated and do compile.
+
+This fork's annotations are pulled into those repositories, in order to
+build an annotated JDK.  We do not write annotations in (say) jdk11u,
+because it has diverged so far from other repositories that merging it into
+jdk12u would be more painful than merging jdk into both jdk11u and jdk12u.
+
+
+Pull request merge conflicts
+----------------------------
+
+Suppose that a pull request, from branch `MYBRANCH` of `ORG`'s fork of
+`jdk`, is failing with a merge conflict in `jdk11u`.  Do the following in
+the master branch of `ORG`'s fork of `jdk11u` (create the fork if it does
+not exist):
+
+ * `git pull --ff-only https://github.com/typetools/jdk11u.git`
+ * `git checkout -b MYBRANCH`
+ * `git pull https://github.com/typetools/jdk.git MYBRANCH`
+ * Resolve conflicts
+ * `git push`
+ * `git checkout master`
+
+After the pull request is merged to https://github.com/typetools/jdk,
+follow the instructions at https://github.com/typetools/jdk11u to update
+jdk11u, taking guidance from branch MYBRANCH of ORG/jdk11u to resolve conflicts.
+Then, discard branch MYBRANCH of ORG/jdk11u.
+
+
+Upstream README follows
+-----------------------
 
 The remainder of this file is the README from `openjdk/jdk`.
 
