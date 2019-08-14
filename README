@@ -4,34 +4,14 @@ The typetools/jdk11u repository
 This is a merge of `openjdk/jdk11u` and `typetools/jdk`.\
 That is, it is a fork of `openjdk/jdk11u`, with Checker Framework type annotations.
 
+**Do not edit this repository.**\
+Make changes in the `typetools/jdk` repository.
 
-Do not edit this repository
----------------------------
-
-You should NOT edit this repository directly.
-
-Make edits in the `typetools/jdk` repository, then pull them into this
-repository (or one of its branches) with
+To update this from its upstreams:
 ```
-git pull https://github.com/typetools/jdk.git <branchname>
+git pull https://github.com/openjdk/jdk11u.git
+git pull https://github.com/typetools/jdk.git
 ```
-When merging pull requests from `typetools/jdk`, create a merge commit
-(do not squash or rebase).
-
-
-Why is this repository needed?
-------------------------------
-
-The `typetools/jdk` repository that contains annotations does not compile,
-because the commit of `openjdk/jdk` on which it is based no longer
-compiles, due to changes to tools such as compilers.  The `jdk11u`
-repository has been updated and does compile, but it has diverged from the
-main `typetools/jdk` repository on which later versions of the JDK (12+)
-are based.
-
-
-Original README follows
------------------------
 
 The remainder of this file is the README file of `typetools/jdk`.
 
