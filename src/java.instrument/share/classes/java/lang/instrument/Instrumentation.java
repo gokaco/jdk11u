@@ -25,6 +25,7 @@
 
 package java.lang.instrument;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.security.ProtectionDomain;
 import java.util.List;
 import java.util.Map;
@@ -402,7 +403,7 @@ public interface Instrumentation {
      */
     @SuppressWarnings("rawtypes")
     Class[]
-    getInitiatedClasses(ClassLoader loader);
+    getInitiatedClasses(@Nullable ClassLoader loader);
 
     /**
      * Returns an implementation-specific approximation of the amount of storage consumed by
@@ -416,7 +417,7 @@ public interface Instrumentation {
      * @throws java.lang.NullPointerException if the supplied Object is <code>null</code>.
      */
     long
-    getObjectSize(Object objectToSize);
+    getObjectSize(@Nullable Object objectToSize);
 
 
     /**
@@ -667,7 +668,7 @@ public interface Instrumentation {
      * @since 1.6
      */
     void
-    setNativeMethodPrefix(ClassFileTransformer transformer, String prefix);
+    setNativeMethodPrefix(ClassFileTransformer transformer, @Nullable String prefix);
 
     /**
      * Redefine a module to expand the set of modules that it reads, the set of

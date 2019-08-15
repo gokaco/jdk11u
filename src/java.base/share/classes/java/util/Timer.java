@@ -24,6 +24,7 @@
  */
 
 package java.util;
+import org.checkerframework.checker.index.qual.NonNegative;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -454,7 +455,7 @@ public class Timer {
      * @return the number of tasks removed from the queue.
      * @since 1.5
      */
-     public int purge() {
+     public @NonNegative int purge() {
          int result = 0;
 
          synchronized(queue) {

@@ -25,6 +25,12 @@
 
 package java.lang;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.initialization.qual.UnknownInitialization;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 import jdk.internal.HotSpotIntrinsicCandidate;
 
 /**
@@ -68,8 +74,9 @@ public class Object {
      *         class of this object.
      * @jls 15.8.2 Class Literals
      */
+    @Pure
     @HotSpotIntrinsicCandidate
-    public final native Class<?> getClass();
+    public final native Class<?> getClass(@GuardSatisfied @UnknownInitialization Object this);
 
     /**
      * Returns a hash code value for the object. This method is
@@ -105,8 +112,9 @@ public class Object {
      * @see     java.lang.Object#equals(java.lang.Object)
      * @see     java.lang.System#identityHashCode
      */
+    @Pure
     @HotSpotIntrinsicCandidate
-    public native int hashCode();
+    public native int hashCode(@GuardSatisfied Object this);
 
     /**
      * Indicates whether some other object is "equal to" this one.
@@ -154,7 +162,8 @@ public class Object {
      * @see     #hashCode()
      * @see     java.util.HashMap
      */
-    public boolean equals(Object obj) {
+    @Pure
+    public boolean equals(@GuardSatisfied Object this, @GuardSatisfied @Nullable Object obj) {
         return (this == obj);
     }
 
@@ -218,8 +227,9 @@ public class Object {
      *               be cloned.
      * @see java.lang.Cloneable
      */
+    @SideEffectFree
     @HotSpotIntrinsicCandidate
-    protected native Object clone() throws CloneNotSupportedException;
+    protected native Object clone(@GuardSatisfied Object this) throws CloneNotSupportedException;
 
     /**
      * Returns a string representation of the object. In general, the
@@ -242,7 +252,8 @@ public class Object {
      *
      * @return  a string representation of the object.
      */
-    public String toString() {
+    @SideEffectFree
+    public String toString(@GuardSatisfied Object this) {
         return getClass().getName() + "@" + Integer.toHexString(hashCode());
     }
 
@@ -324,7 +335,7 @@ public class Object {
      * @see    #wait(long)
      * @see    #wait(long, int)
      */
-    public final void wait() throws InterruptedException {
+    public final void wait(@UnknownInitialization Object this) throws InterruptedException {
         wait(0L);
     }
 
@@ -349,7 +360,7 @@ public class Object {
      * @see    #wait()
      * @see    #wait(long, int)
      */
-    public final native void wait(long timeoutMillis) throws InterruptedException;
+    public final native void wait(@NonNegative long timeoutMillis) throws InterruptedException;
 
     /**
      * Causes the current thread to wait until it is awakened, typically
@@ -445,7 +456,7 @@ public class Object {
      * @see    #wait()
      * @see    #wait(long)
      */
-    public final void wait(long timeoutMillis, int nanos) throws InterruptedException {
+    public final void wait(@UnknownInitialization Object this, long timeoutMillis, @NonNegative int nanos) throws InterruptedException {
         if (timeoutMillis < 0) {
             throw new IllegalArgumentException("timeoutMillis value is negative");
         }

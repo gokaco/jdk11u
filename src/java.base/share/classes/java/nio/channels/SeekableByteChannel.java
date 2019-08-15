@@ -25,6 +25,8 @@
 
 package java.nio.channels;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
 import java.nio.ByteBuffer;
 import java.io.IOException;
 
@@ -62,7 +64,7 @@ public interface SeekableByteChannel
      * ReadableByteChannel} interface.
      */
     @Override
-    int read(ByteBuffer dst) throws IOException;
+    @GTENegativeOne int read(ByteBuffer dst) throws IOException;
 
     /**
      * Writes a sequence of bytes to this channel from the given buffer.
@@ -91,7 +93,7 @@ public interface SeekableByteChannel
      * @throws  IOException
      *          If some other I/O error occurs
      */
-    long position() throws IOException;
+    @NonNegative long position() throws IOException;
 
     /**
      * Sets this channel's position.
@@ -122,7 +124,7 @@ public interface SeekableByteChannel
      * @throws  IOException
      *          If some other I/O error occurs
      */
-    SeekableByteChannel position(long newPosition) throws IOException;
+    SeekableByteChannel position(@NonNegative long newPosition) throws IOException;
 
     /**
      * Returns the current size of entity to which this channel is connected.
@@ -134,7 +136,7 @@ public interface SeekableByteChannel
      * @throws  IOException
      *          If some other I/O error occurs
      */
-    long size() throws IOException;
+    @NonNegative long size() throws IOException;
 
     /**
      * Truncates the entity, to which this channel is connected, to the given
@@ -164,5 +166,5 @@ public interface SeekableByteChannel
      * @throws  IOException
      *          If some other I/O error occurs
      */
-    SeekableByteChannel truncate(long size) throws IOException;
+    SeekableByteChannel truncate(@NonNegative long size) throws IOException;
 }

@@ -25,6 +25,10 @@
 
 package java.lang;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.PrintStream;
 import java.util.Arrays;
 import jdk.internal.misc.VM;
@@ -91,7 +95,7 @@ class ThreadGroup implements Thread.UncaughtExceptionHandler {
      * @see     java.lang.ThreadGroup#checkAccess()
      * @since   1.0
      */
-    public ThreadGroup(String name) {
+    public ThreadGroup(@Nullable String name) {
         this(Thread.currentThread().getThreadGroup(), name);
     }
 
@@ -112,7 +116,7 @@ class ThreadGroup implements Thread.UncaughtExceptionHandler {
      * @see     java.lang.ThreadGroup#checkAccess()
      * @since   1.0
      */
-    public ThreadGroup(ThreadGroup parent, String name) {
+    public ThreadGroup(ThreadGroup parent, @Nullable String name) {
         this(checkParentAccess(parent), parent, name);
     }
 
@@ -140,7 +144,7 @@ class ThreadGroup implements Thread.UncaughtExceptionHandler {
      * @return  the name of this thread group.
      * @since   1.0
      */
-    public final String getName() {
+    public final @Nullable String getName() {
         return name;
     }
 
@@ -160,7 +164,7 @@ class ThreadGroup implements Thread.UncaughtExceptionHandler {
      * @see        java.lang.RuntimePermission
      * @since   1.0
      */
-    public final ThreadGroup getParent() {
+    public final @Nullable ThreadGroup getParent() {
         if (parent != null)
             parent.checkAccess();
         return parent;
@@ -189,7 +193,8 @@ class ThreadGroup implements Thread.UncaughtExceptionHandler {
      *          {@code false} otherwise.
      * @since   1.0
      */
-    public final boolean isDaemon() {
+    @Pure
+    public final boolean isDaemon(@GuardSatisfied ThreadGroup this) {
         return daemon;
     }
 
@@ -199,7 +204,8 @@ class ThreadGroup implements Thread.UncaughtExceptionHandler {
      * @return  true if this object is destroyed
      * @since   1.1
      */
-    public synchronized boolean isDestroyed() {
+    @Pure
+    public synchronized boolean isDestroyed(@GuardSatisfied ThreadGroup this) {
         return destroyed;
     }
 
@@ -1082,7 +1088,8 @@ class ThreadGroup implements Thread.UncaughtExceptionHandler {
      * @return  a string representation of this thread group.
      * @since   1.0
      */
-    public String toString() {
+    @SideEffectFree
+    public String toString(@GuardSatisfied ThreadGroup this) {
         return getClass().getName() + "[name=" + getName() + ",maxpri=" + maxPriority + "]";
     }
 }

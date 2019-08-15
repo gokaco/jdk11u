@@ -24,6 +24,13 @@
  */
 
 package java.io;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
 
 
 /**
@@ -82,7 +89,7 @@ public class LineNumberReader extends BufferedReader {
      * @param  sz
      *         An int specifying the size of the buffer
      */
-    public LineNumberReader(Reader in, int sz) {
+    public LineNumberReader(Reader in, @NonNegative int sz) {
         super(in, sz);
     }
 
@@ -94,7 +101,7 @@ public class LineNumberReader extends BufferedReader {
      *
      * @see #getLineNumber
      */
-    public void setLineNumber(int lineNumber) {
+    public void setLineNumber(@GuardSatisfied LineNumberReader this, @NonNegative int lineNumber) {
         this.lineNumber = lineNumber;
     }
 
@@ -105,7 +112,7 @@ public class LineNumberReader extends BufferedReader {
      *
      * @see #setLineNumber
      */
-    public int getLineNumber() {
+    public @NonNegative int getLineNumber(@GuardSatisfied LineNumberReader this) {
         return lineNumber;
     }
 
@@ -121,7 +128,7 @@ public class LineNumberReader extends BufferedReader {
      *          If an I/O error occurs
      */
     @SuppressWarnings("fallthrough")
-    public int read() throws IOException {
+    public int read(@GuardSatisfied LineNumberReader this) throws IOException {
         synchronized (lock) {
             int c = super.read();
             if (skipLF) {
@@ -163,7 +170,7 @@ public class LineNumberReader extends BufferedReader {
      * @throws  IndexOutOfBoundsException {@inheritDoc}
      */
     @SuppressWarnings("fallthrough")
-    public int read(char cbuf[], int off, int len) throws IOException {
+    public @GTENegativeOne @LTEqLengthOf({"#1"}) int read(@GuardSatisfied LineNumberReader this, char cbuf[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         synchronized (lock) {
             int n = super.read(cbuf, off, len);
 
@@ -198,7 +205,7 @@ public class LineNumberReader extends BufferedReader {
      * @throws  IOException
      *          If an I/O error occurs
      */
-    public String readLine() throws IOException {
+    public @Nullable String readLine(@GuardSatisfied LineNumberReader this) throws IOException {
         synchronized (lock) {
             String l = super.readLine(skipLF);
             skipLF = false;
@@ -228,7 +235,7 @@ public class LineNumberReader extends BufferedReader {
      * @throws  IllegalArgumentException
      *          If {@code n} is negative
      */
-    public long skip(long n) throws IOException {
+    public @NonNegative long skip(@GuardSatisfied LineNumberReader this, @NonNegative long n) throws IOException {
         if (n < 0)
             throw new IllegalArgumentException("skip() value is negative");
         int nn = (int) Math.min(n, maxSkipBufferSize);
@@ -259,7 +266,7 @@ public class LineNumberReader extends BufferedReader {
      * @throws  IOException
      *          If an I/O error occurs
      */
-    public void mark(int readAheadLimit) throws IOException {
+    public void mark(@GuardSatisfied LineNumberReader this, @NonNegative int readAheadLimit) throws IOException {
         synchronized (lock) {
             super.mark(readAheadLimit);
             markedLineNumber = lineNumber;
@@ -274,7 +281,7 @@ public class LineNumberReader extends BufferedReader {
      *          If the stream has not been marked, or if the mark has been
      *          invalidated
      */
-    public void reset() throws IOException {
+    public void reset(@GuardSatisfied LineNumberReader this) throws IOException {
         synchronized (lock) {
             super.reset();
             lineNumber = markedLineNumber;

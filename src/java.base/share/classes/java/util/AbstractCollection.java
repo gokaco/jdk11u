@@ -24,6 +24,12 @@
  */
 
 package java.util;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * This class provides a skeletal implementation of the {@code Collection}
@@ -73,9 +79,13 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      *
      * @return an iterator over the elements contained in this collection
      */
+    @Override
+    @SideEffectFree
     public abstract Iterator<E> iterator();
 
-    public abstract int size();
+    @Override
+    @Pure
+    public abstract @NonNegative int size(@GuardSatisfied AbstractCollection<E> this);
 
     /**
      * {@inheritDoc}
@@ -83,7 +93,9 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @implSpec
      * This implementation returns {@code size() == 0}.
      */
-    public boolean isEmpty() {
+    @Override
+    @Pure
+    public boolean isEmpty(@GuardSatisfied AbstractCollection<E> this) {
         return size() == 0;
     }
 
@@ -97,7 +109,9 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws ClassCastException   {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean contains(Object o) {
+    @Override
+    @Pure
+    public boolean contains(@GuardSatisfied AbstractCollection<E> this, @GuardSatisfied @Nullable Object o) {
         Iterator<E> it = iterator();
         if (o==null) {
             while (it.hasNext())
@@ -134,6 +148,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * return list.toArray();
      * }</pre>
      */
+    @Override
+    @SideEffectFree
     public Object[] toArray() {
         // Estimate size of array; be prepared to see more or fewer elements
         Object[] r = new Object[size()];
@@ -174,8 +190,10 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws ArrayStoreException  {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
+    @Override
+    @SideEffectFree
     @SuppressWarnings("unchecked")
-    public <T> T[] toArray(T[] a) {
+    public <T> @Nullable T @PolyNull [] toArray(@Nullable T @PolyNull [] a) {
         // Estimate size of array; be prepared to see more or fewer elements
         int size = size();
         T[] r = a.length >= size ? a :
@@ -263,7 +281,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IllegalStateException         {@inheritDoc}
      */
-    public boolean add(E e) {
+    @Override
+    public boolean add(@GuardSatisfied AbstractCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -284,7 +303,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws ClassCastException            {@inheritDoc}
      * @throws NullPointerException          {@inheritDoc}
      */
-    public boolean remove(Object o) {
+    @Override
+    public boolean remove(@GuardSatisfied AbstractCollection<E> this, @Nullable Object o) {
         Iterator<E> it = iterator();
         if (o==null) {
             while (it.hasNext()) {
@@ -320,7 +340,9 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws NullPointerException          {@inheritDoc}
      * @see #contains(Object)
      */
-    public boolean containsAll(Collection<?> c) {
+    @Override
+    @Pure
+    public boolean containsAll(@GuardSatisfied AbstractCollection<E> this, @GuardSatisfied Collection<?> c) {
         for (Object e : c)
             if (!contains(e))
                 return false;
@@ -346,7 +368,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      *
      * @see #add(Object)
      */
-    public boolean addAll(Collection<? extends E> c) {
+    @Override
+    public boolean addAll(@GuardSatisfied AbstractCollection<E> this, Collection<? extends E> c) {
         boolean modified = false;
         for (E e : c)
             if (add(e))
@@ -376,7 +399,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    public boolean removeAll(Collection<?> c) {
+    @Override
+    public boolean removeAll(@GuardSatisfied AbstractCollection<E> this, Collection<?> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<?> it = iterator();
@@ -411,7 +435,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    public boolean retainAll(Collection<?> c) {
+    @Override
+    public boolean retainAll(@GuardSatisfied AbstractCollection<E> this, Collection<?> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<E> it = iterator();
@@ -440,7 +465,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      *
      * @throws UnsupportedOperationException {@inheritDoc}
      */
-    public void clear() {
+    @Override
+    public void clear(@GuardSatisfied AbstractCollection<E> this) {
         Iterator<E> it = iterator();
         while (it.hasNext()) {
             it.next();
@@ -461,7 +487,9 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      *
      * @return a string representation of this collection
      */
-    public String toString() {
+    @Override
+    @SideEffectFree
+    public String toString(@GuardSatisfied AbstractCollection<E> this) {
         Iterator<E> it = iterator();
         if (! it.hasNext())
             return "[]";

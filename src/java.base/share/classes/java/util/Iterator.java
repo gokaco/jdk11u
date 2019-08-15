@@ -25,6 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.framework.qual.Covariant;
 import java.util.function.Consumer;
 
 /**
@@ -55,6 +57,7 @@ import java.util.function.Consumer;
  * @see Iterable
  * @since 1.2
  */
+@Covariant({0})
 public interface Iterator<E> {
     /**
      * Returns {@code true} if the iteration has more elements.
@@ -63,7 +66,7 @@ public interface Iterator<E> {
      *
      * @return {@code true} if the iteration has more elements
      */
-    boolean hasNext();
+    boolean hasNext(@GuardSatisfied Iterator<E> this);
 
     /**
      * Returns the next element in the iteration.
@@ -71,7 +74,7 @@ public interface Iterator<E> {
      * @return the next element in the iteration
      * @throws NoSuchElementException if the iteration has no more elements
      */
-    E next();
+    E next(@GuardSatisfied Iterator<E> this);
 
     /**
      * Removes from the underlying collection the last element returned
@@ -98,7 +101,7 @@ public interface Iterator<E> {
      *         been called after the last call to the {@code next}
      *         method
      */
-    default void remove() {
+    default void remove(@GuardSatisfied Iterator<E> this) {
         throw new UnsupportedOperationException("remove");
     }
 

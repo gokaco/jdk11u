@@ -24,6 +24,9 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 
 /**
  * An {@code Error} is a subclass of {@code Throwable}
@@ -54,6 +57,7 @@ public class Error extends Throwable {
      * The cause is not initialized, and may subsequently be initialized by a
      * call to {@link #initCause}.
      */
+    @SideEffectFree
     public Error() {
         super();
     }
@@ -66,7 +70,8 @@ public class Error extends Throwable {
      * @param   message   the detail message. The detail message is saved for
      *          later retrieval by the {@link #getMessage()} method.
      */
-    public Error(String message) {
+    @SideEffectFree
+    public Error(@Nullable String message) {
         super(message);
     }
 
@@ -84,7 +89,8 @@ public class Error extends Throwable {
      *         unknown.)
      * @since  1.4
      */
-    public Error(String message, Throwable cause) {
+    @SideEffectFree
+    public Error(@Nullable String message, @GuardSatisfied @Nullable Throwable cause) {
         super(message, cause);
     }
 
@@ -101,7 +107,8 @@ public class Error extends Throwable {
      *         unknown.)
      * @since  1.4
      */
-    public Error(Throwable cause) {
+    @SideEffectFree
+    public Error(@Nullable Throwable cause) {
         super(cause);
     }
 
@@ -120,7 +127,8 @@ public class Error extends Throwable {
      *
      * @since 1.7
      */
-    protected Error(String message, Throwable cause,
+    @SideEffectFree
+    protected Error(@Nullable String message, @Nullable Throwable cause,
                     boolean enableSuppression,
                     boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);

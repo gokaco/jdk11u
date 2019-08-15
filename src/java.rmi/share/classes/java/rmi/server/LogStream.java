@@ -24,6 +24,7 @@
  */
 package java.rmi.server;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import java.io.*;
 import java.util.*;
 
@@ -212,7 +213,7 @@ public class LogStream extends PrintStream {
      * @deprecated no replacement
      */
     @Deprecated
-    public void write(byte b[], int off, int len)
+    public void write(@PolySigned byte b[], int off, int len)
     {
         if (len < 0)
             throw new ArrayIndexOutOfBoundsException(len);

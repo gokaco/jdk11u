@@ -25,6 +25,7 @@
 
 package java.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -207,7 +208,7 @@ class Socket implements java.io.Closeable {
      * @see        java.net.SocketImplFactory#createSocketImpl()
      * @see        SecurityManager#checkConnect
      */
-    public Socket(String host, int port)
+    public Socket(@Nullable String host, int port)
         throws UnknownHostException, IOException
     {
         this(host != null ? new InetSocketAddress(host, port) :
@@ -283,7 +284,7 @@ class Socket implements java.io.Closeable {
      * @see        SecurityManager#checkConnect
      * @since   1.1
      */
-    public Socket(String host, int port, InetAddress localAddr,
+    public Socket(@Nullable String host, int port, @Nullable InetAddress localAddr,
                   int localPort) throws IOException {
         this(host != null ? new InetSocketAddress(host, port) :
                new InetSocketAddress(InetAddress.getByName(null), port),
@@ -325,7 +326,7 @@ class Socket implements java.io.Closeable {
      * @see        SecurityManager#checkConnect
      * @since   1.1
      */
-    public Socket(InetAddress address, int port, InetAddress localAddr,
+    public Socket(InetAddress address, int port, @Nullable InetAddress localAddr,
                   int localPort) throws IOException {
         this(address != null ? new InetSocketAddress(address, port) : null,
              new InetSocketAddress(localAddr, localPort), true);
@@ -373,7 +374,7 @@ class Socket implements java.io.Closeable {
      * @deprecated Use DatagramSocket instead for UDP transport.
      */
     @Deprecated
-    public Socket(String host, int port, boolean stream) throws IOException {
+    public Socket(@Nullable String host, int port, boolean stream) throws IOException {
         this(host != null ? new InetSocketAddress(host, port) :
                new InetSocketAddress(InetAddress.getByName(null), port),
              (SocketAddress) null, stream);
@@ -622,7 +623,7 @@ class Socket implements java.io.Closeable {
      * @since   1.4
      * @see #isBound
      */
-    public void bind(SocketAddress bindpoint) throws IOException {
+    public void bind(@Nullable SocketAddress bindpoint) throws IOException {
         if (isClosed())
             throw new SocketException("Socket is closed");
         if (!oldImpl && isBound())
@@ -687,7 +688,7 @@ class Socket implements java.io.Closeable {
      * @return  the remote IP address to which this socket is connected,
      *          or {@code null} if the socket is not connected.
      */
-    public InetAddress getInetAddress() {
+    public @Nullable InetAddress getInetAddress() {
         if (!isConnected())
             return null;
         try {
@@ -792,7 +793,7 @@ class Socket implements java.io.Closeable {
      * @see #connect(SocketAddress)
      * @since 1.4
      */
-    public SocketAddress getRemoteSocketAddress() {
+    public @Nullable SocketAddress getRemoteSocketAddress() {
         if (!isConnected())
             return null;
         return new InetSocketAddress(getInetAddress(), getPort());
@@ -828,7 +829,7 @@ class Socket implements java.io.Closeable {
      * @since 1.4
      */
 
-    public SocketAddress getLocalSocketAddress() {
+    public @Nullable SocketAddress getLocalSocketAddress() {
         if (!isBound())
             return null;
         return new InetSocketAddress(getLocalAddress(), getLocalPort());
@@ -851,7 +852,7 @@ class Socket implements java.io.Closeable {
      * @since 1.4
      * @spec JSR-51
      */
-    public SocketChannel getChannel() {
+    public @Nullable SocketChannel getChannel() {
         return null;
     }
 
@@ -1670,7 +1671,7 @@ class Socket implements java.io.Closeable {
      * @see        java.net.SocketImplFactory#createSocketImpl()
      * @see        SecurityManager#checkSetFactory
      */
-    public static synchronized void setSocketImplFactory(SocketImplFactory fac)
+    public static synchronized void setSocketImplFactory(@Nullable SocketImplFactory fac)
         throws IOException
     {
         if (factory != null) {

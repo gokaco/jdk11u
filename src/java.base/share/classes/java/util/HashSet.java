@@ -25,6 +25,11 @@
 
 package java.util;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.index.qual.NonNegative;
 import java.io.InvalidObjectException;
 import jdk.internal.misc.SharedSecrets;
 
@@ -129,7 +134,7 @@ public class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero, or if the load factor is nonpositive
      */
-    public HashSet(int initialCapacity, float loadFactor) {
+    public HashSet(@NonNegative int initialCapacity, float loadFactor) {
         map = new HashMap<>(initialCapacity, loadFactor);
     }
 
@@ -141,7 +146,7 @@ public class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero
      */
-    public HashSet(int initialCapacity) {
+    public HashSet(@NonNegative int initialCapacity) {
         map = new HashMap<>(initialCapacity);
     }
 
@@ -169,6 +174,7 @@ public class HashSet<E>
      * @return an Iterator over the elements in this set
      * @see ConcurrentModificationException
      */
+    @SideEffectFree
     public Iterator<E> iterator() {
         return map.keySet().iterator();
     }
@@ -178,7 +184,8 @@ public class HashSet<E>
      *
      * @return the number of elements in this set (its cardinality)
      */
-    public int size() {
+    @Pure
+    public @NonNegative int size(@GuardSatisfied HashSet<E> this) {
         return map.size();
     }
 
@@ -187,7 +194,8 @@ public class HashSet<E>
      *
      * @return {@code true} if this set contains no elements
      */
-    public boolean isEmpty() {
+    @Pure
+    public boolean isEmpty(@GuardSatisfied HashSet<E> this) {
         return map.isEmpty();
     }
 
@@ -200,7 +208,8 @@ public class HashSet<E>
      * @param o element whose presence in this set is to be tested
      * @return {@code true} if this set contains the specified element
      */
-    public boolean contains(Object o) {
+    @Pure
+    public boolean contains(@GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable Object o) {
         return map.containsKey(o);
     }
 
@@ -216,7 +225,7 @@ public class HashSet<E>
      * @return {@code true} if this set did not already contain the specified
      * element
      */
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
     }
 
@@ -232,7 +241,7 @@ public class HashSet<E>
      * @param o object to be removed from this set, if present
      * @return {@code true} if the set contained the specified element
      */
-    public boolean remove(Object o) {
+    public boolean remove(@GuardSatisfied HashSet<E> this, @Nullable Object o) {
         return map.remove(o)==PRESENT;
     }
 
@@ -240,7 +249,7 @@ public class HashSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    public void clear() {
+    public void clear(@GuardSatisfied HashSet<E> this) {
         map.clear();
     }
 
@@ -250,8 +259,9 @@ public class HashSet<E>
      *
      * @return a shallow copy of this set
      */
+    @SideEffectFree
     @SuppressWarnings("unchecked")
-    public Object clone() {
+    public Object clone(@GuardSatisfied HashSet<E> this) {
         try {
             HashSet<E> newSet = (HashSet<E>) super.clone();
             newSet.map = (HashMap<E, Object>) map.clone();

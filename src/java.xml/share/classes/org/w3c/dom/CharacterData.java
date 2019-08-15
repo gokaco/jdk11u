@@ -40,6 +40,8 @@
  */
 
 package org.w3c.dom;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * The <code>CharacterData</code> interface extends Node with a set of
@@ -69,6 +71,7 @@ public interface CharacterData extends Node {
      *   fit in a <code>DOMString</code> variable on the implementation
      *   platform.
      */
+    @SideEffectFree
     public String getData()
                             throws DOMException;
     /**
@@ -90,6 +93,7 @@ public interface CharacterData extends Node {
      * and the <code>substringData</code> method below. This may have the
      * value zero, i.e., <code>CharacterData</code> nodes may be empty.
      */
+    @Pure
     public int getLength();
 
     /**
@@ -107,6 +111,7 @@ public interface CharacterData extends Node {
      *   <br>DOMSTRING_SIZE_ERR: Raised if the specified range of text does
      *   not fit into a <code>DOMString</code>.
      */
+    @SideEffectFree
     public String substringData(int offset,
                                 int count)
                                 throws DOMException;

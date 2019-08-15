@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown if the Java Virtual Machine cannot find an appropriate
@@ -40,6 +42,7 @@ class UnsatisfiedLinkError extends LinkageError {
     /**
      * Constructs an <code>UnsatisfiedLinkError</code> with no detail message.
      */
+    @SideEffectFree
     public UnsatisfiedLinkError() {
         super();
     }
@@ -50,7 +53,8 @@ class UnsatisfiedLinkError extends LinkageError {
      *
      * @param   s   the detail message.
      */
-    public UnsatisfiedLinkError(String s) {
+    @SideEffectFree
+    public UnsatisfiedLinkError(@Nullable String s) {
         super(s);
     }
 }

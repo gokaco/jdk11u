@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when an application tries to create an instance of a class
@@ -49,6 +51,7 @@ class InstantiationException extends ReflectiveOperationException {
     /**
      * Constructs an {@code InstantiationException} with no detail message.
      */
+    @SideEffectFree
     public InstantiationException() {
         super();
     }
@@ -59,7 +62,8 @@ class InstantiationException extends ReflectiveOperationException {
      *
      * @param   s   the detail message.
      */
-    public InstantiationException(String s) {
+    @SideEffectFree
+    public InstantiationException(@Nullable String s) {
         super(s);
     }
 }

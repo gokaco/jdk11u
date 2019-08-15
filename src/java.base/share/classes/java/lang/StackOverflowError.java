@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when a stack overflow occurs because an application
@@ -39,6 +41,7 @@ class StackOverflowError extends VirtualMachineError {
     /**
      * Constructs a <code>StackOverflowError</code> with no detail message.
      */
+    @SideEffectFree
     public StackOverflowError() {
         super();
     }
@@ -49,7 +52,8 @@ class StackOverflowError extends VirtualMachineError {
      *
      * @param   s   the detail message.
      */
-    public StackOverflowError(String s) {
+    @SideEffectFree
+    public StackOverflowError(@Nullable String s) {
         super(s);
     }
 }

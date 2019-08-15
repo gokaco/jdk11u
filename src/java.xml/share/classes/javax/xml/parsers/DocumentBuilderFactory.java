@@ -25,6 +25,7 @@
 
 package javax.xml.parsers;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import javax.xml.validation.Schema;
 
@@ -179,7 +180,7 @@ public abstract class DocumentBuilderFactory {
      *
      * @since 1.6
      */
-    public static DocumentBuilderFactory newInstance(String factoryClassName, ClassLoader classLoader){
+    public static DocumentBuilderFactory newInstance(String factoryClassName, @Nullable ClassLoader classLoader){
             //do not fallback if given classloader can't find the class, throw exception
             return FactoryFinder.newInstance(DocumentBuilderFactory.class,
                         factoryClassName, classLoader, false);
@@ -499,7 +500,8 @@ public abstract class DocumentBuilderFactory {
      *
      * @since 1.5
      */
-    public Schema getSchema() {
+    @SuppressWarnings({"nullness"})
+    public @Nullable Schema getSchema() {
         throw new UnsupportedOperationException(
             "This parser does not support specification \""
             + this.getClass().getPackage().getSpecificationTitle()
@@ -566,7 +568,8 @@ public abstract class DocumentBuilderFactory {
      *
      * @since 1.5
      */
-    public void setSchema(Schema schema) {
+    @SuppressWarnings({"nullness"})
+    public void setSchema(@Nullable Schema schema) {
         throw new UnsupportedOperationException(
             "This parser does not support specification \""
             + this.getClass().getPackage().getSpecificationTitle()
@@ -613,6 +616,7 @@ public abstract class DocumentBuilderFactory {
      *
      * @since 1.5
      */
+    @SuppressWarnings({"nullness"})
     public boolean isXIncludeAware() {
         throw new UnsupportedOperationException(
             "This parser does not support specification \""

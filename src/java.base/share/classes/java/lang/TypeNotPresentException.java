@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when an application tries to access a type using a string
@@ -56,7 +58,8 @@ public class TypeNotPresentException extends RuntimeException {
      * @param cause the exception that was thrown when the system attempted to
      *    load the named type, or {@code null} if unavailable or inapplicable
      */
-    public TypeNotPresentException(String typeName, Throwable cause) {
+    @SideEffectFree
+    public TypeNotPresentException(String typeName, @Nullable Throwable cause) {
         super("Type " + typeName + " not present", cause);
         this.typeName = typeName;
     }

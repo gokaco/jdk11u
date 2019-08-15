@@ -24,6 +24,8 @@
  */
 
 package java.lang.ref;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 
 /**
@@ -108,7 +110,8 @@ public class SoftReference<T> extends Reference<T> {
      * @return   The object to which this reference refers, or
      *           {@code null} if this reference object has been cleared
      */
-    public T get() {
+    @SideEffectFree
+    public T get(@GuardSatisfied SoftReference<T> this) {
         T o = super.get();
         if (o != null && this.timestamp != clock)
             this.timestamp = clock;

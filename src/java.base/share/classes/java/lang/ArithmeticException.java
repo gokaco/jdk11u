@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown when an exceptional arithmetic condition has occurred. For
@@ -45,6 +47,7 @@ public class ArithmeticException extends RuntimeException {
      * Constructs an {@code ArithmeticException} with no detail
      * message.
      */
+    @SideEffectFree
     public ArithmeticException() {
         super();
     }
@@ -55,7 +58,8 @@ public class ArithmeticException extends RuntimeException {
      *
      * @param   s   the detail message.
      */
-    public ArithmeticException(String s) {
+    @SideEffectFree
+    public ArithmeticException(@Nullable String s) {
         super(s);
     }
 }

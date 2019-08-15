@@ -23,6 +23,7 @@
  * questions.
  */
 package java.util.function;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 
 /**
  * Represents a supplier of {@code double}-valued results.  This is the
@@ -45,5 +46,5 @@ public interface DoubleSupplier {
      *
      * @return a result
      */
-    double getAsDouble();
+    double getAsDouble(@GuardSatisfied DoubleSupplier this);
 }

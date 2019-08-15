@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import jdk.internal.misc.SharedSecrets;
 
 /**
@@ -433,7 +434,7 @@ public abstract class EnumSet<E extends Enum<E>> extends AbstractSet<E>
          *
          * @serial
          */
-        private final Enum<?>[] elements;
+        private final @Nullable Enum<?>[] elements;
 
         SerializationProxy(EnumSet<E> set) {
             elementType = set.elementType;

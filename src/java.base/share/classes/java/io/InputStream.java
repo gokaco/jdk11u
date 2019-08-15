@@ -25,6 +25,11 @@
 
 package java.io;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -166,7 +171,7 @@ public abstract class InputStream implements Closeable {
      *             stream is reached.
      * @exception  IOException  if an I/O error occurs.
      */
-    public abstract int read() throws IOException;
+    public abstract @GTENegativeOne int read() throws IOException;
 
     /**
      * Reads some number of bytes from the input stream and stores them into
@@ -201,7 +206,7 @@ public abstract class InputStream implements Closeable {
      * @exception  NullPointerException  if <code>b</code> is <code>null</code>.
      * @see        java.io.InputStream#read(byte[], int, int)
      */
-    public int read(byte b[]) throws IOException {
+    public @GTENegativeOne @LTEqLengthOf({"#1"}) int read(byte b[]) throws IOException {
         return read(b, 0, b.length);
     }
 
@@ -262,7 +267,7 @@ public abstract class InputStream implements Closeable {
      * <code>b.length - off</code>
      * @see        java.io.InputStream#read()
      */
-    public int read(byte b[], int off, int len) throws IOException {
+    public @GTENegativeOne @LTEqLengthOf({"#1"}) int read(byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         Objects.checkFromIndexSize(off, len, b.length);
         if (len == 0) {
             return 0;
@@ -516,7 +521,7 @@ public abstract class InputStream implements Closeable {
      * @return     the actual number of bytes skipped.
      * @throws     IOException  if an I/O error occurs.
      */
-    public long skip(long n) throws IOException {
+    public @NonNegative long skip(long n) throws IOException {
 
         long remaining = n;
         int nr;
@@ -564,7 +569,7 @@ public abstract class InputStream implements Closeable {
      *             {@code 0} when it reaches the end of the input stream.
      * @exception  IOException if an I/O error occurs.
      */
-    public int available() throws IOException {
+    public @NonNegative int available() throws IOException {
         return 0;
     }
 
@@ -605,7 +610,7 @@ public abstract class InputStream implements Closeable {
      *                      the mark position becomes invalid.
      * @see     java.io.InputStream#reset()
      */
-    public synchronized void mark(int readlimit) {}
+    public synchronized void mark(@NonNegative int readlimit) {}
 
     /**
      * Repositions this stream to the position at the time the

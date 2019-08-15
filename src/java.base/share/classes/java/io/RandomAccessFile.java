@@ -25,6 +25,14 @@
 
 package java.io;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
+import org.checkerframework.checker.signedness.qual.Unsigned;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.LTEqLengthOf;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
 import java.nio.channels.FileChannel;
 import java.util.concurrent.atomic.AtomicBoolean;
 import jdk.internal.misc.JavaIORandomAccessFileAccess;
@@ -362,7 +370,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @exception  IOException  if an I/O error occurs. Not thrown if
      *                          end-of-file has been reached.
      */
-    public int read() throws IOException {
+    public @GTENegativeOne int read() throws IOException {
         return read0();
     }
 
@@ -375,7 +383,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param len the number of bytes to read.
      * @exception IOException If an I/O error has occurred.
      */
-    private native int readBytes(byte b[], int off, int len) throws IOException;
+    private native int readBytes(@PolySigned byte b[], int off, int len) throws IOException;
 
     /**
      * Reads up to {@code len} bytes of data from this file into an
@@ -402,7 +410,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * {@code len} is negative, or {@code len} is greater than
      * {@code b.length - off}
      */
-    public int read(byte b[], int off, int len) throws IOException {
+    public @GTENegativeOne @LTEqLengthOf({"#1"}) int read(@PolySigned byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         return readBytes(b, off, len);
     }
 
@@ -425,7 +433,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * some other I/O error occurs.
      * @exception  NullPointerException If {@code b} is {@code null}.
      */
-    public int read(byte b[]) throws IOException {
+    public @GTENegativeOne @LTEqLengthOf({"#1"}) int read(@PolySigned byte b[]) throws IOException {
         return readBytes(b, 0, b.length);
     }
 
@@ -442,7 +450,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      *              all the bytes.
      * @throws  IOException   if an I/O error occurs.
      */
-    public final void readFully(byte b[]) throws IOException {
+    public final void readFully(@PolySigned byte b[]) throws IOException {
         readFully(b, 0, b.length);
     }
 
@@ -464,7 +472,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      *                all the bytes.
      * @throws  IOException   if an I/O error occurs.
      */
-    public final void readFully(byte b[], int off, int len) throws IOException {
+    public final void readFully(@PolySigned byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         int n = 0;
         do {
             int count = this.read(b, off + n, len - n);
@@ -490,7 +498,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @return     the actual number of bytes skipped.
      * @exception  IOException  if an I/O error occurs.
      */
-    public int skipBytes(int n) throws IOException {
+    public @NonNegative int skipBytes(@NonNegative int n) throws IOException {
         long pos;
         long len;
         long newpos;
@@ -519,7 +527,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param      b   the {@code byte} to be written.
      * @exception  IOException  if an I/O error occurs.
      */
-    public void write(int b) throws IOException {
+    public void write(@PolySigned int b) throws IOException {
         write0(b);
     }
 
@@ -533,7 +541,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param len the number of bytes that are written
      * @exception IOException If an I/O error has occurred.
      */
-    private native void writeBytes(byte b[], int off, int len) throws IOException;
+    private native void writeBytes(@PolySigned byte b[], int off, int len) throws IOException;
 
     /**
      * Writes {@code b.length} bytes from the specified byte array
@@ -542,7 +550,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param      b   the data.
      * @exception  IOException  if an I/O error occurs.
      */
-    public void write(byte b[]) throws IOException {
+    public void write(@PolySigned byte b[]) throws IOException {
         writeBytes(b, 0, b.length);
     }
 
@@ -555,7 +563,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param      len   the number of bytes to write.
      * @exception  IOException  if an I/O error occurs.
      */
-    public void write(byte b[], int off, int len) throws IOException {
+    public void write(@PolySigned byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         writeBytes(b, off, len);
     }
 
@@ -584,7 +592,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @exception  IOException  if {@code pos} is less than
      *                          {@code 0} or if an I/O error occurs.
      */
-    public void seek(long pos) throws IOException {
+    public void seek(@NonNegative long pos) throws IOException {
         if (pos < 0) {
             throw new IOException("Negative seek offset");
         } else {
@@ -600,7 +608,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @return     the length of this file, measured in bytes.
      * @exception  IOException  if an I/O error occurs.
      */
-    public native long length() throws IOException;
+    public native @NonNegative long length() throws IOException;
 
     /**
      * Sets the length of this file.
@@ -621,7 +629,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @exception  IOException  If an I/O error occurs
      * @since      1.2
      */
-    public native void setLength(long newLength) throws IOException;
+    public native void setLength(@NonNegative long newLength) throws IOException;
 
     /**
      * Closes this random access file stream and releases any system
@@ -717,7 +725,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @exception  EOFException  if this file has reached the end.
      * @exception  IOException   if an I/O error occurs.
      */
-    public final int readUnsignedByte() throws IOException {
+    public final @NonNegative @Unsigned int readUnsignedByte() throws IOException {
         int ch = this.read();
         if (ch < 0)
             throw new EOFException();
@@ -772,7 +780,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      *               two bytes.
      * @exception  IOException   if an I/O error occurs.
      */
-    public final int readUnsignedShort() throws IOException {
+    public final @NonNegative @Unsigned int readUnsignedShort() throws IOException {
         int ch1 = this.read();
         int ch2 = this.read();
         if ((ch1 | ch2) < 0)
@@ -940,7 +948,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @exception  IOException  if an I/O error occurs.
      */
 
-    public final String readLine() throws IOException {
+    public final @Nullable String readLine() throws IOException {
         StringBuilder input = new StringBuilder();
         int c = -1;
         boolean eol = false;
@@ -1021,7 +1029,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param      v   a {@code byte} value to be written.
      * @exception  IOException  if an I/O error occurs.
      */
-    public final void writeByte(int v) throws IOException {
+    public final void writeByte(@PolySigned int v) throws IOException {
         write(v);
         //written++;
     }
@@ -1033,7 +1041,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param      v   a {@code short} to be written.
      * @exception  IOException  if an I/O error occurs.
      */
-    public final void writeShort(int v) throws IOException {
+    public final void writeShort(@PolySigned int v) throws IOException {
         write((v >>> 8) & 0xFF);
         write((v >>> 0) & 0xFF);
         //written += 2;
@@ -1047,7 +1055,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param      v   a {@code char} value to be written.
      * @exception  IOException  if an I/O error occurs.
      */
-    public final void writeChar(int v) throws IOException {
+    public final void writeChar(@PolySigned int v) throws IOException {
         write((v >>> 8) & 0xFF);
         write((v >>> 0) & 0xFF);
         //written += 2;
@@ -1060,7 +1068,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param      v   an {@code int} to be written.
      * @exception  IOException  if an I/O error occurs.
      */
-    public final void writeInt(int v) throws IOException {
+    public final void writeInt(@PolySigned int v) throws IOException {
         write((v >>> 24) & 0xFF);
         write((v >>> 16) & 0xFF);
         write((v >>>  8) & 0xFF);
@@ -1075,7 +1083,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable {
      * @param      v   a {@code long} to be written.
      * @exception  IOException  if an I/O error occurs.
      */
-    public final void writeLong(long v) throws IOException {
+    public final void writeLong(@PolySigned long v) throws IOException {
         write((int)(v >>> 56) & 0xFF);
         write((int)(v >>> 48) & 0xFF);
         write((int)(v >>> 40) & 0xFF);

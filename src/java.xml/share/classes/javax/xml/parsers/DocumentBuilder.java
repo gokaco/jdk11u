@@ -25,6 +25,7 @@
 
 package javax.xml.parsers;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,6 +85,7 @@ public abstract class DocumentBuilder {
      *
      * @since 1.5
      */
+    @SuppressWarnings({"nullness"})
     public void reset() {
 
         // implementors should override this method
@@ -258,7 +260,7 @@ public abstract class DocumentBuilder {
      *           present in the XML document to be parsed.
      */
 
-    public abstract void setEntityResolver(EntityResolver er);
+    public abstract void setEntityResolver(@Nullable EntityResolver er);
 
     /**
      * Specify the {@link ErrorHandler} to be used by the parser.
@@ -269,7 +271,7 @@ public abstract class DocumentBuilder {
      * @param eh The <code>ErrorHandler</code> to be used by the parser.
      */
 
-    public abstract void setErrorHandler(ErrorHandler eh);
+    public abstract void setErrorHandler(@Nullable ErrorHandler eh);
 
     /**
      * Obtain a new instance of a DOM {@link Document} object
@@ -311,7 +313,8 @@ public abstract class DocumentBuilder {
      *
      * @since 1.5
      */
-    public Schema getSchema() {
+    @SuppressWarnings({"nullness"})
+    public @Nullable Schema getSchema() {
         throw new UnsupportedOperationException(
             "This parser does not support specification \""
             + this.getClass().getPackage().getSpecificationTitle()
@@ -337,6 +340,7 @@ public abstract class DocumentBuilder {
      *
      * @see DocumentBuilderFactory#setXIncludeAware(boolean)
      */
+    @SuppressWarnings({"nullness"})
     public boolean isXIncludeAware() {
         throw new UnsupportedOperationException(
             "This parser does not support specification \""

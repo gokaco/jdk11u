@@ -25,6 +25,9 @@
 
 package java.util.regex;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Locale;
@@ -1064,6 +1067,7 @@ public final class Pattern
      * @throws  PatternSyntaxException
      *          If the expression's syntax is invalid
      */
+    @Pure
     public static Pattern compile(String regex) {
         return new Pattern(regex, 0);
     }
@@ -1090,6 +1094,7 @@ public final class Pattern
      * @throws  PatternSyntaxException
      *          If the expression's syntax is invalid
      */
+    @Pure
     public static Pattern compile(String regex, int flags) {
         return new Pattern(regex, flags);
     }
@@ -1111,7 +1116,8 @@ public final class Pattern
      * @return  The string representation of this pattern
      * @since 1.5
      */
-    public String toString() {
+    @SideEffectFree
+    public String toString(@GuardSatisfied Pattern this) {
         return pattern;
     }
 
@@ -1348,6 +1354,7 @@ public final class Pattern
      * @return  A literal string replacement
      * @since 1.5
      */
+    @Pure
     public static String quote(String s) {
         int slashEIndex = s.indexOf("\\E");
         if (slashEIndex == -1)

@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Thrown by {@code String} methods to indicate that an index is either negative
@@ -41,6 +43,7 @@ public class StringIndexOutOfBoundsException extends IndexOutOfBoundsException {
      * Constructs a {@code StringIndexOutOfBoundsException} with no detail
      * message.
      */
+    @SideEffectFree
     public StringIndexOutOfBoundsException() {
         super();
     }
@@ -51,7 +54,8 @@ public class StringIndexOutOfBoundsException extends IndexOutOfBoundsException {
      *
      * @param s the detail message.
      */
-    public StringIndexOutOfBoundsException(String s) {
+    @SideEffectFree
+    public StringIndexOutOfBoundsException(@Nullable String s) {
         super(s);
     }
 
@@ -64,6 +68,7 @@ public class StringIndexOutOfBoundsException extends IndexOutOfBoundsException {
      *
      * @param index the illegal index.
      */
+    @SideEffectFree
     public StringIndexOutOfBoundsException(int index) {
         super("String index out of range: " + index);
     }

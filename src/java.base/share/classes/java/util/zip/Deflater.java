@@ -25,6 +25,8 @@
 
 package java.util.zip;
 
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.index.qual.GTENegativeOne;
 import java.lang.ref.Cleaner.Cleanable;
 import java.lang.ref.Reference;
 import java.nio.ByteBuffer;
@@ -237,7 +239,7 @@ public class Deflater {
      * @param len the length of the data
      * @see Deflater#needsInput
      */
-    public void setInput(byte[] input, int off, int len) {
+    public void setInput(byte[] input, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len) {
         if (off < 0 || len < 0 || off > input.length - len) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -305,7 +307,7 @@ public class Deflater {
      * @see Inflater#inflate
      * @see Inflater#getAdler
      */
-    public void setDictionary(byte[] dictionary, int off, int len) {
+    public void setDictionary(byte[] dictionary, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len) {
         if (off < 0 || len < 0 || off > dictionary.length - len) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -470,7 +472,7 @@ public class Deflater {
      * @return the actual number of bytes of compressed data written to the
      *         output buffer
      */
-    public int deflate(byte[] output, int off, int len) {
+    public @GTENegativeOne int deflate(byte[] output, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len) {
         return deflate(output, off, len, NO_FLUSH);
     }
 
@@ -489,7 +491,7 @@ public class Deflater {
      * @return the actual number of bytes of compressed data written to the
      *         output buffer
      */
-    public int deflate(byte[] output) {
+    public @GTENegativeOne int deflate(byte[] output) {
         return deflate(output, 0, output.length, NO_FLUSH);
     }
 
@@ -564,7 +566,7 @@ public class Deflater {
      * @throws IllegalArgumentException if the flush mode is invalid
      * @since 1.7
      */
-    public int deflate(byte[] output, int off, int len, int flush) {
+    public @GTENegativeOne int deflate(byte[] output, @IndexOrHigh({"#1"}) int off, @IndexOrHigh({"#1"}) int len, int flush) {
         if (off < 0 || len < 0 || off > output.length - len) {
             throw new ArrayIndexOutOfBoundsException();
         }

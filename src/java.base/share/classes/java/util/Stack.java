@@ -24,6 +24,7 @@
  */
 
 package java.util;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 
 /**
  * The {@code Stack} class represents a last-in-first-out
@@ -63,7 +64,7 @@ class Stack<E> extends Vector<E> {
      * @return  the {@code item} argument.
      * @see     java.util.Vector#addElement
      */
-    public E push(E item) {
+    public E push(@GuardSatisfied Stack<E> this, E item) {
         addElement(item);
 
         return item;
@@ -77,7 +78,7 @@ class Stack<E> extends Vector<E> {
      *          of the {@code Vector} object).
      * @throws  EmptyStackException  if this stack is empty.
      */
-    public synchronized E pop() {
+    public synchronized E pop(@GuardSatisfied Stack<E> this) {
         E       obj;
         int     len = size();
 

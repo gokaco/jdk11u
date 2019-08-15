@@ -24,6 +24,8 @@
  */
 
 package java.util;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * <p>
@@ -63,7 +65,7 @@ public class EventObject implements java.io.Serializable {
      *
      * @return the object on which the Event initially occurred
      */
-    public Object getSource() {
+    public Object getSource(@GuardSatisfied EventObject this) {
         return source;
     }
 
@@ -72,7 +74,8 @@ public class EventObject implements java.io.Serializable {
      *
      * @return a String representation of this EventObject
      */
-    public String toString() {
+    @SideEffectFree
+    public String toString(@GuardSatisfied EventObject this) {
         return getClass().getName() + "[source=" + source + "]";
     }
 }

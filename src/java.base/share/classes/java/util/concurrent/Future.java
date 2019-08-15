@@ -34,6 +34,7 @@
  */
 
 package java.util.concurrent;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * A {@code Future} represents the result of an asynchronous
@@ -116,6 +117,7 @@ public interface Future<V> {
      *
      * @return {@code true} if this task was cancelled before it completed
      */
+    @Pure
     boolean isCancelled();
 
     /**
@@ -127,6 +129,7 @@ public interface Future<V> {
      *
      * @return {@code true} if this task completed
      */
+    @Pure
     boolean isDone();
 
     /**

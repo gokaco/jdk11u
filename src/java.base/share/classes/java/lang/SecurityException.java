@@ -23,6 +23,8 @@
  * questions.
  */
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown by the security manager to indicate a security violation.
@@ -38,6 +40,7 @@ public class SecurityException extends RuntimeException {
     /**
      * Constructs a {@code SecurityException} with no detail message.
      */
+    @SideEffectFree
     public SecurityException() {
         super();
     }
@@ -48,7 +51,8 @@ public class SecurityException extends RuntimeException {
      *
      * @param   s   the detail message.
      */
-    public SecurityException(String s) {
+    @SideEffectFree
+    public SecurityException(@Nullable String s) {
         super(s);
     }
 
@@ -63,7 +67,8 @@ public class SecurityException extends RuntimeException {
      *        and indicates that the cause is nonexistent or unknown.)
      * @since 1.5
      */
-    public SecurityException(String message, Throwable cause) {
+    @SideEffectFree
+    public SecurityException(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 
@@ -78,7 +83,8 @@ public class SecurityException extends RuntimeException {
      *        and indicates that the cause is nonexistent or unknown.)
      * @since 1.5
      */
-    public SecurityException(Throwable cause) {
+    @SideEffectFree
+    public SecurityException(@Nullable Throwable cause) {
         super(cause);
     }
 }

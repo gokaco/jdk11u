@@ -25,6 +25,7 @@
 
 package java.nio.channels;
 
+import org.checkerframework.checker.index.qual.GTENegativeOne;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
@@ -103,6 +104,6 @@ public interface ReadableByteChannel extends Channel {
      * @throws  IOException
      *          If some other I/O error occurs
      */
-    public int read(ByteBuffer dst) throws IOException;
+    public @GTENegativeOne int read(ByteBuffer dst) throws IOException;
 
 }

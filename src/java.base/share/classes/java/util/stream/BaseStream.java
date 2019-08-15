@@ -24,6 +24,7 @@
  */
 package java.util.stream;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -71,6 +72,7 @@ public interface BaseStream<T, S extends BaseStream<T, S>>
      *
      * @return the element iterator for this stream
      */
+    @SideEffectFree
     Iterator<T> iterator();
 
     /**
@@ -89,6 +91,7 @@ public interface BaseStream<T, S extends BaseStream<T, S>>
      *
      * @return the element spliterator for this stream
      */
+    @SideEffectFree
     Spliterator<T> spliterator();
 
     /**

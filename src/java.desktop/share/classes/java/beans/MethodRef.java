@@ -25,6 +25,7 @@
 
 package java.beans;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
@@ -32,11 +33,11 @@ import java.lang.reflect.Method;
 import static sun.reflect.misc.ReflectUtil.isPackageAccessible;
 
 final class MethodRef {
-    private String signature;
-    private SoftReference<Method> methodRef;
-    private WeakReference<Class<?>> typeRef;
+    private @Nullable String signature;
+    private @Nullable SoftReference<Method> methodRef;
+    private @Nullable WeakReference<Class<?>> typeRef;
 
-    void set(Method method) {
+    void set(@Nullable Method method) {
         if (method == null) {
             this.signature = null;
             this.methodRef = null;
@@ -53,7 +54,7 @@ final class MethodRef {
         return this.methodRef != null;
     }
 
-    Method get() {
+    @Nullable Method get() {
         if (this.methodRef == null) {
             return null;
         }
@@ -71,7 +72,7 @@ final class MethodRef {
         return isPackageAccessible(method.getDeclaringClass()) ? method : null;
     }
 
-    private static Method find(Class<?> type, String signature) {
+    private static @Nullable Method find(@Nullable Class<?> type, String signature) {
         if (type != null) {
             for (Method method : type.getMethods()) {
                 if (type.equals(method.getDeclaringClass())) {

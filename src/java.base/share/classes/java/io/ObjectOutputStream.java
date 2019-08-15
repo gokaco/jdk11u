@@ -25,6 +25,11 @@
 
 package java.io;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ObjectStreamClass.WeakClassKey;
 import java.lang.ref.ReferenceQueue;
 import java.security.AccessController;
@@ -340,7 +345,7 @@ public class ObjectOutputStream
      * @throws  IOException Any exception thrown by the underlying
      *          OutputStream.
      */
-    public final void writeObject(Object obj) throws IOException {
+    public final void writeObject(@Nullable Object obj) throws IOException {
         if (enableOverride) {
             writeObjectOverride(obj);
             return;
@@ -411,7 +416,7 @@ public class ObjectOutputStream
      * @throws  IOException if an I/O error occurs during serialization
      * @since 1.4
      */
-    public void writeUnshared(Object obj) throws IOException {
+    public void writeUnshared(@Nullable Object obj) throws IOException {
         try {
             writeObject0(obj, true);
         } catch (IOException ex) {
@@ -678,7 +683,7 @@ public class ObjectOutputStream
      * @param   val the byte to be written to the stream
      * @throws  IOException If an I/O error has occurred.
      */
-    public void write(int val) throws IOException {
+    public void write(@PolySigned int val) throws IOException {
         bout.write(val);
     }
 
@@ -689,7 +694,7 @@ public class ObjectOutputStream
      * @param   buf the data to be written
      * @throws  IOException If an I/O error has occurred.
      */
-    public void write(byte[] buf) throws IOException {
+    public void write(@PolySigned byte[] buf) throws IOException {
         bout.write(buf, 0, buf.length, false);
     }
 
@@ -701,7 +706,7 @@ public class ObjectOutputStream
      * @param   len the number of bytes that are written
      * @throws  IOException If an I/O error has occurred.
      */
-    public void write(byte[] buf, int off, int len) throws IOException {
+    public void write(@PolySigned byte[] buf, @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         if (buf == null) {
             throw new NullPointerException();
         }
@@ -987,7 +992,7 @@ public class ObjectOutputStream
          * are being written, or if the type of the named field is not a
          * reference type
          */
-        public abstract void put(String name, Object val);
+        public abstract void put(String name, @Nullable Object val);
 
         /**
          * Write the data and fields to the specified ObjectOutput stream,
@@ -1820,7 +1825,7 @@ public class ObjectOutputStream
             write(b, 0, b.length, false);
         }
 
-        public void write(byte[] b, int off, int len) throws IOException {
+        public void write(byte[] b, @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
             write(b, off, len, false);
         }
 
@@ -1840,7 +1845,7 @@ public class ObjectOutputStream
          * them to underlying stream (to avoid exposing a reference to the
          * original byte array).
          */
-        void write(byte[] b, int off, int len, boolean copy)
+        void write(byte[] b, @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len, boolean copy)
             throws IOException
         {
             if (!(copy || blkmode)) {           // write directly

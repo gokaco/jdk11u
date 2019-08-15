@@ -30,6 +30,8 @@
 
 package org.xml.sax;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 import java.io.IOException;
 
 
@@ -134,7 +136,8 @@ public interface EntityResolver {
      *            or Reader for the InputSource.
      * @see org.xml.sax.InputSource
      */
-    public abstract InputSource resolveEntity (String publicId,
+    @Pure
+    public abstract @Nullable InputSource resolveEntity (@Nullable String publicId,
                                                String systemId)
         throws SAXException, IOException;
 

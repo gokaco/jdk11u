@@ -24,6 +24,12 @@
  */
 
 package java.util;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A collection that contains no duplicate elements.  More formally, sets
@@ -120,14 +126,16 @@ public interface Set<E> extends Collection<E> {
      *
      * @return the number of elements in this set (its cardinality)
      */
-    int size();
+    @NonNegative @Pure
+    int size(@GuardSatisfied Set<E> this);
 
     /**
      * Returns {@code true} if this set contains no elements.
      *
      * @return {@code true} if this set contains no elements
      */
-    boolean isEmpty();
+    @Pure
+    boolean isEmpty(@GuardSatisfied Set<E> this);
 
     /**
      * Returns {@code true} if this set contains the specified element.
@@ -144,7 +152,8 @@ public interface Set<E> extends Collection<E> {
      *         set does not permit null elements
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
-    boolean contains(Object o);
+    @Pure
+    boolean contains(@GuardSatisfied Set<E> this, @GuardSatisfied @Nullable Object o);
 
     /**
      * Returns an iterator over the elements in this set.  The elements are
@@ -153,6 +162,7 @@ public interface Set<E> extends Collection<E> {
      *
      * @return an iterator over the elements in this set
      */
+    @SideEffectFree
     Iterator<E> iterator();
 
     /**
@@ -171,6 +181,7 @@ public interface Set<E> extends Collection<E> {
      *
      * @return an array containing all the elements in this set
      */
+    @SideEffectFree
     Object[] toArray();
 
     /**
@@ -215,7 +226,8 @@ public interface Set<E> extends Collection<E> {
      *         set
      * @throws NullPointerException if the specified array is null
      */
-    <T> T[] toArray(T[] a);
+    @SideEffectFree
+    <T> @Nullable T @PolyNull [] toArray(T @PolyNull [] a);
 
 
     // Modification Operations
@@ -250,7 +262,7 @@ public interface Set<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of the specified element
      *         prevents it from being added to this set
      */
-    boolean add(E e);
+    boolean add(@GuardSatisfied Set<E> this, E e);
 
 
     /**
@@ -274,7 +286,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code remove} operation
      *         is not supported by this set
      */
-    boolean remove(Object o);
+    boolean remove(@GuardSatisfied Set<E> this, @Nullable Object o);
 
 
     // Bulk Operations
@@ -298,7 +310,8 @@ public interface Set<E> extends Collection<E> {
      *         or if the specified collection is null
      * @see    #contains(Object)
      */
-    boolean containsAll(Collection<?> c);
+    @Pure
+    boolean containsAll(@GuardSatisfied Set<E> this, @GuardSatisfied Collection<?> c);
 
     /**
      * Adds all of the elements in the specified collection to this set if
@@ -322,7 +335,7 @@ public interface Set<E> extends Collection<E> {
      *         specified collection prevents it from being added to this set
      * @see #add(Object)
      */
-    boolean addAll(Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied Set<E> this, Collection<? extends E> c);
 
     /**
      * Retains only the elements in this set that are contained in the
@@ -345,7 +358,7 @@ public interface Set<E> extends Collection<E> {
      *         or if the specified collection is null
      * @see #remove(Object)
      */
-    boolean retainAll(Collection<?> c);
+    boolean retainAll(@GuardSatisfied Set<E> this, Collection<?> c);
 
     /**
      * Removes from this set all of its elements that are contained in the
@@ -368,7 +381,7 @@ public interface Set<E> extends Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean removeAll(Collection<?> c);
+    boolean removeAll(@GuardSatisfied Set<E> this, Collection<?> c);
 
     /**
      * Removes all of the elements from this set (optional operation).
@@ -377,7 +390,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code clear} method
      *         is not supported by this set
      */
-    void clear();
+    void clear(@GuardSatisfied Set<E> this);
 
 
     // Comparison and hashing
@@ -394,7 +407,8 @@ public interface Set<E> extends Collection<E> {
      * @param o object to be compared for equality with this set
      * @return {@code true} if the specified object is equal to this set
      */
-    boolean equals(Object o);
+    @Pure
+    boolean equals(@GuardSatisfied Set<E> this, @GuardSatisfied @Nullable Object o);
 
     /**
      * Returns the hash code value for this set.  The hash code of a set is
@@ -409,7 +423,8 @@ public interface Set<E> extends Collection<E> {
      * @see Object#equals(Object)
      * @see Set#equals(Object)
      */
-    int hashCode();
+    @Pure
+    int hashCode(@GuardSatisfied Set<E> this);
 
     /**
      * Creates a {@code Spliterator} over the elements in this set.

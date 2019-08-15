@@ -25,6 +25,7 @@
 
 package javax.imageio.stream;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -136,7 +137,7 @@ public class FileCacheImageOutputStream extends ImageOutputStreamImpl {
         maxStreamPos = Math.max(maxStreamPos, streamPos);
     }
 
-    public void write(byte[] b, int off, int len) throws IOException {
+    public void write(@PolySigned byte[] b, int off, int len) throws IOException {
         flushBits(); // this will call checkClosed() for us
         cache.write(b, off, len);
         streamPos += len;

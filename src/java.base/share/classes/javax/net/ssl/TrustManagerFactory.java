@@ -25,6 +25,7 @@
 
 package javax.net.ssl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.security.Security;
 import java.security.*;
 import java.util.Objects;
@@ -274,7 +275,7 @@ public class TrustManagerFactory {
      * @param ks the key store, or null
      * @throws KeyStoreException if this operation fails
      */
-    public final void init(KeyStore ks) throws KeyStoreException {
+    public final void init(@Nullable KeyStore ks) throws KeyStoreException {
         factorySpi.engineInit(ks);
     }
 

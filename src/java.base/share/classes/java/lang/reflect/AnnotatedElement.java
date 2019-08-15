@@ -25,6 +25,9 @@
 
 package java.lang.reflect;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.Pure;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.AnnotationFormatError;
 import java.lang.annotation.Repeatable;
@@ -270,7 +273,8 @@ public interface AnnotatedElement {
      * @throws NullPointerException if the given annotation class is null
      * @since 1.5
      */
-    default boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {
+    @Pure
+    default boolean isAnnotationPresent(@GuardSatisfied AnnotatedElement this, Class<? extends Annotation> annotationClass) {
         return getAnnotation(annotationClass) != null;
     }
 
@@ -286,7 +290,7 @@ public interface AnnotatedElement {
      * @throws NullPointerException if the given annotation class is null
      * @since 1.5
      */
-    <T extends Annotation> T getAnnotation(Class<T> annotationClass);
+    <T extends @Nullable Annotation> @Nullable T getAnnotation(Class<T> annotationClass);
 
     /**
      * Returns annotations that are <em>present</em> on this element.

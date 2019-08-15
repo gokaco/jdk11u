@@ -25,6 +25,7 @@
 
 package java.io;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import java.io.IOException;
 
 /**
@@ -49,5 +50,5 @@ public interface Closeable extends AutoCloseable {
      *
      * @throws IOException if an I/O error occurs
      */
-    public void close() throws IOException;
+    public void close(@GuardSatisfied Closeable this) throws IOException;
 }

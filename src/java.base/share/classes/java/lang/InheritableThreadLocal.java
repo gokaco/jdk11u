@@ -24,6 +24,7 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.*;
 
 /**
@@ -50,7 +51,7 @@ import java.lang.ref.*;
  * @since   1.2
  */
 
-public class InheritableThreadLocal<T> extends ThreadLocal<T> {
+public class InheritableThreadLocal<@Nullable T> extends ThreadLocal<T> {
     /**
      * Computes the child's initial value for this inheritable thread-local
      * variable as a function of the parent's value at the time the child

@@ -35,6 +35,8 @@ import sun.security.util.MessageDigestSpi2;
 
 import javax.crypto.SecretKey;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
+
 /**
  * This MessageDigest class provides applications the functionality of a
  * message digest algorithm, such as SHA-1 or SHA-256.
@@ -335,7 +337,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
      * @param len the number of bytes to use, starting at
      * {@code offset}.
      */
-    public void update(byte[] input, int offset, int len) {
+    public void update(@PolySigned byte[] input, int offset, int len) {
         if (input == null) {
             throw new IllegalArgumentException("No input buffer given");
         }
@@ -351,7 +353,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
      *
      * @param input the array of bytes.
      */
-    public void update(byte[] input) {
+    public void update(@PolySigned byte[] input) {
         engineUpdate(input, 0, input.length);
         state = IN_PROGRESS;
     }
@@ -380,7 +382,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
      *
      * @return the array of bytes for the resulting hash value.
      */
-    public byte[] digest() {
+    public @PolySigned byte[] digest() {
         /* Resetting is the responsibility of implementors. */
         byte[] result = engineDigest();
         state = INITIAL;
@@ -401,7 +403,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
      *
      * @exception DigestException if an error occurs.
      */
-    public int digest(byte[] buf, int offset, int len) throws DigestException {
+    public int digest(@PolySigned byte[] buf, int offset, int len) throws DigestException {
         if (buf == null) {
             throw new IllegalArgumentException("No output buffer given");
         }
@@ -426,7 +428,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
      *
      * @return the array of bytes for the resulting hash value.
      */
-    public byte[] digest(byte[] input) {
+    public @PolySigned byte[] digest(@PolySigned byte[] input) {
         update(input);
         return digest();
     }
@@ -609,7 +611,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
             digestSpi.engineUpdate(input);
         }
 
-        protected void engineUpdate(byte[] input, int offset, int len) {
+        protected void engineUpdate(@PolySigned byte[] input, int offset, int len) {
             digestSpi.engineUpdate(input, offset, len);
         }
 
@@ -625,11 +627,11 @@ public abstract class MessageDigest extends MessageDigestSpi {
                 ("Digest does not support update of SecretKey object");
             }
         }
-        protected byte[] engineDigest() {
+        protected @PolySigned byte[] engineDigest() {
             return digestSpi.engineDigest();
         }
 
-        protected int engineDigest(byte[] buf, int offset, int len)
+        protected int engineDigest(@PolySigned byte[] buf, int offset, int len)
             throws DigestException {
                 return digestSpi.engineDigest(buf, offset, len);
         }

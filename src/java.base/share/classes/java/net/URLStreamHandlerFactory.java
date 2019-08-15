@@ -24,6 +24,7 @@
  */
 
 package java.net;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * This interface defines a factory for {@code URL} stream
@@ -49,5 +50,5 @@ public interface URLStreamHandlerFactory {
      *          protocol
      * @see     java.net.URLStreamHandler
      */
-    URLStreamHandler createURLStreamHandler(String protocol);
+    @Nullable URLStreamHandler createURLStreamHandler(String protocol);
 }

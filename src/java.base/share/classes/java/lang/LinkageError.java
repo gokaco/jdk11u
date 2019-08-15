@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Subclasses of {@code LinkageError} indicate that a class has
@@ -41,6 +43,7 @@ class LinkageError extends Error {
     /**
      * Constructs a {@code LinkageError} with no detail message.
      */
+    @SideEffectFree
     public LinkageError() {
         super();
     }
@@ -51,7 +54,8 @@ class LinkageError extends Error {
      *
      * @param   s   the detail message.
      */
-    public LinkageError(String s) {
+    @SideEffectFree
+    public LinkageError(@Nullable String s) {
         super(s);
     }
 

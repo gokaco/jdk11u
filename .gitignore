@@ -13,3 +13,6 @@ test/nashorn/lib
 NashornProfile.txt
 **/JTreport/**
 **/JTwork/**
+**/*.jaif
+**/*.unannotated
+

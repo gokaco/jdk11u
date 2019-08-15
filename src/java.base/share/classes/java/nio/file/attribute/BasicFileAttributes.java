@@ -24,6 +24,7 @@
  */
 
 package java.nio.file.attribute;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Basic attributes associated with a file in a file system.
@@ -124,7 +125,7 @@ public interface BasicFileAttributes {
      *
      * @return  the file size, in bytes
      */
-    long size();
+    @NonNegative long size();
 
     /**
      * Returns an object that uniquely identifies the given file, or {@code

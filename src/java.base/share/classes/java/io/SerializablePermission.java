@@ -25,6 +25,7 @@
 
 package java.io;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.security.*;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -135,7 +136,7 @@ public final class SerializablePermission extends BasicPermission {
      * @throws IllegalArgumentException if <code>name</code> is empty.
      */
 
-    public SerializablePermission(String name, String actions)
+    public SerializablePermission(String name, @Nullable String actions)
     {
         super(name, actions);
     }

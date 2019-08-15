@@ -24,6 +24,7 @@
  */
 package java.util;
 
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import java.util.function.IntConsumer;
 import java.util.stream.Collector;
 
@@ -151,7 +152,7 @@ public class IntSummaryStatistics implements IntConsumer {
      *
      * @return the count of values
      */
-    public final long getCount() {
+    public final long getCount(@GuardSatisfied IntSummaryStatistics this) {
         return count;
     }
 
@@ -161,7 +162,7 @@ public class IntSummaryStatistics implements IntConsumer {
      *
      * @return the sum of values, or zero if none
      */
-    public final long getSum() {
+    public final long getSum(@GuardSatisfied IntSummaryStatistics this) {
         return sum;
     }
 
@@ -171,7 +172,7 @@ public class IntSummaryStatistics implements IntConsumer {
      *
      * @return the minimum value, or {@code Integer.MAX_VALUE} if none
      */
-    public final int getMin() {
+    public final int getMin(@GuardSatisfied IntSummaryStatistics this) {
         return min;
     }
 
@@ -181,7 +182,7 @@ public class IntSummaryStatistics implements IntConsumer {
      *
      * @return the maximum value, or {@code Integer.MIN_VALUE} if none
      */
-    public final int getMax() {
+    public final int getMax(@GuardSatisfied IntSummaryStatistics this) {
         return max;
     }
 
@@ -191,7 +192,7 @@ public class IntSummaryStatistics implements IntConsumer {
      *
      * @return the arithmetic mean of values, or zero if none
      */
-    public final double getAverage() {
+    public final double getAverage(@GuardSatisfied IntSummaryStatistics this) {
         return getCount() > 0 ? (double) getSum() / getCount() : 0.0d;
     }
 

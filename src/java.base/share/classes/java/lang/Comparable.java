@@ -24,6 +24,10 @@
  */
 
 package java.lang;
+import org.checkerframework.framework.qual.PolyAll;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.dataflow.qual.Pure;
 import java.util.*;
 
 /**
@@ -93,7 +97,7 @@ import java.util.*;
  * @see java.util.Comparator
  * @since 1.2
  */
-public interface Comparable<T> {
+public interface Comparable<T extends @NonNull Object> {
     /**
      * Compares this object with the specified object for order.  Returns a
      * negative integer, zero, or a positive integer as this object is less
@@ -134,5 +138,6 @@ public interface Comparable<T> {
      * @throws ClassCastException if the specified object's type prevents it
      *         from being compared to this object.
      */
-    public int compareTo(T o);
+    @Pure
+    public int compareTo(@GuardSatisfied Comparable<T> this, @NonNull @PolyAll T o);
 }

@@ -40,6 +40,8 @@
  */
 
 package org.w3c.dom;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * Objects implementing the <code>NamedNodeMap</code> interface are used to
@@ -61,7 +63,8 @@ public interface NamedNodeMap {
      *   <code>nodeName</code>, or <code>null</code> if it does not identify
      *   any node in this map.
      */
-    public Node getNamedItem(String name);
+    @Pure
+    public @Nullable Node getNamedItem(String name);
 
     /**
      * Adds a node using its <code>nodeName</code> attribute. If a node with
@@ -91,7 +94,7 @@ public interface NamedNodeMap {
      *   of attributes, or a non-Entity node into the DocumentType's map of
      *   Entities.
      */
-    public Node setNamedItem(Node arg)
+    public @Nullable Node setNamedItem(Node arg)
                              throws DOMException;
 
     /**
@@ -119,12 +122,14 @@ public interface NamedNodeMap {
      * @return The node at the <code>index</code>th position in the map, or
      *   <code>null</code> if that is not a valid index.
      */
-    public Node item(int index);
+    @Pure
+    public @Nullable Node item(int index);
 
     /**
      * The number of nodes in this map. The range of valid child node indices
      * is <code>0</code> to <code>length-1</code> inclusive.
      */
+    @Pure
     public int getLength();
 
     /**
@@ -143,7 +148,8 @@ public interface NamedNodeMap {
      *   Document does not support XML Namespaces (such as [<a href='http://www.w3.org/TR/1999/REC-html401-19991224/'>HTML 4.01</a>]).
      * @since 1.4, DOM Level 2
      */
-    public Node getNamedItemNS(String namespaceURI,
+    @Pure
+    public @Nullable Node getNamedItemNS(@Nullable String namespaceURI,
                                String localName)
                                throws DOMException;
 
@@ -179,7 +185,7 @@ public interface NamedNodeMap {
      *   Document does not support XML Namespaces (such as [<a href='http://www.w3.org/TR/1999/REC-html401-19991224/'>HTML 4.01</a>]).
      * @since 1.4, DOM Level 2
      */
-    public Node setNamedItemNS(Node arg)
+    public @Nullable Node setNamedItemNS(Node arg)
                                throws DOMException;
 
     /**
@@ -205,7 +211,7 @@ public interface NamedNodeMap {
      *   Document does not support XML Namespaces (such as [<a href='http://www.w3.org/TR/1999/REC-html401-19991224/'>HTML 4.01</a>]).
      * @since 1.4, DOM Level 2
      */
-    public Node removeNamedItemNS(String namespaceURI,
+    public Node removeNamedItemNS(@Nullable String namespaceURI,
                                   String localName)
                                   throws DOMException;
 

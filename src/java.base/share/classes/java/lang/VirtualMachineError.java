@@ -24,6 +24,8 @@
  */
 
 package java.lang;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Thrown to indicate that the Java Virtual Machine is broken or has
@@ -39,6 +41,7 @@ public abstract class VirtualMachineError extends Error {
     /**
      * Constructs a <code>VirtualMachineError</code> with no detail message.
      */
+    @SideEffectFree
     public VirtualMachineError() {
         super();
     }
@@ -49,7 +52,8 @@ public abstract class VirtualMachineError extends Error {
      *
      * @param   message   the detail message.
      */
-    public VirtualMachineError(String message) {
+    @SideEffectFree
+    public VirtualMachineError(@Nullable String message) {
         super(message);
     }
 
@@ -67,7 +71,8 @@ public abstract class VirtualMachineError extends Error {
      *         unknown.)
      * @since  1.8
      */
-    public VirtualMachineError(String message, Throwable cause) {
+    @SideEffectFree
+    public VirtualMachineError(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 
@@ -83,7 +88,8 @@ public abstract class VirtualMachineError extends Error {
      *         unknown.)
      * @since  1.8
      */
-    public VirtualMachineError(Throwable cause) {
+    @SideEffectFree
+    public VirtualMachineError(@Nullable Throwable cause) {
         super(cause);
     }
 }

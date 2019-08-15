@@ -25,6 +25,10 @@
 
 package java.io;
 
+import org.checkerframework.checker.signedness.qual.PolySigned;
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.LTLengthOf;
+import org.checkerframework.checker.index.qual.IndexOrHigh;
 import java.io.*;
 
 /**
@@ -115,7 +119,7 @@ class PipedOutputStream extends OutputStream {
      *          {@link #connect(java.io.PipedInputStream) unconnected},
      *          closed, or if an I/O error occurs.
      */
-    public void write(int b)  throws IOException {
+    public void write(@PolySigned int b)  throws IOException {
         if (sink == null) {
             throw new IOException("Pipe not connected");
         }
@@ -135,7 +139,7 @@ class PipedOutputStream extends OutputStream {
      *          {@link #connect(java.io.PipedInputStream) unconnected},
      *          closed, or if an I/O error occurs.
      */
-    public void write(byte b[], int off, int len) throws IOException {
+    public void write(@PolySigned byte b[], @IndexOrHigh({"#1"}) int off, @LTLengthOf(value={"#1"}, offset={"#2 - 1"}) @NonNegative int len) throws IOException {
         if (sink == null) {
             throw new IOException("Pipe not connected");
         } else if (b == null) {
