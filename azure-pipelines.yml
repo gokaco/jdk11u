@@ -6,8 +6,9 @@ jobs:
   steps:
   - bash: |
       whoami
+      git config --get remote.origin.url
       pwd
-      ls -l
+      ls -al
       env | sort
     displayName: show environment
   - bash: pwd && ls && bash ./configure --with-jtreg=/jtreg --disable-warnings-as-errors
@@ -29,8 +30,9 @@ jobs:
   steps:
   - bash: |
       whoami
+      git config --get remote.origin.url
       pwd
-      ls -l
+      ls -al
       env | sort
     displayName: show environment
   - bash: |
